@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import UserOrder
-from shoes.models import Shoes
+from .models import UserOrder 
+from shoes.models import Shoes,Category
 
 @login_required(login_url='/accounts/login')
 def myorder(request):
     user = User.objects.get(id=request.user.id)
     orders = UserOrder.objects.filter(users=user)
+    categories = Category.objects.all()
     productD = []
     for order in orders:
         product = Shoes.objects.get(name=order.productB)
@@ -47,6 +48,7 @@ def myorder(request):
         
         productD.append(product_info)
     context = {
+        'categories':categories,
         'orders':orders,
         'productD':productD
     }
