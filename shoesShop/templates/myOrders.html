@@ -1,291 +1,82 @@
 {% extends 'partials/main.html' %}
-
 {% load static %}
-
 {% block content %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
-<style>
-.osuc {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400; /* 300 ile 800 arasında bir değer seçin */
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-}
-@media (max-width: 1100px) {
-   .SearchResults{
-      width: 100%;
-      padding-left: 200px;
-   
-   }
-}
-@media (max-width: 1000px) {
-   .searchId{
-      width: 100%;
-   }
-}
-@media (max-width: 560px) {
-   .row [class^="col-"] {
-      flex: 0 0 100%;
-      max-width: 100%;
-      text-align: center;
-      justify-content: center;
-      align-items: center;
-   }
-   .s1 {
-         display: flex;
-         justify-content: center;
-         align-items: center;
-   }
-   .s2 {
-      padding-right: 0px;
-   }
-}
-@media (max-width: 991px) {
-   .s3{
-         margin: 0px;
-   }
-}
-.SearchResults{
-   width: 90%;
-}
-.accordion {
-   display: flex;
-   flex-direction: column;
-   width: 300px;
-   background-color: none;
-}
-
-/* .accordion-item {
-   border: 1px solid #ccc;
-      margin-bottom: 5px;
-      overflow: hidden;
-   } */
-.accordion-header {
-   background-color: #f1f1f1;
-   padding: 10px;
-   cursor: pointer;
-}
-
-.accordion-body {
-   overflow: hidden;
-   transition: height 0.7s ease-in-out;
-}
-.mains{
-   /*background-color: rgb(248, 248, 248);*/
-   height: 88vh;
-   background-image: url("{% static 'patternpad.png' %}");
-}
-
-.underline{
-   width: 10px; 
-   height: 3px; background-color: black;
-}
-.underline-container:hover .underline {
-    width: 100%;
-}
-.modal {
-   display: none;
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background-color: rgba(0, 0, 0, 0.5);
-   justify-content: center;
-   align-items: center;
-}
-
-.modal-content {
-   background-color: #fff;
-   padding: 20px;
-   border-radius: 5px;
-   width: 100%;
-   height: 100%; 
-}
-.nav-itemS{
-   padding: 5px 10px;
-   color: rgb(185, 116, 11);
-}
-.nav-itemS:hover{
-   background-color: #e6b93e;
-   color: #ffffff;
-   padding: 5px 10px;
-   
-   border-radius: 20px;
-   box-shadow: 4px 4px rgb(247, 218, 218);
-}
-.close-btn {
-   cursor: pointer;
-}
-.search_list:hover{
-   background-color: gray;
-   color: #fafafa;
-}
-.search_lists{
-   color: black;
-}
-.search_lists:hover{
-   color: #fafafa;
-}
-</style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="..." crossorigin="anonymous">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-<!-- Bootstrap JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
 <body >
-      <!--header section start -->
-      <!-- <div class="header_section " style="background-image: none;">
-         <div class="container-fluid border-bottom border-dark" style="height: 100%; width: 100%; background-color: rgb(253, 245, 213);">
-             <div class="d-flex justify-content-between align-items-center pb-1 ">
-                <div class=""><a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"></a></div>
-                <div class="number_text mt-1">No<br><span style="color: #fff;">01</span></div>
-                <div class=" "><a class="class=" openbtn="" onclick="openNav()"><img src="{% static 'images/toggle-icon.png' %}" class="p-1 rounded " style="max-width: 100%;background-color: black;"></a></div>
-             </div>
-             <div class="">
-                 <div id="mySidebar" class="sidebar z-3">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
-                    <a href="{% url 'index' %}">Home</a>
-                    <a href="{% url 'about' %}">About</a>
-                    <a href="{% url 'gallery' %}">Gallery</a>
-                    <a href="{% url 'news' %}">News</a>
-                    <a href="{% url 'testimonial' %}">Testimonial</a>
-                    <a href="{% url 'contact' %}">Contact</a>
-                    <a href="{% url 'cart' request.user.id %}">Bag</a>
-                     {% if user.is_authenticated %}
-                        <a href="{% url 'logout' %}">Logout</a>
-                     {% else %}
-                        <a href="{% url 'login' %}">Login</a>
-                     {% endif %}
-                 </div>
-            </div>
-          </div>
 
-      </div> -->
-      <!--header section end -->
-      <!-- <nav class="bg-light">
+       <nav class="navbar navbar-expand-lg ">
          <div class="container-fluid">
-            <div class="row d-flex justify-content-between align-items-center   border-bottom border-warning pb-2">
-               <div class="col-2 logo h1 text-warning text-center ">Shoe House</div>
-               <div class="col-1 categories text-center align-self-end ">
-                  <i class="bi bi-grid fs-4"></i>
-                  <p class="p-0 m-0">Category</p>
-               </div>
-               <div class="col-5 search">
-                  <div></div>                  
-               </div>
-               <div class="col-2 card">s</div>
-               <div class="col-2 user">s</div>
-            </div>
-         </div>
-      </nav> -->
-      <nav class="navbar navbar-expand-lg border-bottom border-warning">
-         <div class="container-fluid">
-           <a class="navbar-brand text-warning fs-2 osuc" href="#">Shoes House</a>
-           <button class="navbar-toggler bg-warning " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="bi bi-list text-dark fs-3"></i>
+           <a class="navbar-brand text-warning fs-2 osuc" href="{% url 'index' %}">Shoes House</a>
+           <button class="navbar-toggler bg-warning "  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list text-dark fs-5"></i>
            </button>
            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            
-           <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
-               <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
-               <div class="p-0 m-0 category fs-5">Categories</div>
+            <!-- Categories -->
+            <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
+                  <div class="p-0 m-0 category fs-5">Categories</div>
             </button>
-
             <div id="myModal" class="modal">
                <div class="modal-content">
-                  <span class="close-btn fs-2 text-end me-3 " onclick="closeModal()">
-                     <i class="bi bi-x-circle text-warning"></i>
+                  <span class="close-btn fs-2 text-end  mb-1" onclick="closeModal()">
+                     <i class="bi bi-x-circle "></i>
                   </span>
                   <div class="container-fluid">
                      <div class="row text-center">
-                        <div class="col-12 ">
-                           <h1 class="text-start text-warning my-4 border-bottom border-warning pb-3">Categories</h1>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
-                           <h1 class="m-0">Winter</h1>
-                           <img class="m-0" style="width: 180px ;" src="{% static 'images/img-2.png' %}">
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
-                           <h1 class="m-0 ">Summer</h1>
-                           <img class="" style="width: 180px ;" src="{% static 'images/img-2.png' %}">
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
-                           <h1 class="m-0">Sports</h1>
-                           <img class="" style="width: 180px ;" src="{% static 'images/img-2.png' %}">
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
-                           <h1 class="m-0">Categories</h1>
-                           <img class="" style="width: 180px ;" src="{% static 'images/img-2.png' %}">
-                        </div>
+                        
+                        {% for category in categories %}
+                           <div class="col-12">
+                              <a href="{% url 'gallery_by_category' category.slug %}" class="text-start text-dark py-3 border-bottom m-0 d-flex justify-content-between align-items-center my-1 icons Cnames"><p class="Cnames fs-2 m-0 p-0">{{category.name}}</p> <i class=" bi bi-caret-right fs-3"></i></a>
+                           </div>
+               
+                        {% endfor %}
                      </div>
                   </div>
                </div>
             </div>
-             <!-- Card and User Links -->
+              <!-- Cart -->
              <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
                <li class="nav-item mt-auto">
                   <div class="nav-link  pb-0">
-                     <a  href="#" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
+                     <a  href="{% url 'cart' request.user.id %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
                         <i class="bi bi-cart3 fs-4 me-2 "></i>
                         <div class="fs-5">Cart</div>
                      </a>
                   </div>
                </li>
+                <!-- User -->
                <li class="nav-item my-auto">
                   <div class="nav-link  mt-0 pb-0">
-                     
                      <a  href="#" class="d-flex justify-content-start align-items-center text-center nav-itemS ">
                         <i class="bi bi-person-circle fs-4 me-2"></i>
                         <div class="fs-5">{{request.user.username}}</div>
-                        
                      </a>
                   </div>
                </li>
              </ul>
        
-             <!-- Search Form and Results -->
+             <!-- Search -->
              <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4  ">
                <form id="searchId" class="d-flex w-100 border rounded-5 shadow-lg searchId" role="search">
                  {% csrf_token %}
                  <i class="bi bi-search p-1 fs-4 mx-2"></i>
-                 <input class="me-2 border-0 rounded-5 w-100" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
+                 <input class="me-2 border-0 rounded-5 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
                </form>
                <ul id="searchResults"class=" rounded-bottom-3 p-0 visually-hidden-focusable position-absolute top-0 start-0 bg-light z-3  border border-warning SearchResults mt-5 " >
-
                </ul>
-               <!-- <ul id="searchResults" class="position-absolute top-0 start-0 bg-light mt-5 z-3 px-3 border border-warning" style="width: 70%;">
-                 <li class="fs-6 mt-1">ULTRABOOST 22 SHOES WHITE</li>
-                 <li class="fs-6 mt-1">ULTRABOOST 22 SHOES WHITE</li>
-                 <li class="fs-6 mt-1">ULTRABOOST 22 SHOES WHITE</li>
-                 <li class="fs-6 mt-1">ULTRABOOST 22 SHOES WHITE</li>
-               </ul> -->
              </div>
            </div>
          </div>
        </nav>
        
        
-      <!--gallery section start -->
+      <!--MyOrder Items -->
       <div class="mains mt-3" style="background-color: none;">
          <div class="container-md ">
             <div class="my-4">
-               <h2 style="font-family: 'Montserrat', sans-serif;" class="d-inline mb-2  bg-danger p-2 text-light rounded-bottom-3 m-5">My Orders</h2>
+               <h2 style="font-family: 'Montserrat', sans-serif;" class="d-inline mb-2  bg-danger p-2 text-light rounded-bottom-3  m-lg-5">My Orders</h2>
             </div>
             <div class="row pt-3">
                   {% for product in productD reversed %}
@@ -302,10 +93,6 @@
                               <small class="m-0 p-0 osuc"> {{product.created}}</small>
                            </div>
                         </div>
-                        <!-- <div class="col-md-2 col-3 mt-3  d-flex justify-content-center align-items-center flex-column">
-                           <h6 class="text-success text-center m-0 p-0 pe-3">{{product.price}}$</h6>
-                           <small class="me-0 mt-0 text-center pe-3">Kredi Karti</small>
-                        </div>  -->
                         <div class="s1 col-md-3 col-12 d-flex align-items-center justify-content-center">
                            <i class="bi bi-check2-circle text-success fs-2 ps-3"></i>
                            <p class="mt-3 ms-1 pe-3 text-success osuc">Siparis Tamamlandi</p>
@@ -337,8 +124,7 @@
                                        </div>
                                        <div class="col-6 mt-4 ">
                                           <h5 class="text-start mt-2">Odeme Bilgileri</h5>
-                                          <div class="  rounded">
-                                          
+                                          <div class="rounded">
                                           <div class="text-start   fs-5 d-flex ps-2 justify-content-center py-2">
                                                 <div class="d-inline d-flex border justify-content-center p-2 rounded-3">
                                                    {% for chunk in product.chunks %}
@@ -378,117 +164,5 @@
             </div>
          </div>
       </div>
-      <script>
-         function getSearchResults(){
-            var searchTerm = document.getElementById("searchInput").value;
-            var searchResults = document.getElementById("searchResults");
-            console.log(searchTerm)
-            $.ajax({
-               type: "GET",
-               url: "{% url 'search' %}",
-               data: { 'q': searchTerm },
-               success: function(response){
-                  if (response.success) {
-                     if(response.data.shoes_filter.length > 0){
-                        searchResults.classList.remove("visually-hidden-focusable");
-
-                        searchResults.innerHTML = "";
-                           for (let index = 0; index < response.data.shoes_filter.length; index++) {
-                              
-                              let shoe = response.data.shoes_filter[index];
-                              let product_url = "{% url 'product' 0 %}".replace('0',shoe.id)
-                              
-                              searchResults.innerHTML += `
-                                 <li class="fs-5 mx-0 ">
-                                    <a href="${product_url}" class=" search_lists p-2 d-flex align-items-center justify-content-md-evenly justify-content-around search_list  " >
-                                       ${shoe.name}
-                                       <img src="/media/${shoe.image_one}" style="height:100px;" alt="">
-                                    </a>
-                                 </li>`;
-                           }
-                        console.log(searchResults);
-                     } else if (response.data.shoes_filter.length == 0){
-                        
-                     }
-                     
-                  } else {
-                     console.log("Search not successful");
-                     searchResults.classList.add("visually-hidden-focusable");
-                  }
-               }
-            });
-
-         }
-      </script>
-      <script>
-         function openModal() {
-             document.getElementById("myModal").style.display = "flex";
-         }
-     
-         function closeModal() {
-             document.getElementById("myModal").style.display = "none";
-         }
-     
-         // Close modal if clicked outside of content
-         window.onclick = function (event) {
-             var modal = document.getElementById("myModal");
-             if (event.target === modal) {
-                 closeModal();
-             }
-         };
-      </script>
-      <script>
-         function toggleAccordion(panelId) {
-            var panel = document.getElementById(panelId);
-            var icon = document.getElementById('icon-' + panelId);
-
-            if (panel.style.display === "block") {
-               panel.style.height = panel.scrollHeight + "px";
-
-               panel.classList.add("slow-close");
-
-               panel.style.height = "0px";
-
-               setTimeout(function () {
-                     panel.style.display = "none";
-               }, 500);
-
-               icon.classList.remove("bi-caret-up-fill");
-               icon.classList.add("bi-caret-down-fill");
-            } else {
-               panel.style.display = "block";
-               panel.style.height = "0px";
-
-               panel.classList.add("slow-open");
-
-               panel.style.height = panel.scrollHeight + "px";
-
-               icon.classList.remove("bi-caret-down-fill");
-               icon.classList.add("bi-caret-up-fill");
-            }
-         }
-      </script>
-      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
       
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-      
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="..." crossorigin="anonymous"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-      <!-- Popper.js -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
-
-      <!-- Bootstrap JavaScript (Popper.js is required) -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
       {% endblock %}

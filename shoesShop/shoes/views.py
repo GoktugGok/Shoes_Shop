@@ -1,5 +1,5 @@
 from django.shortcuts import render ,redirect
-from . models import Shoes, Category, Tag ,ShopBag,PayDetails
+from . models import ShoesDetail, Category, Brand ,ShopBag,PayDetail
 from myorder.models import UserOrder
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
@@ -8,28 +8,51 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse 
 from django.db.models import Q
 
-def gallery_list(request, category_slug=None,tag_slug=None):
-
+def gallery_list(request, category_slug=None, tag_slug=None):
+    shoes_all = ShoesDetail.objects.all().order_by('-created')
     categories = Category.objects.all()
-    if category_slug != None:
-        category_page = get_object_or_404(Category, slug=category_slug)
-        shoes_all = Shoes.objects.filter(category = category_page)
-    else:
-        shoes_all = Shoes.objects.all().order_by('-created')
+    subcategories = None
+    # navbar Butun ana Category icin 
+    all_categories = Category.objects.filter(level=0)
 
-    print(categories)
+    if category_slug is not None:
+        category = get_object_or_404(Category, slug=category_slug)
+        if category.is_root_node():
+            # Ana kategori ise
+            subcategories = category.get_children()
+            # Category nin ayakkabilari
+            shoes_all = ShoesDetail.objects.filter(category=category)
+            print(shoes_all)
+            
+            context = {
+                'shoes_all': shoes_all, 
+                'categories': categories, 
+                'subcategories': subcategories,
+                'category':category,
+                'all_categories': all_categories
+            }
+            
+
+            return render(request, 'gallery.html', context) 
+        else:
+            # Alt kategori ise
+            shoes_all = ShoesDetail.objects.filter(category=category)
+            print("alt cate")
     context = {
-         'shoes_all':shoes_all,
-         'categories':categories
-     }
-    return render(request,'gallery.html',context)
+                'shoes_all': shoes_all, 
+                'categories': categories, 
+                'subcategories': subcategories,
+                'all_categories': all_categories
+            }
+    return render(request, 'galleryMain.html', context) 
 
 def product_detail(request,product_id):
-    product = Shoes.objects.get(id = product_id)
+    product = ShoesDetail.objects.get(id = product_id)
+    print(product.id)
     user = request.user.id
 
-    shoesC = Shoes.objects.filter(shoesC = product.shoesC)
-
+    shoesC = ShoesDetail.objects.filter(shoesC = product.shoesC)
+    print(shoesC.id)
     if request.method == "POST":
         user = request.user
         name = request.POST["shoesName"]
@@ -55,7 +78,7 @@ def cart_products(request,user_id):
     total_price = 0
     shoe = []
     for product in products:
-        shoes = Shoes.objects.filter(name = product.productB,numbers__name=product.number)  # ürün bilgilerini almak için
+        shoes = ShoesDetail.objects.filter(name = product.productB,numbers__name=product.number)  # ürün bilgilerini almak için
         
         for shoe_obj in shoes:
             print(product.number)
@@ -123,7 +146,7 @@ def payment_information(request, user_id):
             print('kargo beles')
             deliveryPrice = 'free'
 
-        pay = PayDetails.objects.create(user=user,price=total,name=name,email=email,address=address,cardNumber=card_number,day=day,year=year,clv=clv)
+        pay = PayDetail.objects.create(user=user,price=total,name=name,email=email,address=address,cardNumber=card_number,day=day,year=year,clv=clv)
 
         if pay:
             CartItems = ShopBag.objects.filter(users=user)
@@ -146,7 +169,7 @@ def search(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
 
     if q:
-        shoes_filter = Shoes.objects.filter(Q(name__icontains=q))
+        shoes_filter = ShoesDetail.objects.filter(Q(name__icontains=q))
         print(shoes_filter)
 
         result = {'success': True, 'message': 'Search successful', 'data': {'shoes_filter': list(shoes_filter.values())}}
