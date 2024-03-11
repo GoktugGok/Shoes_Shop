@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import UserOrder 
-from shoes.models import Shoes,Category
+from shoes.models import ShoesDetail,Category
 
 @login_required(login_url='/accounts/login')
 def myorder(request):
@@ -11,7 +11,7 @@ def myorder(request):
     categories = Category.objects.all()
     productD = []
     for order in orders:
-        product = Shoes.objects.get(name=order.productB)
+        product = ShoesDetail.objects.get(name=order.productB)
         paycardNumber = order.paycardNumber
         
         masked_part = '*' * 6 

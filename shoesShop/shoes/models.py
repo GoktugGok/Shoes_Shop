@@ -1,28 +1,52 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils.safestring import mark_safe
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
 
-class Numbers(models.Model):
+class ShoesNumbers(models.Model):
     name = models.CharField(max_length=50,null=True)
     slug = models.SlugField(max_length=50,unique=True,null=True)
 
     def __str__(self):
         return self.name
 
-class Category(models.Model):
-    name = models.CharField(max_length=50,null=True)
-    slug = models.SlugField(max_length=50,unique=True,null=True)
+class Category(MPTTModel):
+    STATUS = (
+        ('True', 'Evet'),
+        ('False', 'Hayir'))
+    title = models.CharField(max_length=30)
+    keywords = models.CharField(blank=True, max_length=250)
+    description = models.CharField(blank=True, max_length=250)
+    image = models.ImageField(blank=True, upload_to='images/')
+    status = models.CharField(max_length=10, choices=STATUS)
+    slug = models.SlugField(null=False, unique=True)
+    parent = TreeForeignKey('self', blank=True, null=True, related_name='children',
+                               on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    # def __str__(self):
+    #     return self.name
+    class MPTTMeta:
+        order_insertion_by = ['title']
     def __str__(self):
-        return self.name
+        full_path = [self.title]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.title)
+            k = k.parent
+        return '/'.join(full_path)
 
-class ShoesC(models.Model):
+class ShoesModel(models.Model):
     name = models.CharField(max_length=50,null=True)
     slug = models.SlugField(max_length=50,unique=True,null=True)
 
     def __str__(self):
         return self.name
     
-class Tag(models.Model):
+class Brand(models.Model):
     name = models.CharField(max_length=50,null=True )
     slug = models.SlugField(max_length=50,unique=True,null=True)
 
@@ -30,31 +54,67 @@ class Tag(models.Model):
         return self.name
     
 
-class Shoes(models.Model):
+class ShoesDetail(models.Model):
     name = models.CharField(max_length=200)
-    content = models.TextField(max_length=500,blank=True)
+    description = models.TextField(blank=True, max_length=255)
     active = models.BooleanField(default=True)
     price = models.DecimalField(verbose_name='ürün fiyatı', decimal_places=2, max_digits=10)
     stock_count = models.PositiveSmallIntegerField()
-    numbers = models.ManyToManyField(Numbers,blank=True,related_name="product_numbers")
+    numbers = models.ManyToManyField(ShoesNumbers,blank=True,related_name="product_numbers")
+    detail=RichTextUploadingField()
+    
     created = models.DateTimeField(auto_now_add=True)
-    image_one = models.ImageField(upload_to='images/',default="default.png")
-    image_two = models.ImageField(upload_to='images/',default="default.png")
-    image_three = models.ImageField(upload_to='images/',default="default.png")
-    category = models.ManyToManyField(Category,blank=True,related_name="category")
-    shoesC = models.ForeignKey(ShoesC,null=True,on_delete=models.DO_NOTHING)
+    updated = models.DateTimeField(auto_now=True) 
+    image = models.ImageField(blank=True, upload_to='images/', default="default.png")
 
+    category = models.ManyToManyField(Category,blank=True,related_name="category")
+    shoesC = models.ForeignKey(ShoesModel,null=True,on_delete=models.DO_NOTHING)
+    product_Brand = models.ManyToManyField(Brand,blank=True,related_name="brands")
+    reviewsCount = models.IntegerField(default=0)
+    slug = models.SlugField(null=False, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
-    
+    def image_tag(self):
+        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+    image_tag.short_description = 'Image'
+#     urunler için resim galerisi oluşturmak için
+    def img_preview(self):  # new
+        return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
+class Images(models.Model):
+    product = models.ForeignKey(ShoesDetail, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    image = models.ImageField(blank=True, upload_to='images/')
+    def __str__(self):
+        return self.title
+    def image_tag(self):
+        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+    image_tag.short_description = 'Image'
 
+class Comment(models.Model):
+    STATUS = (
+        ('New', 'New'),
+        ('True', 'True'),
+        ('False', 'False'),
+    )
+    product = models.ForeignKey(ShoesDetail, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=50, blank=True)
+    comment = models.CharField(max_length=250, blank=True)
+    rate = models.IntegerField(default=1)
+    ip = models.CharField(max_length=20, blank=True)
+    status = models.CharField(max_length=10, choices=STATUS, default='New')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.subject
 class ShopBag(models.Model):
     users = models.ForeignKey(User,on_delete=models.DO_NOTHING)
     productB = models.CharField(max_length=50,null=True)
     number = models.CharField(max_length=50,null=True)
-
-    
-class PayDetails(models.Model):
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+class PayDetail(models.Model):
     user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     name = models.CharField(max_length=50,null=True)
@@ -64,6 +124,8 @@ class PayDetails(models.Model):
     day = models.CharField(max_length=2)
     year = models.CharField(max_length=4)
     clv = models.CharField(max_length=3)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def clean(self):
         # Türkçe standartlarına uygun bir formata dönüştürme işlemi
