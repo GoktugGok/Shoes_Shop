@@ -11,6 +11,25 @@ class ShoesNumbers(models.Model):
 
     def __str__(self):
         return self.name
+class Color(models.Model):
+    name = models.CharField(max_length=50,null=True)
+    slug = models.SlugField(max_length=50,unique=True,null=True)
+
+    def __str__(self):
+        return self.name
+class Genders(models.Model):
+    name = models.CharField(max_length=50,null=True)
+    slug = models.SlugField(max_length=50,unique=True,null=True)
+
+    def __str__(self):
+        return self.name
+
+class ShoeHeight(models.Model):
+    name = models.CharField(max_length=50,null=True)
+    slug = models.SlugField(max_length=50,unique=True,null=True)
+
+    def __str__(self):
+        return self.name
 
 class Category(MPTTModel):
     STATUS = (
@@ -67,6 +86,9 @@ class ShoesDetail(models.Model):
     updated = models.DateTimeField(auto_now=True) 
     image = models.ImageField(blank=True, upload_to='images/', default="default.png")
 
+    color = models.ManyToManyField(Color,blank=True,related_name="color")
+    shoe_Height = models.ManyToManyField(ShoeHeight,blank=True,related_name="shoe_Height")
+    genders = models.ManyToManyField(Genders,blank=True,related_name="genders")
     category = models.ManyToManyField(Category,blank=True,related_name="category")
     shoesC = models.ForeignKey(ShoesModel,null=True,on_delete=models.DO_NOTHING)
     product_Brand = models.ManyToManyField(Brand,blank=True,related_name="brands")

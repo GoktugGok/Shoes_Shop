@@ -31,7 +31,7 @@ def myorder(request):
         
         product_info = {
             'id': order.id,
-            'image': product.image_one.url,
+            'image': product.image.url,
             'name': order.productB,
             'number': order.number,
             'price': product.price,

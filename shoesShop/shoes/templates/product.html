@@ -1,0 +1,306 @@
+{% extends 'partials/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    .stars {
+        color: #ccc; /* Boş yıldız rengi */
+    }
+    .stars .fa-star {
+        cursor: pointer;
+    }
+    .stars .fa-star.selected {
+        color: gold; /* Dolu yıldız rengi */
+    }
+   .carousel-item {
+    background-color: white;
+    
+}
+</style>
+
+   <body style="background-color: white;">
+      <nav class="navbar navbar-expand-lg ">
+         <div class="container-fluid">
+           <a class="navbar-brand text-warning fs-2 osuc" href="{% url 'index' %}">Shoes House</a>
+           <button class="navbar-toggler bg-warning "  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list text-dark fs-5"></i>
+           </button>
+           <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <!-- Categories -->
+            <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
+                  <div class="p-0 m-0 category fs-5">Categories</div>
+            </button>
+            <div id="myModal" class="modal">
+               <div class="modal-content">
+                  <span class="close-btn fs-2 text-end  mb-1" onclick="closeModal()">
+                     <i class="bi bi-x-circle "></i>
+                  </span>
+                  <div class="container-fluid">
+                     <div class="row text-center">
+                        <h3>MyOrder</h3>
+                        <h3>Profile</h3>
+                        <h3>Favorite</h3>
+                     </div>
+                  </div>
+               </div>
+            </div>
+              <!-- Cart -->
+             <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
+               <li class="nav-item mt-auto">
+                  <div class="nav-link  pb-0">
+                     <a  href="{% url 'cart' request.user.id %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
+                        <i class="bi bi-cart3 fs-4 me-2 "></i>
+                        <div class="fs-5">Cart</div>
+                     </a>
+                  </div>
+               </li>
+                <!-- User -->
+               <li class="nav-item my-auto">
+                  <div class="nav-link  mt-0 pb-0">
+                     <a  href="#" class="d-flex justify-content-start align-items-center text-center nav-itemS ">
+                        <i class="bi bi-person-circle fs-4 me-2"></i>
+                        <div class="fs-5">{{request.user.username}}</div>
+                     </a>
+                  </div>
+               </li>
+             </ul>
+       
+             <!-- Search -->
+             <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4  ">
+               <form id="searchId" class="d-flex w-100 border rounded-5 shadow-lg searchId" role="search">
+                 {% csrf_token %}
+                 <i class="bi bi-search p-1 fs-4 mx-2"></i>
+                 <input class="me-2 border-0 rounded-5 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
+               </form>
+               <ul id="searchResults"class=" rounded-bottom-3 p-0 visually-hidden-focusable position-absolute top-0 start-0 bg-light z-3  border border-warning SearchResults mt-5 " >
+               </ul>
+             </div>
+           </div>
+         </div>
+       </nav>
+       <div class="d-flex justify-content-center border align-items-center mb-0 ">
+         {% for all_category in all_categories %}
+            <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2 categoryHover">{{all_category.title}}</a>
+         {% endfor %}
+      </div>
+      <!--Product section start -->
+      <div class="">
+         <div class="container" style="height: 400px;">
+            <div class="gallery_section_2 py-5">
+            <div class="row pb-5">
+                  <div id="Name" class="col-12 d-flex justify-content-between">
+                     <div class="container">
+                        <div class="row">
+                           {% if messages %}
+                              {% for message in messages %}
+                                 <div class="alert alert-{{message.tags}}" role="alert">
+                                    {{ message }}
+                                 </div>
+                              {% endfor %}
+                           {% endif %}
+                           <h3 class="col-12 col-md-6 text-dark mt-3" style="text-shadow: 0px 0px 6px rgba(7, 0, 0, 0.3);">{{product.name}}</h3>
+                           <div id="category" class="col-12 col-md-6  pt-2 mb-2 d-flex align-items-center justify-content-end">
+                              <!-- {% for category in product.category.all %}
+
+                                 <div class="d-flex align-items-center">
+                                    <a href="{% url 'gallery_by_category' category.slug  %}"  class="m-2 h6 ">
+                                       {{category.title}}
+                                    </a>
+                                    <div style="width: 10px ; height: 10px;" class="rounded  bg-dark"></div>
+                                 </div>
+                                 
+                              {% endfor %} -->
+                              <h4 class="pt-2 px-2 rounded text-end bg-danger text-white d-flex justify-content-center align-items-center "> {{ product.reviewsCount}} <i class="bi bi-eye-fill ms-2"></i></h4>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12 col-md-6 d-flex justify-content-center pt-3 pb-5">
+                     <div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-dark w-75" data-bs-ride="carousel">
+                         <div class="carousel-inner rounded">
+                             {% for image in product.images_set.all %}
+                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                     <img src="{{ image.image.url }}" style="height: 400px; width: 400px;" class="d-block w-100" alt="...">
+                                 </div>
+                             {% endfor %}
+                         </div>
+                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                             <span class="visually-hidden">Previous</span>
+                         </button>
+                         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                             <span class="visually-hidden">Next</span>
+                         </button>
+                     </div>
+                 </div>
+                 
+                  <div class="col-12  col-md-6 d-flex align-items-center justify-content-between ">
+                        <div class="container">
+                           <div class="row p-3 pt-0" >
+                              
+                              <form method="POST" id="myForm">
+                                 {% csrf_token %}
+                                 <div id="ShoesC" class="col-12 pt-2 mb-5 ">
+                                    <h5 class="ms-1">{{shoesC.all.count}} color options</h5>
+
+                                    <div class="d-flex">
+                                       {% for shoesC in shoesC.all %}
+                                       <div class="grid gap-3">
+                                             <a href="{% url 'product' shoesC.id %}" class="text-light pe-2">
+                                                <img src="{{shoesC.image.url}}" style="width: 80px; height: 80px;" alt="">
+                                             </a>
+                                       </div>
+                                       {% endfor %}
+                                       <input type="hidden" name="shoesName" value="{{product.name}}">
+                                    </div>
+                                 </div>
+                                 
+                                 <div id="Numbers" class="col-12   pt-2 mb-5 ">
+                                    
+                                    <h5>Size</h3>
+                                    
+                                    <div class="d-flex">
+                                       <div class="row row-cols-auto">
+                                       {% for product_number in product.numbers.all %}
+                                          <div class="col ">
+                                             <div class="rounded-0">
+                                                <input type="radio" class="btn-check rounded-0 " name="shoesNumber"  value="{{product_number}}" name="options-outlined" id="danger-outlined-{{product_number.id}}" autocomplete="off">
+                                                <label class="btn btn-outline-danger rounded-0 " for="danger-outlined-{{product_number.id}}">{{product_number}}</label>
+                                             </div>
+                                          </div>
+                                       {% endfor %}
+                                    </div>
+                                    </div>
+                                    
+                                 </div>
+                                 <div class="col-12 ">
+                                    <button type="submit" class="btn btn-danger   px-3" style="box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.22), 1px 0px 0px 0px rgba(0,0,0,0.22), 1px 2px 0px 0px rgba(0,0,0,0.22), 2px 1px 0px 0px rgba(0,0,0,0.22), 2px 3px 0px 0px rgba(0,0,0,0.22), 3px 2px 0px 0px rgba(0,0,0,0.22), 3px 4px 0px 0px rgba(0,0,0,0.22), 4px 3px 0px 0px rgba(0,0,0,0.22), 4px 5px 0px 0px rgba(0,0,0,0.22), 5px 4px 0px 0px rgba(0,0,0,0.22), 5px 6px 0px 0px rgba(0,0,0,0.22), 6px 5px 0px 0px rgba(0,0,0,0.22), 6px 7px 0px 0px rgba(0,0,0,0.22), 7px 6px 0px 0px rgba(0,0,0,0.22), 7px 8px 0px 0px rgba(0,0,0,0.22), 8px 7px 0px 0px rgba(0,0,0,0.22);">
+                                      ADD TO BAG
+                                    </button>
+                                    
+                                 </div>
+                              </form>
+                           </div>
+                           
+                        </div>
+                     
+                  </div>
+                  
+            </div>
+            <div class="container">
+               <div class="row">  
+                  <div class="col-12"> 
+                     
+                     {% if purchased_shoes == True %}
+                     <div class="border p-2 rounded">
+                        <form action="{% url 'addComment' product.id %}" method="post">
+                           {% csrf_token %}
+                           <div class="d-flex my-3">
+                              <p class=" ms-0 mb-0 mr-2 fs-5">Puan :</p>
+                              <div class="stars">
+                                  <input type="hidden" name="rate" id="rating" value="0">
+                                  <i class="star fa fa-star " data-value="1"></i>
+                                  <i class="star fa fa-star" data-value="2"></i>
+                                  <i class="star fa fa-star" data-value="3"></i>
+                                  <i class="star fa fa-star" data-value="4"></i>
+                                  <i class="star fa fa-star" data-value="5"></i>
+                              </div>
+                          </div>
+                               <div class="form-group">
+                                   <label for="message">Baslik</label>
+                                   <input name="subject" class="form-control input" type="text" placeholder="Baslik" />
+                               </div>
+                               <div class="form-group">
+                                   <label for="name" class="fs-6">Yorum : </label>
+                                    <textarea name="comment" class="form-control input" placeholder="Yorum"></textarea>
+                               </div>
+                               <div class="form-group mb-0">
+                                 {% if user.id is not None %}
+                                       <input type="submit" value="Kaydet" class="btn btn-warning text-light px-3">
+                                 {% else %}
+                                       You must be logged in to post a review lütfen oturum açın
+                                 {% endif %}
+                               </div>
+                        </form>
+                     </div>
+                     {% endif %}
+                  </div>
+                  <div class="col-12 mt-5">
+                     {% if average_rate %}
+                        <div class="mb-4 d-flex"><h4>Ürün Değerlendirmeleri - </h4> <h4 class="fs-5 mt-1"> <i class="fas fa-star ms-2" style="color: gold;"></i> {{average_rate}}</h4></div>
+                        {% for yorum in comments %}
+                        <hr>
+                        <div class="media">
+                           <img src="{{ yorum.user.userprofile.image.url}}" alt="Image" class="img-fluid ms-3 mr-3 mt-3" style="width: 45px;">
+                           <div class="media-body">
+                              <div class="ms-0"><strong>{{ yorum.user}}</strong><small> - {{ yorum.create_at}}</small>
+                              <div class="text-primary mb-2 ">
+                                 {% with ''|center:yorum.rate as range %}
+                                    {% for _ in range %}
+                                    <i class="fas fa-star " style="color: gold;font-size: 13px;"></i>
+                                    {% endfor %}
+                                 {% endwith %}
+                              </div></div>
+                              <p class="m-0 mb-2"><strong>Baslik : </strong>{{ yorum.subject }}</p>
+                              <p class="m-0 mb-2"><strong>Yorum : </strong>{{ yorum.comment }}</p>
+                           </div>
+                        </div>
+                        {% endfor %}
+                        <hr class="m-0">
+                     {% endif %}
+                 </div>
+               </div>
+            </div>
+            </div>
+         </div>
+      </div>
+      <!--Product section end -->
+      <script>
+         document.querySelectorAll('.star').forEach(star => {
+             star.addEventListener('click', () => {
+                 const value = parseInt(star.getAttribute('data-value'));
+                 document.getElementById('rating').value = value;
+                 document.querySelectorAll('.star').forEach(s => s.classList.remove('selected'));
+                 for (let i = 1; i <= value; i++) {
+                     document.querySelector(`.star[data-value="${i}"]`).classList.add('selected');
+                 }
+             });
+         });
+     </script>
+     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          document.querySelector("form").addEventListener("submit", function (event) {
+              var subject = document.querySelector("[name='subject']").value.trim();
+              var comment = document.querySelector("[name='comment']").value.trim();
+  
+              if (subject === "" || comment === "") {
+                  alert("Baslik ve Yorum alanlari bos birakilamaz.");
+                  event.preventDefault(); // Formun gönderilmesini engelle
+              }
+          });
+      });
+  </script>
+
+      <script>
+         const currentURL = window.location.pathname; // Mevcut sayfanın URL'sini alın
+     
+         document.querySelectorAll("#ShoesC a").forEach(link => {
+             const productURL = link.getAttribute("href"); // Ürünün URL'sini alın
+
+             if (currentURL === productURL) {
+                 link.querySelector("img").style.border = "solid 3px black";
+                 link.querySelector("img").style.borderRadius = "5px";
+             }
+         });
+     </script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+      {% endblock %}
+      
