@@ -137,6 +137,26 @@
       .hover_shoes:hover{
           background-color: rgb(248, 248, 248);
       }
+      .card-img {
+         height: 450px; /* İstenen yükseklik */
+         object-fit: cover; /* Resmin kart içinde uygun şekilde görünmesini sağlar */
+         
+      }
+      .categoryHover{
+         color: rgb(0, 0, 0);
+      }
+      .categoryHover:hover{
+         color: rgb(255, 196, 0);
+      }
+      .togglegender:focus {
+      outline: none;
+      border: none;
+      }
+      .form-check-input:checked {
+         background-color: orange;
+         border-color: orange;
+      }
+      .pointer {cursor: pointer;}
       </style>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="..." crossorigin="anonymous">
       <!-- Bootstrap CSS -->
@@ -180,42 +200,71 @@
       <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.css" />
+      
+      <!-- Font2 -->
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+      
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-      <!-- Font2 -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
    </head>
    <body>
 
     {% block content %}
 
     {% endblock %}
+    <!-- CSS dosyaları -->
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
       <script>
-      document.addEventListener('DOMContentLoaded', function () {
-         
-         var navbarToggler = document.querySelector('.navbar-toggler');
-         var navbarCollapse = document.querySelector('.navbar-collapse');
-        
-         navbarToggler.addEventListener('click', function () {
-            
-            var isCollapsed = navbarCollapse.classList.contains('show');
-            
-            if (!isCollapsed) {
-                  navbarCollapse.classList.add('show'); 
-            } else {
-                  navbarCollapse.classList.remove('show'); 
-            }
+         $(document).ready(function(){
+            $(".fancybox").fancybox({
+               openEffect: "none",
+               closeEffect: "none"
+            });
+
+            $('#myCarousel').carousel({
+               interval: false
+            });
          });
-      });
       </script>
+
       <script>
-         function getSearchResults(){
+         function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+         }
+         
+         function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+         }
+      </script>
+
+      <script>
+         document.addEventListener('DOMContentLoaded', function () {
+            var navbarToggler = document.querySelector('.navbar-toggler');
+            var navbarCollapse = document.querySelector('.navbar-collapse');
+         
+            navbarToggler.addEventListener('click', function () {
+               var isCollapsed = navbarCollapse.classList.contains('show');
+               if (!isCollapsed) {
+                     navbarCollapse.classList.add('show'); 
+               } else {
+                     navbarCollapse.classList.remove('show'); 
+               }
+            });
+         });
+      </script>
+
+      <script>
+         function getSearchResults() {
             var searchTerm = document.getElementById("searchInput").value;
             var searchResults = document.getElementById("searchResults");
             console.log(searchTerm)
@@ -223,39 +272,35 @@
                type: "GET",
                url: "{% url 'search' %}",
                data: { 'q': searchTerm },
-               success: function(response){
+               success: function(response) {
                   if (response.success) {
-                     if(response.data.shoes_filter.length > 0){
+                     if(response.data.shoes_filter.length > 0) {
                         searchResults.classList.remove("visually-hidden-focusable");
-
                         searchResults.innerHTML = "";
-                           for (let index = 0; index < response.data.shoes_filter.length; index++) {
-                              
-                              let shoe = response.data.shoes_filter[index];
-                              let product_url = "{% url 'product' 0 %}".replace('0',shoe.id)
-                              
-                              searchResults.innerHTML += `
-                                 <li class="fs-5 mx-0 ">
-                                    <a href="${product_url}" class=" search_lists p-2 d-flex align-items-center justify-content-md-evenly justify-content-around search_list  " >
-                                       ${shoe.name}
-                                       <img src="/media/${shoe.image_one}" style="height:100px;" alt="">
-                                    </a>
-                                 </li>`;
-                           }
+                        for (let index = 0; index < response.data.shoes_filter.length; index++) {
+                           let shoe = response.data.shoes_filter[index];
+                           let product_url = "{% url 'product' 0 %}".replace('0',shoe.id)
+                           searchResults.innerHTML += `
+                              <li class="fs-5 mx-0 ">
+                                 <a href="${product_url}" class=" search_lists p-2 d-flex align-items-center justify-content-md-evenly justify-content-around search_list  " >
+                                    <div class="w-75 ps-5">${shoe.name}</div>
+                                    <div class="w-25"><img src="/media/${shoe.image}" style="height:200px;" alt=""></div>
+                                    
+                                 </a>
+                              </li>`;
+                        }
                         console.log(searchResults);
-                     } else if (response.data.shoes_filter.length == 0){
-                        
+                     } else if (response.data.shoes_filter.length == 0) {
                      }
-                     
                   } else {
                      console.log("Search not successful");
                      searchResults.classList.add("visually-hidden-focusable");
                   }
                }
             });
-
          }
       </script>
+
       <script>
          function openModal() {
             var modal = document.getElementById("myModal");
@@ -266,32 +311,32 @@
                modal.style.width = "70%";
             } else if (screenWidth >= 576 && screenWidth < 800) { 
                modal.style.width = "70%";
-            }else if (screenWidth >= 801 && screenWidth < 1200) { 
+            } else if (screenWidth >= 801 && screenWidth < 1200) { 
                modal.style.width = "40%";
-            }else if (screenWidth >= 1201 && screenWidth <= 1540) { 
+            } else if (screenWidth >= 1201 && screenWidth <= 1540) { 
                modal.style.width = "30%";
-            }
-            else if (screenWidth >= 1541 && screenWidth <= 1600) { 
+            } else if (screenWidth >= 1541 && screenWidth <= 1600) { 
                modal.style.width = "27%";
-            }else { 
+            } else { 
                modal.style.width = "23%";
             }
             
             modal.style.display = "flex";
          }
-     
+
          function closeModal() {
-             document.getElementById("myModal").style.display = "none";
+            document.getElementById("myModal").style.display = "none";
          }
-     
+
          // Close modal if clicked outside of content
          window.onclick = function (event) {
-             var modal = document.getElementById("myModal");
-             if (event.target === modal) {
-                 closeModal();
-             }
+            var modal = document.getElementById("myModal");
+            if (event.target === modal) {
+               closeModal();
+            }
          };
       </script>
+
       <script>
          function toggleAccordion(panelId) {
             var panel = document.getElementById(panelId);
@@ -299,92 +344,39 @@
 
             if (panel.style.display === "block") {
                panel.style.height = panel.scrollHeight + "px";
-
                panel.classList.add("slow-close");
-
                panel.style.height = "0px";
-
                setTimeout(function () {
-                     panel.style.display = "none";
+                  panel.style.display = "none";
                }, 500);
-
                icon.classList.remove("bi-caret-up-fill");
                icon.classList.add("bi-caret-down-fill");
             } else {
                panel.style.display = "block";
                panel.style.height = "0px";
-
                panel.classList.add("slow-open");
-
                panel.style.height = panel.scrollHeight + "px";
-
                icon.classList.remove("bi-caret-down-fill");
                icon.classList.add("bi-caret-up-fill");
             }
          }
       </script>
-      <!-- 
-         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script> 
-      -->
-      
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-      
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="..." crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-      <!-- Popper.js -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+      <script>
+         function toggleGender(optionsId, iconId) {
+            var genderOptions = document.getElementById(optionsId);
+            var arrowIcon = document.getElementById(iconId);
 
-      <!-- Bootstrap JavaScript (Popper.js is required) -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-          <!-- Javascript files-->
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.5/sweetalert2.all.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-          <script src="{% static 'js/jquery.min.js' %}"></script>
-          <script src="{% static 'js/popper.min.js' %}"></script>
-          <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-          <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
-          <script src="{% static 'js/plugin.js' %}"></script>
-          <!-- sidebar -->
-          <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
-          <script src="{% static 'js/custom.js' %}"></script>
-          <!-- javascript --> 
-          <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-          <script>
-             $(document).ready(function(){
-             $(".fancybox").fancybox({
-             openEffect: "none",
-             closeEffect: "none"
-             });
-             $('#myCarousel').carousel({
-                interval: false
-             });
-          })
-          </script>
-          <script>
-             function openNav() {
-               document.getElementById("mySidebar").style.width = "250px";
-               document.getElementById("main").style.marginLeft = "250px";
-             }
-             
-             function closeNav() {
-               document.getElementById("mySidebar").style.width = "0";
-               document.getElementById("main").style.marginLeft= "0";
-             }
-          
-          </script>
-       </body>
-    </html>
+            if (genderOptions.style.display === "none") {
+                  genderOptions.style.display = "block";
+                  arrowIcon.classList.remove("bi-chevron-down");
+                  arrowIcon.classList.add("bi-chevron-up");
+            } else {
+                  genderOptions.style.display = "none";
+                  arrowIcon.classList.remove("bi-chevron-up");
+                  arrowIcon.classList.add("bi-chevron-down");
+            }
+         }
+      </script>
+   </body>
+</html>

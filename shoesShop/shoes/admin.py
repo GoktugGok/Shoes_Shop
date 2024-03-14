@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Category,ShoesDetail,Brand,ShoesNumbers,ShoesModel,ShopBag,PayDetail,Images,Comment
+from . models import Category,ShoesDetail,Brand,ShoesNumbers,ShoesModel,ShopBag,PayDetail,Images,Comment,Color,Genders,ShoeHeight
 from mptt.admin import DraggableMPTTAdmin
 
 class ProductImagesInline(admin.TabularInline):
@@ -53,6 +53,18 @@ class ShopBagAdmin(admin.ModelAdmin):
 class ShoesModelAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
 
+@admin.register(Color)
+class ColorAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('name',)}
+
+@admin.register(Genders)
+class GendersAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('name',)}
+
+@admin.register(ShoeHeight)
+class ShoeHeightAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('name',)}\
+    
 @admin.register(ShoesNumbers)
 class ShoesNumbersAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}

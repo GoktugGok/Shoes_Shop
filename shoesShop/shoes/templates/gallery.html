@@ -4,12 +4,9 @@
 
 {% block content %}
 <style>
-   .card-img {
-    height: 450px; /* İstenen yükseklik */
-    object-fit: cover; /* Resmin kart içinde uygun şekilde görünmesini sağlar */
-    
-}
+
 </style>
+
    <body class="">
       <nav class="navbar navbar-expand-lg ">
          <div class="container-fluid">
@@ -18,7 +15,7 @@
             <i class="bi bi-list text-dark fs-5"></i>
            </button>
            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <!-- Categories -->
+            <!-- Categories 
             <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
                   <div class="p-0 m-0 category fs-5">Categories</div>
@@ -40,7 +37,7 @@
                      </div>
                   </div>
                </div>
-            </div>
+            </div>-->
               <!-- Cart -->
              <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
                <li class="nav-item mt-auto">
@@ -80,46 +77,224 @@
       <div class="" style="background-color: white;">
          <div class="d-flex justify-content-center border align-items-center mb-0 ">
             {% for all_category in all_categories %}
-               <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2">{{all_category.title}}</a>
+               <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2 categoryHover">{{all_category.title}}</a>
             {% endfor %}
          </div>
             <div class="row border-top">
-               <h3 class="text-dark text-start ps-5 pt-3">{{ category.title }}</h3>
-               <div class="col-2 h-100 ">
-                  <ul class="nav flex-column">
+               <h3 class="text-dark text-start ps-5 pt-3">{{ category.title }} Ayakkabilari (<span id="countS">{{shoes_all.count}}</span>)</h3>
+               <hr>
+               <div class="col-2  ps-4 me-5 overflow-auto">
+                  <ul class="nav flex-column ">
                      {% for category in subcategories %}
-                        <li class="nav-item">
-                           <a class="nav-link text-dark" href="{% url 'gallery_by_category' category.slug %}" data-bs-toggle="collapse" aria-expanded="false" aria-controls="submenu{{ category.id }}">{{ category.title }}</a>
-                        </li>
+                     <div class="mb-2 ps-3 ">
+                        <input type="radio" style="cursor: copy;" class="btn-check rounded-0 fs-4 "  value="{{category.slug}}" name="shoesCategory" id="category-{{category.id}}" onclick="filterShoes('{{category.slug}}')" autocomplete="off">
+                        <label class="fw-semibold categoryHover pointer" for="category-{{category.id}}">{{category.title}}</label>
+                     </div>
                      {% endfor %}
                  </ul>
-                </div>
-               <div class="col-10">
-                  <div class="container-fluid">
-                     <div class="row">
-                        {% for shoes in shoes_all %}
-                        <div class=" col-xl-4 col-md-6 hover_shoes">
-                           <a href="{% url 'product' shoes.id %}">
-                              <div class="card text-bg-dark m-0 border-0 shadow p-0 mb-5 bg-body-tertiary rounded mt-2 " >
-                                 <div id="carouselExampleDark-{{shoes.id}}" class="carousel carousel-dark slide">
-                                    <div class="carousel-inner">
-                                       <div class="carousel-item active">
-                                          <img src="{{shoes.image.url}}" class="card-img d-block w-100 border-0"   alt="...">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="mt-0" >
-                                    <h6 class="text-dark mt-3 text-center m-0 mx-1 d-flex justify-content-center " style="font-size: 14px; height: 50px;">{{shoes.name}}</h6>
-                                    <h5 class="text-dark p-1 text-center d-flex justify-content-center mb-1 pt-0 " style="color: #f9ca16;font-size: 18px;">{{shoes.price}}TL</h5>
-                                 </div>
-                              </div>
-                           </a>
+                 <hr>
+                 <!-- Cinsiyet 
+                     <div>
+                     <button onclick="toggleGender('genderOptions1', 'arrowIcon1')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender" style="background-color: none; border: none;">
+                        <h5>Cinsiyet</h5>
+                        <div><i id="arrowIcon1" class="bi bi-chevron-down fs-5"></i></div>
+                     </button>
+                     </div>
+                     <div id="genderOptions1" style="display: none;">
+                     {% for gender in genders %}
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" value="{{gender.slug}}" name="gender" id="gender-{{gender.id}}" onclick="filterShoes('{{category.slug}}')">
+                           <label class="form-check-label" for="gender-{{gender.id}}">{{gender.name}}</label>
                         </div>
+                     {% endfor %}
+                     </div>-->
+                  
+                  <!-- Ayakkabi Yuksekligi -->
+                  <div>
+                     <button onclick="toggleGender('shoeHeightOptions2', 'shoeHeightIcon2')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender" style="background-color: none; border: none;">
+                        <h5 >Ayakkabi Yuksekligi</h5>
+                        <div><i id="shoeHeightIcon2" class="bi bi-chevron-down fs-5"></i></div>
+                     </button>
+                  </div>
+                  <div id="shoeHeightOptions2" style="display: none;">
+                     {% for Shoe_Height in Shoe_Heights %}
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" value="{{Shoe_Height.slug}}" name="ShoeHeight" id="Shoe_Height-{{Shoe_Height.id}}" onclick="filterShoes('{{category.slug}}')" >
+                           <label class="form-check-label pointer" for="Shoe_Height-{{Shoe_Height.id}}">{{Shoe_Height.name}}</label>
+                        </div>
+                     {% endfor %}
+                  </div>
+                  <hr>
+                  <!-- Color -->
+                  <div>
+                     <button onclick="toggleGender('ColorOptions2', 'ColorIcon2')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender" style="background-color: none; border: none;">
+                        <h5>Renkler</h5>
+                        <div><i id="ColorIcon2" class="bi bi-chevron-down fs-5"></i></div>
+                     </button>
+                  </div>
+                  <div id="ColorOptions2" class="" style="display: none;">
+                     <div class="row  m-0">
+                        {% for Color in Colors %}
+                        <div class="col-6 mb-2">
+                           <div class="form-check d-flex justify-content-center align-items-center">
+                              <input class="form-check-input color-{{Color.id}} " name="shoesColor" value="{{Color.slug}}" type="radio" id="Color-{{Color.id}}" onclick="filterShoes('{{category.slug}}')" >
+                           </div>
+                           <div class="d-flex justify-content-center align-items-center">
+                              <label class="form-check-label pointer" for="Color-{{Color.id}}">{{Color.name}}</label>
+                           </div>
+                        </div>
+                        {% endfor %}  
+                    </div>  
+                  </div>
+                  <hr>
+                  <!-- Numaralar -->
+                  <div>
+                     <button onclick="toggleGender('Shoes_NumberOptions2', 'Shoes_NumberIcon2')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender"   style="background-color: none; border: none;">
+                        <h5>Numaralar</h5>
+                        <div><i id="Shoes_NumberIcon2" class="bi bi-chevron-down fs-5"></i></div>
+                     </button>
+                  </div>
+                  <div id="Shoes_NumberOptions2" class="" style="display: none;">
+                     <div class="row m-0">
+                        {% for Shoes_Number in Shoes_Numbers %}
+                        <div class="col-4 mb-2 d-flex justify-content-center align-items-center">
+                           <input type="radio" class="btn-check rounded-0 fs-4 "  value="{{Shoes_Number.slug}}" name="shoesNumber" id="dark-outlined-{{Shoes_Number.id}}" onclick="filterShoes('{{category.slug}}')" autocomplete="off">
+                           <label class="btn btn-outline-dark  rounded-0 fs-6 pointer" for="dark-outlined-{{Shoes_Number.id}}">{{Shoes_Number}}</label>
+                        </div>
+                        {% endfor %} 
+                    </div>  
+                  </div>
+                  <hr>
+                  <!-- Markalar -->
+                  <div>
+                     <button onclick="toggleGender('brandOptions2', 'brandIcon2')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender" style="background-color: none; border: none;">
+                        <h5>Markalar</h5>
+                        <div><i id="brandIcon2" class="bi bi-chevron-down fs-5"></i></div>
+                     </button>
+                  </div>
+                  <div id="brandOptions2" class="" style="display: none;">
+                     <div class="row m-0">
+                        {% for brand in brands %}
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="brand" value="{{brand.name}}" id="brand-{{brand.id}}" onclick="filterShoes('{{category.slug}}')">
+                           <label class="form-check-label pointer" for="brand-{{brand.id}}">{{brand.name}}</label>
+                        </div>
+                        {% endfor %} 
+                    </div>  
+                  </div>
+               </div>
+               <div class="col-9 px-5">
+                  <div class="container-fluid">
+                     <div class="row " id="shoes-container">
+                        {% for shoes in shoes_all %}
+                        <div class="col-xl-4 col-md-6 hover_shoes">
+                           <a href="{% url 'product' shoes.id %}">
+                               <div class="card text-bg-dark m-0 border-0 shadow p-0 mb-5 bg-body-tertiary rounded mt-2">
+                                   <div id="carouselExampleDark-{{shoes.id}}" class="carousel carousel-dark slide">
+                                       <div class="carousel-inner">
+                                           <div class="carousel-item active">
+                                               <img src="{{shoes.image.url}}" class="card-img d-block w-100 border-0" style="max-width: 100%;" alt="...">
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="mt-0">
+                                       <h6 class="text-dark mt-3 text-center m-0 mx-1 d-flex justify-content-center" style="font-size: 14px; height: 50px;">{{shoes.name}}</h6>
+                                       <h5 class="text-dark p-1 text-center d-flex justify-content-center mb-1 pt-0" style="color: #f9ca16;font-size: 18px;">{{shoes.price}}TL</h5>
+                                   </div>
+                               </div>
+                           </a>
+                       </div>
                         {% endfor %}
                      </div>
                   </div>
                </div>
             </div>
+         </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      <script>
+         function filterShoes(category) {
+            // var Shoe_Category_filterValues = [];
+            // $("input[name='shoesCategory']:checked").each(function(){
+            //    Shoe_Category_filterValues.push($(this).val());
+            // });
+            // console.log(Shoe_Category_filterValues);
 
+            var Shoe_Height_filterValues = [];
+            $("input[name='ShoeHeight']:checked").each(function(){
+               Shoe_Height_filterValues.push($(this).val());
+            });
+            console.log(Shoe_Height_filterValues);
+
+            var shoes_color_filterValues = [];
+            $("input[name='shoesColor']:checked").each(function(){
+               shoes_color_filterValues.push($(this).val());
+            });
+            console.log(shoes_color_filterValues)
+            var shoes_number_filterValues = [];
+            $("input[name='shoesNumber']:checked").each(function(){
+               shoes_number_filterValues.push($(this).val());
+            });
+
+            var shoes_brand_filterValues = [];
+            $("input[name='brand']:checked").each(function(){
+               shoes_brand_filterValues.push($(this).val());
+            });
+
+            var url = "{% url 'filter_shoes' %}?category_name=" + category;
+            // if (Shoe_Category_filterValues.length > 0) {
+            //    url += "&shoe_category_filters=" + Shoe_Category_filterValues.join(',');
+            // }
+            if (Shoe_Height_filterValues.length > 0) {
+               url += "&shoe_height_filters=" + Shoe_Height_filterValues.join(',');
+            }
+            if (shoes_color_filterValues.length > 0) {
+               url += "&shoes_color_filters=" + shoes_color_filterValues.join(',');
+            }
+            if (shoes_number_filterValues.length > 0) {
+               url += "&shoes_number_filters=" + shoes_number_filterValues.join(',');
+            }
+            if (shoes_brand_filterValues.length > 0) {
+               url += "&shoes_brand_filters=" + shoes_brand_filterValues.join(',');
+            }
+            var shoesHtml = '';
+            var shoesCount = '';
+            $.ajax({
+               url: url,
+               type: 'GET',
+               success: function(response){
+                  console.log(response);
+                  $('#shoes-container').empty();// Önce mevcut ayakkabıları temizle
+                  $('#countS').empty(); 
+                  shoesCount += response.shoes_count
+                  $('#countS').html(shoesCount);
+                  response.shoes.forEach(function(shoe) {
+                     var shoeUrl = `/shoes/product/${shoe.id}`;
+                        shoesHtml += `
+                        <div class="col-xl-4 col-md-6 hover_shoes">
+                        <a href="${shoeUrl}">
+                           <div class="card text-bg-dark m-0 border-0 shadow p-0 mb-5 bg-body-tertiary rounded mt-2">
+                              <div id="carouselExampleDark-${shoe.id}" class="carousel carousel-dark slide">
+                                    <div class="carousel-inner">
+                                       <div class="carousel-item active">
+                                          <img src="/media/${shoe.image}" class="card-img d-block w-100 border-0" style="max-width: 100%;" alt="...">
+                                       </div>
+                                    </div>
+                              </div>
+                              <div class="mt-0">
+                                    <h6 class="text-dark mt-3 text-center m-0 mx-1 d-flex justify-content-center" style="font-size: 14px; height: 50px;">${shoe.name}</h6>
+                                    <h5 class="text-dark p-1 text-center d-flex justify-content-center mb-1 pt-0" style="color: #f9ca16;font-size: 18px;">${shoe.price}TL</h5>
+                              </div>
+                           </div>
+                        </a>
+                           </div>`;
+                           });
+                           $('#shoes-container').html(shoesHtml);
+                        },
+            error: function(xhr, errmsg, err){
+               console.log(xhr.status + ": " + xhr.responseText);
+            }
+         });
+         }
+     </script>
+     
       {% endblock %}
