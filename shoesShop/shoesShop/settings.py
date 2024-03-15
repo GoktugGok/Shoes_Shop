@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'shoes.apps.ShoesConfig',
     'myorder.apps.MyorderConfig',
+    'user.apps.UserConfig',
     # eklenti listesi
     'sweetify',
     'ckeditor',

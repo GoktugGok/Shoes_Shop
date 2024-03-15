@@ -1,0 +1,124 @@
+{% extends 'partials/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<body>
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid">
+          <a class="navbar-brand text-warning fs-2 osuc" href="{% url 'index' %}">Shoes House</a>
+          <button class="navbar-toggler bg-warning "  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+           <i class="bi bi-list text-dark fs-5"></i>
+          </button>
+          <div class="collapse navbar-collapse " id="navbarSupportedContent">
+           <!-- Categories 
+           <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
+                 <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
+                 <div class="p-0 m-0 category fs-5">Categories</div>
+           </button>
+           <div id="myModal" class="modal">
+              <div class="modal-content">
+                 <span class="close-btn fs-2 text-end  mb-1" onclick="closeModal()">
+                    <i class="bi bi-x-circle "></i>
+                 </span>
+                 <div class="container-fluid">
+                    <div class="row text-center">
+                        <a href="{% url 'myorder' %}" class="h3 categoryHover">MyOrder</a>
+                       <a href="{% url 'user_update' %}" class="h3 categoryHover">Profile</a>
+                       <h3>Favorite</h3>
+                    </div>
+                 </div>
+              </div>
+           </div>-->
+             <!-- Cart -->
+            <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
+              <li class="nav-item mt-auto">
+                 <div class="nav-link  pb-0">
+                    <a href="{% url 'myorder' %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
+                        <i class="bi bi-archive fs-4 me-2"></i>
+                        <div class="fs-5">MyOrder</div>
+                    </a>
+                 </div>
+              </li>
+              <li class="nav-item mt-auto">
+               <div class="nav-link  pb-0">
+                  <a  href="{% url 'cart' request.user.id %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
+                     <i class="bi bi-cart3 fs-4 me-2 "></i>
+                     <div class="fs-5">Cart</div>
+                  </a>
+               </div>
+            </li>
+               <!-- User -->
+              <li class="nav-item my-auto">
+                 <div class="nav-link  mt-0 pb-0" onclick="openModal()">
+                    <a  href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS ">
+                       <i class="bi bi-person-circle fs-4 me-2"></i>
+                       <div class="fs-5">{{request.user.username}}</div>
+                    </a>
+                 </div>
+              </li>
+            </ul>
+      
+            <!-- Search -->
+            <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4  ">
+              <form id="searchId" class="d-flex w-100 border rounded-5 shadow-lg searchId" role="search">
+                {% csrf_token %}
+                <i class="bi bi-search p-1 fs-4 mx-2"></i>
+                <input class="me-2 border-0 rounded-5 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
+              </form>
+              <ul id="searchResults"class=" rounded-bottom-3 p-0 visually-hidden-focusable position-absolute top-0 start-0 bg-light z-3  border border-warning SearchResults mt-5 " >
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="d-flex justify-content-center border align-items-center mb-0 ">
+        {% for all_category in all_categories %}
+           <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2 categoryHover">{{all_category.title}}</a>
+        {% endfor %}
+     </div>
+    
+    
+        <!-- Contact Start -->
+        <div class="container-fluid pt-5">
+            <div class="text-center mb-4">
+                <h2 class="section-title px-5"><span class="px-2">Kullanici Bilgileri</span></h2>
+            </div>
+            <div class="row px-xl-5 justify-content-md-center">
+                  <div class="col-10">
+                     {% if messages %}
+                        {% for message in messages %}
+                           <div class="alert alert-{{message.tags}}" role="alert">
+                              {{ message }}
+                           </div>
+                        {% endfor %}
+                     {% endif %}
+                  </div>
+                <div class="col-md-5 mb-5">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            {{ user_form.as_p }}
+                            {{ profile_form.as_p }}
+                        </fieldset>
+                        <div class="d-grid col-8 mx-auto">
+                           <button  type="submit" class="btn btn-warning text-light">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                  <form method="post">
+                     {% csrf_token %}
+                     {{ password_form.as_p }}
+                     <div class="d-grid col-8 mx-auto">
+                        <button type="submit" name="password_change" class="btn btn-warning text-light">Şifreyi Değiştir</button>
+                     </div>
+                     
+                   </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- Contact End -->
+</body>
+{% endblock %}

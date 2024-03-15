@@ -3,214 +3,199 @@
 {% load static %}
 
 {% block content %}
+<style>
+    .carousel-inner-wrapper {
+            overflow-x: auto;
+            white-space: nowrap; /* Yatay kaydırma için gerekli */
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            color: black; /* Button rengi */
+        }
+</style>
       <!--header section start -->
-      <div class="header_section ">
-            <div class="container-fluid " style="height: 100%; width: 100%; background-color: black;">
-                <div class="d-flex justify-content-between align-items-center mb-0">
-                   <div class=""><a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"></a></div>
-                   <div class="number_text mt-1">No<br><span style="color: #fff;">01</span></div>
-                   <div class=" "><a class="class=" openbtn="" onclick="openNav()"><img src="{% static 'images/toggle-icon.png' %}" class="p-1 rounded " style="max-width: 100%;background-color: black;"></a></div>
+      <div class="s">
+      <nav class="navbar navbar-expand-lg ">
+         <div class="container-fluid">
+           <a class="navbar-brand text-warning fs-2 osuc" href="{% url 'index' %}">Shoes House</a>
+           <button class="navbar-toggler bg-warning "  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list text-dark fs-5"></i>
+           </button>
+           <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <!-- Categories 
+            <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
+                  <div class="p-0 m-0 category fs-5">Categories</div>
+            </button>
+            <div id="myModal" class="modal">
+               <div class="modal-content">
+                  <span class="close-btn fs-2 text-end  mb-1" onclick="closeModal()">
+                     <i class="bi bi-x-circle "></i>
+                  </span>
+                  <div class="container-fluid">
+                     <div class="row text-center">
+                         <a href="{% url 'myorder' %}" class="h3 categoryHover">MyOrder</a>
+                        <a href="{% url 'user_update' %}" class="h3 categoryHover">Profile</a>
+                        <h3>Favorite</h3>
+                     </div>
+                  </div>
+               </div>
+            </div>-->
+              <!-- Cart -->
+             <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
+               <li class="nav-item mt-auto">
+                  <div class="nav-link  pb-0">
+                     <a href="{% url 'myorder' %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
+                         <i class="bi bi-archive fs-4 me-2"></i>
+                         <div class="fs-5">MyOrder</div>
+                     </a>
+                  </div>
+               </li>
+               <li class="nav-item mt-auto">
+                <div class="nav-link  pb-0">
+                   <a  href="{% url 'cart' request.user.id %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
+                      <i class="bi bi-cart3 fs-4 me-2 "></i>
+                      <div class="fs-5">Cart</div>
+                   </a>
                 </div>
-                <div class="">
-                    <div id="mySidebar" class="sidebar">
-                       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
-                       <a href="{% url 'index' %}">Home</a>
-                       <a href="{% url 'about' %}">About</a>
-                       <a href="{% url 'gallery' %}">Gallery</a>
-                       <a href="{% url 'news' %}">News</a>
-                       <a href="{% url 'testimonial' %}">Testimonial</a>
-                       <a href="{% url 'contact' %}">Contact</a>
-                        {% if user.is_authenticated %}
-                        <a href="{% url 'cart' request.user.id %}">Bag</a>
-                        {% endif %}
-                        {% if user.is_authenticated %}
-                           <a href="{% url 'logout' %}">Logout</a>
-                        {% else %}
-                           <a href="{% url 'login' %}">Login</a>
-                        {% endif %}
-                    </div>
-               </div>
+             </li>
+                <!-- User -->
+               <li class="nav-item my-auto">
+                  <div class="nav-link  mt-0 pb-0" onclick="openModal()">
+                     <a  href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS ">
+                        <i class="bi bi-person-circle fs-4 me-2"></i>
+                        <div class="fs-5">{{request.user.username}}</div>
+                     </a>
+                  </div>
+               </li>
+             </ul>
+       
+             <!-- Search -->
+             <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4  ">
+               <form id="searchId" class="d-flex w-100 border rounded-5 shadow-lg searchId" role="search">
+                 {% csrf_token %}
+                 <i class="bi bi-search p-1 fs-4 mx-2"></i>
+                 <input class="me-2 border-0 rounded-5 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
+               </form>
+               <ul id="searchResults"class=" rounded-bottom-3 p-0 visually-hidden-focusable position-absolute top-0 start-0 bg-light z-3  border border-warning SearchResults mt-5 " >
+               </ul>
              </div>
-         <div class="banner_section mt-5">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-               <ol class="carousel-indicators">
-                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-               </ol>
-               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                     <div class="container">
-                        <h1 class="banner_taital">Genuine <br>Shoes online Shopping</h1>
-                        <p class="lorem_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
-                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="container">
-                        <h1 class="banner_taital">Genuine <br>Shoes online Shopping</h1>
-                        <p class="lorem_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
-                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="container">
-                        <h1 class="banner_taital">Genuine <br>Shoes online Shopping</h1>
-                        <p class="lorem_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do </p>
-                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
+           </div>
+         </div>
+       </nav>
+         <div class="d-flex justify-content-center border align-items-center  ">
+         {% for all_category in all_categories %}
+            <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2 categoryHover">{{all_category.title}}</a>
+         {% endfor %}
          </div>
       </div>
       <!--header section end -->
       <!--about section start -->
-      <div class="about_section layout_padding">
+      <div class="about_section layout_padding bg-dark text-light mt-5 pb-5">
          <div class="container">
-            <div class="row">
-               <div class="col-md-6">
-                  <h1 class="about_taital">About Our Shop</h1>
-                  <p class="about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-                  <div class="read_bt"><a href="#">Read More</a></div>
-               </div>
-               <div class="col-md-6">
-                  <div class="image_1"><img src="{% static 'images/img-1.png' %}"></div>
-               </div>
-            </div>
+             <div class="row">
+                 <div class="col-12"><h1>Top Viewed Shoes</h1></div>
+                 <div class="container">
+                     <div class="row">
+                         <div class="carousel-inner-wrapper">
+                             <div id="shoesCarousel" class="carousel slide" data-ride="carousel">
+                                 <div class="carousel-inner">
+                                     {% for shoe in top_shoes %}
+                                         {% if forloop.counter0|divisibleby:3 %}
+                                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                 <div class="row">
+                                         {% endif %}
+                                                     <a href="{% url 'product' shoe.id %}" class="col-md-4 px-3 position-relative text-light">
+                                                         <img src="{{ shoe.image.url }}" class="d-block w-100" style="height: 500px;" alt="">
+                                                         <div class="h5 pt-2">{{ shoe.name }}</div>
+                                                         <div class="position-absolute top-0 start-25  bg-danger p-2 text-light rounded-bottom rounded-right"><i class="bi bi-eye-fill ms-2"></i> {{ shoe.reviewsCount }}</div>
+                                                     </a>
+                                          {% if forloop.counter|divisibleby:3 or forloop.last %}
+                                                 </div>
+                                             </div>
+                                         {% endif %}
+                                     {% endfor %}
+                                 </div>
+                                 <a class="carousel-control-prev text-dark " href="#shoesCarousel" role="button" data-slide="prev">
+                                     <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                                     <span class="sr-only">Previous</span>
+                                 </a>
+                                 <a class="carousel-control-next text-dark" href="#shoesCarousel" role="button" data-slide="next">
+                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                     <span class="sr-only">Next</span>
+                                 </a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
          </div>
-      </div>
+     </div>
       <!--about section end -->
       <!--gallery section start -->
-      <div class="gallery_section layout_padding">
+      <div class="border-bottom pb-5 mt-5">
          <div class="container">
-            <h1 class="gallery_taital">Best Quality</h1>
-            <p class="gallery_text">It is a long established fact that a reader will be distracted by the readable content</p>
-            <div class="gallery_section_2 layout_padding">
-               <div class="row">
-                  <div class="col-sm-3">
-                     <div class="image_1"><img src="{% static 'images/img-2.png' %}"></div>
-                     <div class="price_text">$<span style="color: #f9ca16;">100</span></div>
-                     <h1 class="shoes_text">Shoes</h1>
-                     <div class="boy_bt_1"><a href="#">Buy Now</a></div>
-                  </div>
-                  <div class="col-sm-3">
-                     <div class="image_1"><img src="{% static 'images/img-3.png' %}"></div>
-                     <div class="price_text">$<span style="color: #f9ca16;">100</span></div>
-                     <h1 class="shoes_text">Shoes</h1>
-                     <div class="boy_bt_1"><a href="#">Buy Now</a></div>
-                  </div>
-                  <div class="col-sm-3">
-                     <div class="image_1"><img src="{% static 'images/img-4.png' %}"></div>
-                     <div class="price_text">$<span style="color: #f9ca16;">100</span></div>
-                     <h1 class="shoes_text">Shoes</h1>
-                     <div class="boy_bt_1"><a href="#">Buy Now</a></div>
-                  </div>
-                  <div class="col-sm-3">
-                     <div class="image_1"><img src="{% static 'images/img-5.png' %}"></div>
-                     <div class="price_text">$<span style="color: #f9ca16;">100</span></div>
-                     <h1 class="shoes_text">Shoes</h1>
-                     <div class="boy_bt_1"><a href="#">Buy Now</a></div>
-                  </div>
-               </div>
+            <div class="row">
+                <div class="col-12 pt-5"><h1>Categories</h1></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                           <a href="/shoes/categories/erkek" class="position-relative">
+                              <img src="media/images/erkek.jpg" class="d-block w-100  rounded-2" style="height: 500px;" alt="">
+                              <div class="position-absolute bottom-0 end-0 btn btn-outline-light me-3 mb-3">Erkek</div>
+                           </a>
+                        </div>
+                        <a href="/shoes/categories/kadin" class="col-4">
+                           <div class="position-relative">
+                              <img src="media/images/kadin.jpg" class="d-block w-100  rounded-2" style="height: 500px;" alt="">
+                              <div class="position-absolute bottom-0 end-0 btn btn-outline-light me-3 mb-3">Kadin</div>
+                           </div>
+                        </a>
+                        <a href="/shoes/categories/cocuk" class="col-4">
+                           <div class="position-relative ">
+                              <img src="media/images/cocuk.jpg" class="d-block w-100 rounded-2" style="height: 500px;" alt="">
+                              <div class="position-absolute bottom-0 end-0 btn btn-outline-light me-3 mb-3">Cocuk</div>
+                           </div>
+                        </a>
+                    </div>
+                </div>
             </div>
-         </div>
+        </div>
       </div>
       <!--gallery section end -->
-      <!--news section start -->
-      <div class="news_section layout_padding">
-         <div class="container">
-            <h1 class="news_taital">Best Quality</h1>
-            <p class="news_text">It is a long established fact that a reader will be distracted by the readable content</p>
-            <div class="news_section_2 layout_padding">
-               <div class="row">
-                  <div class="col-lg-4 col-sm-12">
-                     <div><img src="{% static 'images/img-6.png' %}"class="image_6"></div>
-                     <h1 class="shoes_taital_1">Established fact that a reader will be</h1>
-                     <p class="ipsum_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it </p>
-                     <div class="read_bt"><a href="#">Read More</a></div>
-                  </div>
-                  <div class="col-lg-4 col-sm-12">
-                     <div><img src="{% static 'images/img-7.png' %}"class="image_7"></div>
-                     <h1 class="shoes_taital_1">Established fact that a reader will be</h1>
-                     <p class="ipsum_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it </p>
-                     <div class="read_bt"><a href="#">Read More</a></div>
-                  </div>
-                  <div class="col-lg-4 col-sm-12">
-                     <div><img src="{% static 'images/img-8.png' %}"class="image_6"></div>
-                     <h1 class="shoes_taital_1">Established fact that a reader will be</h1>
-                     <p class="ipsum_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it </p>
-                     <div class="read_bt"><a href="#">Read More</a></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!--news section end -->
+
       <!--client section start -->
       <div class="client_section layout_padding">
          <div id="main_slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-               <div class="carousel-item active">
+
+               <div class="">
+                  <h1 class="text-center">Musteri Mesajlari</h1>
+                  <p class="text-center">En son atilan mesajlar</p>
+               </div>
+              {% for comment in comments %}
+               <div class="carousel-item {% if forloop.first %}active{% endif %}">
                   <div class="container">
-                     <h1 class="client_taital">What is says our customers</h1>
-                     <p class="client_text">It is a long established fact that a reader will be distracted by the readable content</p>
+                     
                      <div class="client_section_2">
-                        <div class="container">
-                           <div class="client_main">
-                              <div class="client_left">
-                                 <div class="client_img"><img src="{% static 'images/client-img.png' %}"></div>
+                           <div class="container">
+                              <div class="client_main">
+                                 <div class="client_left">
+                                       <div class="client_img"><img src="{{ comment.user.userprofile.image.url }} " class="rounded-2" style="width: 100px; height: 100px;" ></div>
+                                 </div>
+                                 <div class="client_right">
+                                       <h2 class="sandy_text">Isim : {{ comment.user }}</h2>
+                                       <p class="long_text">Baslik : {{ comment.subject }}</p>
+                                 </div>
                               </div>
-                              <div class="client_right">
-                                 <h2 class="sandy_text">Sandy Milller</h2>
-                                 <p class="long_text">It is a long established</p>
-                              </div>
+                              <p class="dummy_text">Mesaj : {{ comment.comment }}</p>
                            </div>
-                           <p class="dummy_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum</p>
-                        </div>
                      </div>
                   </div>
                </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="client_taital">What is says our customers</h1>
-                     <p class="client_text">It is a long established fact that a reader will be distracted by the readable content</p>
-                     <div class="client_section_2">
-                        <div class="container">
-                           <div class="client_main">
-                              <div class="client_left">
-                                 <div class="client_img"><img src="{% static 'images/client-img.png' %}"></div>
-                              </div>
-                              <div class="client_right">
-                                 <h2 class="sandy_text">Sandy Milller</h2>
-                                 <p class="long_text">It is a long established</p>
-                              </div>
-                           </div>
-                           <p class="dummy_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="client_taital">What is says our customers</h1>
-                     <p class="client_text">It is a long established fact that a reader will be distracted by the readable content</p>
-                     <div class="client_section_2">
-                        <div class="container">
-                           <div class="client_main">
-                              <div class="client_left">
-                                 <div class="client_img"><img src="{% static 'images/client-img.png' %}"></div>
-                              </div>
-                              <div class="client_right">
-                                 <h2 class="sandy_text">Sandy Milller</h2>
-                                 <p class="long_text">It is a long established</p>
-                              </div>
-                           </div>
-                           <p class="dummy_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+               {% endfor %}
+
             </div>
             <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
             <i class=""><img src="{% static 'images/left-arrow.png' %}"></i>
@@ -256,60 +241,28 @@
          </div>
       </div>
       <!--contact section end -->
-      <!--newsletter section start -->
-      <div class="newsletter_section">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-8">
-                  <h1 class="newsletter_text">Newsletter</h1>
-                  <input type="text" class="mail_text" placeholder="Enter Tour Mail" name="Enter Tour Mail">
-               </div>
-               <div class="col-md-4">
-                  <div class="social_icon">
-                     <ul>
-                        <li><a href="#"><img src="{% static 'images/fb-icon.png' %}"></a></li>
-                        <li><a href="#"><img src="{% static 'images/twitter-icon.png' %}"></a></li>
-                        <li><a href="#"><img src="{% static 'images/linkedin-icon.png' %}"></a></li>
-                        <li><a href="#"><img src="{% static 'images/instagram-icon.png' %}"></a></li>
-                     </ul>
-                  </div>
-                  <div class="subscribe_bt"><a href="#">SUBSCRIBE</a></div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!--newsletter section end -->
-      <!--footer section start -->
-      <div class="footer_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-3 col-sm-6">
-                  <h4 class="link_text">Useful link</h4>
-                  <p class="footer_text">It is a long established fact that a reader will be distracted by the readable  </p>
-               </div>
-               <div class="col-lg-3 col-sm-6">
-                  <h4 class="link_text">Features Itams</h4>
-                  <p class="footer_text">It is a long established fact that a reader will be distracted by the readable  </p>
-               </div>
-               <div class="col-lg-3 col-sm-6">
-                  <h4 class="link_text">Instagram</h4>
-                  <p class="footer_text_1"><img src="{% static 'images/icon-1.png' %}"><span class="padding_left_10">It is a long estab</span></p>
-                  <p class="footer_text_1"><img src="{% static 'images/icon-1.png' %}"><span class="padding_left_10">It is a long estab</span></p>
-                  <p class="footer_text_1"><img src="{% static 'images/icon-1.png' %}"><span class="padding_left_10">It is a long estab</span></p>
-               </div>
-               <div class="col-lg-3 col-sm-6">
-                  <h4 class="link_text">Contact Us</h4>
-                  <p class="footer_text">It is a long established fact that a reader will be distracted by the readable  </p>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!--footer section end -->
-      <!--copyright section start -->
-      <div class="copyright_section">
-         <div class="container">
-            <p class="copyright_text">Copyright 2023 All Right Reserved By <a href="https://html.design">Free Html Templates</a></p>
-         </div>
-      </div>
-      <!--copyright section end -->
+<script>
+   $(document).ready(function(){
+    var nav = $('.s');
+    var navHeight = nav.outerHeight();
+    var lastScrollTop = 0;
+
+    $(window).scroll(function(){
+        var scrollTop = $(this).scrollTop();
+
+        if (scrollTop > lastScrollTop && scrollTop > navHeight){
+            // Scroll down
+            nav.removeClass('fixed-top bg-light');
+        } else {
+            // Scroll up
+            if (scrollTop + $(window).height() < $(document).height()) {
+                nav.addClass('fixed-top bg-light');
+            }
+        }
+        lastScrollTop = scrollTop;
+    });
+});
+</script>
+
 {% endblock %}
+

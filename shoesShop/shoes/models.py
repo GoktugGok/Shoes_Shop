@@ -38,7 +38,7 @@ class Category(MPTTModel):
     title = models.CharField(max_length=30)
     keywords = models.CharField(blank=True, max_length=250)
     description = models.CharField(blank=True, max_length=250)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(blank=True, upload_to='images/', default="default.png")
     status = models.CharField(max_length=10, choices=STATUS)
     slug = models.SlugField(null=False, unique=True)
     parent = TreeForeignKey('self', blank=True, null=True, related_name='children',

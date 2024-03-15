@@ -29,7 +29,7 @@
             <i class="bi bi-list text-dark fs-5"></i>
            </button>
            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <!-- Categories -->
+            <!-- Categories 
             <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
                   <div class="p-0 m-0 category fs-5">Categories</div>
@@ -41,27 +41,35 @@
                   </span>
                   <div class="container-fluid">
                      <div class="row text-center">
-                        <h3>MyOrder</h3>
-                        <h3>Profile</h3>
+                         <a href="{% url 'myorder' %}" class="h3 categoryHover">MyOrder</a>
+                        <a href="{% url 'user_update' %}" class="h3 categoryHover">Profile</a>
                         <h3>Favorite</h3>
                      </div>
                   </div>
                </div>
-            </div>
+            </div>-->
               <!-- Cart -->
              <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
                <li class="nav-item mt-auto">
                   <div class="nav-link  pb-0">
-                     <a  href="{% url 'cart' request.user.id %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
-                        <i class="bi bi-cart3 fs-4 me-2 "></i>
-                        <div class="fs-5">Cart</div>
+                     <a href="{% url 'myorder' %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
+                         <i class="bi bi-archive fs-4 me-2"></i>
+                         <div class="fs-5">MyOrder</div>
                      </a>
                   </div>
                </li>
+               <li class="nav-item mt-auto">
+                <div class="nav-link  pb-0">
+                   <a  href="{% url 'cart' request.user.id %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
+                      <i class="bi bi-cart3 fs-4 me-2 "></i>
+                      <div class="fs-5">Cart</div>
+                   </a>
+                </div>
+             </li>
                 <!-- User -->
                <li class="nav-item my-auto">
-                  <div class="nav-link  mt-0 pb-0">
-                     <a  href="#" class="d-flex justify-content-start align-items-center text-center nav-itemS ">
+                  <div class="nav-link  mt-0 pb-0" onclick="openModal()">
+                     <a  href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS ">
                         <i class="bi bi-person-circle fs-4 me-2"></i>
                         <div class="fs-5">{{request.user.username}}</div>
                      </a>
