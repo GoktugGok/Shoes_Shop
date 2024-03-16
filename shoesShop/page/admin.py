@@ -1,3 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
+from .models import Communication
+@admin.register(Communication)
+class CommunicationAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'message']

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-sw!t+fzh3mchiz77meqaxeb7y2o-qqwr(=hzn@_&f4j1#4j*j4
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# SITE_ID = 1
 ALLOWED_HOSTS = []
 
 
@@ -48,8 +48,36 @@ INSTALLED_APPS = [
     'sweetify',
     'ckeditor',
     'ckeditor_uploader',
-    'mptt'
+    'mptt',
+
+    
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
 ]
+# AUTHENTICATION_BACKENDS = [
+#     # Needed to login by username in Django admin, regardless of `allauth`
+#     'django.contrib.auth.backends.ModelBackend',
+
+#     # `allauth` specific authentication methods, such as login by email
+#     'allauth.account.auth_backends.AuthenticationBackend',
+    
+# ]
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         # For each OAuth based provider, either add a ``SocialApp``
+#         # (``socialaccount`` app) containing the required client
+#         # credentials, or list them here:
+#         'APP': {
+#             'client_id': '123',
+#             'secret': '456',
+#             'key': ''
+#         }
+#     }
+# }
+# SOCIALACCOUNT_ADAPTER = 'accounts.custom_adapter.CustomSocialAccountAdapter'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +87,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'shoesShop.urls'
@@ -74,6 +103,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'django.template.context_processors.request',
             ],
         },
     },
