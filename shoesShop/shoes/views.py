@@ -208,7 +208,7 @@ def product_detail(request, product_id):
     }
     return render(request, 'product.html', context)
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login')
 def cart_products(request,user_id):
     products = ShopBag.objects.filter(users__id = user_id) # kullanıcının sepete ekledikleri kullanıcı ismi, ürün ismi, number 
     all_categories = Category.objects.filter(level=0)

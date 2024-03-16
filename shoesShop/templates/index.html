@@ -54,19 +54,28 @@
                </li>
                <li class="nav-item mt-auto">
                 <div class="nav-link  pb-0">
-                   <a  href="{% url 'cart' request.user.id %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
-                      <i class="bi bi-cart3 fs-4 me-2 "></i>
-                      <div class="fs-5">Cart</div>
-                   </a>
+                  <a href="{% url 'cart' user.id|default_if_none:"0" %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                     <i class="bi bi-cart3 fs-4 me-2"></i>
+                     <div class="fs-5">Cart</div>
+                 </a>
+                 
                 </div>
              </li>
                 <!-- User -->
                <li class="nav-item my-auto">
                   <div class="nav-link  mt-0 pb-0" onclick="openModal()">
-                     <a  href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS ">
-                        <i class="bi bi-person-circle fs-4 me-2"></i>
-                        <div class="fs-5">{{request.user.username}}</div>
-                     </a>
+                     {% if request.user.is_authenticated %}
+                        <a href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                           <i class="bi bi-person-circle fs-4 me-2"></i>
+                           <div class="fs-5">{{ request.user.username }}</div>
+                        </a>
+                     {% else %}
+                        <a href="{% url 'login' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                           <i class="bi bi-box-arrow-in-right fs-4 me-2"></i>
+                           <div class="fs-5">Login</div>
+                        </a>
+                     {% endif %}
+
                   </div>
                </li>
              </ul>
@@ -134,12 +143,12 @@
      </div>
       <!--about section end -->
       <!--gallery section start -->
-      <div class="border-bottom pb-5 mt-5">
+      <div class="border-bottom pb-5 mt-5" style="background-color: bisque;">
          <div class="container">
             <div class="row">
-                <div class="col-12 pt-5"><h1>Categories</h1></div>
+                <div class="col-12 pt-5 mb-2"><h1>Categories</h1></div>
                 <div class="container">
-                    <div class="row">
+                    <div class="row pb-4">
                         <div class="col-4">
                            <a href="/shoes/categories/erkek" class="position-relative">
                               <img src="media/images/erkek.jpg" class="d-block w-100  rounded-2" style="height: 500px;" alt="">
@@ -207,7 +216,7 @@
       </div>
       <!--client section end -->
       <!--contact section start -->
-      <div class="contact_section layout_padding">
+      <div class="contact_section layout_padding" style="background-color: rgb(161, 138, 108);">
          <div class="container">
             <h1 class="touch_taital">Get In Touch</h1>
             <div class="contact_section_2">
@@ -241,28 +250,28 @@
          </div>
       </div>
       <!--contact section end -->
-<script>
-   $(document).ready(function(){
-    var nav = $('.s');
-    var navHeight = nav.outerHeight();
-    var lastScrollTop = 0;
-
-    $(window).scroll(function(){
-        var scrollTop = $(this).scrollTop();
-
-        if (scrollTop > lastScrollTop && scrollTop > navHeight){
-            // Scroll down
-            nav.removeClass('fixed-top bg-light');
-        } else {
-            // Scroll up
-            if (scrollTop + $(window).height() < $(document).height()) {
-                nav.addClass('fixed-top bg-light');
-            }
-        }
-        lastScrollTop = scrollTop;
-    });
-});
-</script>
+      <script>
+         $(document).ready(function(){
+          var nav = $('.s');
+          var navHeight = nav.outerHeight();
+          var lastScrollTop = 0;
+      
+          $(window).scroll(function(){
+              var scrollTop = $(this).scrollTop();
+      
+              if (scrollTop > lastScrollTop && scrollTop > navHeight){
+                  // Scroll down
+                  nav.removeClass('fixed-top bg-light');
+              } else {
+                  // Scroll up
+                  if (scrollTop + $(window).height() < $(document).height()) {
+                      nav.addClass('fixed-top bg-light');
+                  }
+              }
+              lastScrollTop = scrollTop;
+          });
+      });
+      </script>
 
 {% endblock %}
 
