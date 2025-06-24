@@ -1,4 +1,6 @@
 Shoes House - E-ticaret Ayakkabı Mağazası
+
+
 Proje Açıklaması
 Shoes House, Django ve Bootstrap kullanılarak geliştirilmiş bir e-ticaret ayakkabı mağazası uygulamasıdır. Kullanıcıların çeşitli ayakkabı ürünlerini görüntüleyebileceği, satın alabileceği ve hesap yönetimi yapabileceği bir platform sunar.
 
