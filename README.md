@@ -16,7 +16,7 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 
 ### 👟 Ürün Yönetimi
 - ✅ Kategoriye göre listeleme (Erkek / Kadın / Çocuk)
-- ✅ Filtreleme (renk, numara, topuk yüksekliği vs.)
+- ✅ Filtreleme (renk, numara, bilek yüksekliği vs.)
 - ✅ Sepete ekleme / çıkarma
 - ✅ Sipariş geçmişi & detayları
 
