@@ -33,8 +33,6 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 
 ## 🖼️ Ekran Görüntüleri
 
-## 🖼️ Ekran Görüntüleri
-
 ### 🏠 Ana Sayfa
 ![Ana Sayfa](screenshots/home.png)
 
