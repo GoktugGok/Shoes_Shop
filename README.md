@@ -108,7 +108,7 @@ Proje klasörüne gir
 
 Sanal ortam oluştur
    
-- python -m venv venv
+- python -m venv env
 
 Ortamı aktif et
    
