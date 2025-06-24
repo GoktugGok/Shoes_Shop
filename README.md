@@ -37,59 +37,61 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 Kategorilere ayrılmış ürünler, kampanyalar ve öne çıkan ayakkabılar.
 
 ![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/home2.png)
+![Ana Sayfa](screenshots/home3.png)
 
 ### 🔐 Giriş Sayfası  
 Kullanıcı e-posta ve şifre ile giriş formu.
 
-![Ana Sayfa](screenshots/home.png)
+![Giriş Sayfası](screenshots/login.png)
 
 ### 📝 Kayıt Sayfası  
 Yeni kullanıcı oluşturma ekranı.
 
-![Ana Sayfa](screenshots/home.png)
+![Kayıt Sayfası](screenshots/register.png)
 
 ### 🛒 Sepet  
 Kullanıcının sepete eklediği ürünleri ve toplam tutarı gösterir.
 
-![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/card.png)
 
 ### 💳 Ödeme Sayfası  
 Fatura bilgileri ve kredi kartı formu.
 
-![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/payment.png)
 
 ### 👤 Profil Sayfası  
 Kullanıcı bilgileri, adres ve şifre yönetimi.
 
-![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/profile.png)
 
 ### 🔎 Arama  
 Ürünler arasında isme göre arama yapılabilen sayfa.  
 > 🔍 Kullanıcılar ürün adı yazarak arama yapabilir.
 
-![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/search.png)
 
 ### 📦 Sipariş Geçmişi (My Orders)  
 Kullanıcının daha önce verdiği siparişlerin listelendiği sayfa.  
 > 📋 Sipariş numarası, tarih, toplam tutar ve durumu gösterilir.
 
-![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/orders.png)
 
 ### 👟 Ürün Detay Sayfası  
 Seçilen ürünün büyük görseli, açıklaması, fiyatı ve sepete ekleme butonu.  
-> 🧾 Numara, renk, stok durumu gibi bilgiler içerir.
+> 🧾 Numara, renk bilgileri içerir. Satın alan kullanıcılar yorum yapabilir ve puan verebilir.
 
-![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/porduct-detail.png)
 
 ### 📬 İletişim  
 Müşteri mesaj formu ve iletişim bilgileri.
 
-![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/home4.png)
 
 ### 🛠️ Admin Panel  
 Ürünleri, siparişleri ve kullanıcıları yöneten yönetici ekranı.
 
-![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/admin.png)
 
 
 ---
