@@ -6,6 +6,7 @@ Shoes House, Django ve Bootstrap kullanılarak geliştirilmiş bir e-ticaret aya
 
 Özellikler
 Kullanıcı İşlemleri
+
 ✅ Kullanıcı girişi ve kayıt sistemi
 
 ✅ Şifre doğrulama
@@ -15,6 +16,7 @@ Kullanıcı İşlemleri
 ✅ Çıkış yapma
 
 Ürün Yönetimi
+
 ✅ Kategorilere göre ayakkabı görüntüleme (Erkek/Kadın/Çocuk)
 
 ✅ Filtreleme seçenekleri (renk, numara, yükseklik)
@@ -24,6 +26,7 @@ Kullanıcı İşlemleri
 ✅ Sipariş takibi
 
 Ödeme Sistemi
+
 ✅ Kredi kartı ile ödeme
 
 ✅ Fatura adresi yönetimi
@@ -31,6 +34,7 @@ Kullanıcı İşlemleri
 ✅ Sipariş özeti görüntüleme
 
 İletişim
+
 ✅ Müşteri mesajları
 
 ✅ İletişim formu
