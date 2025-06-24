@@ -40,22 +40,22 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 
 ## ⚙️ Kurulum
 
-git clone https://github.com/GoktugGok/Shoes_Shop.git
+- git clone https://github.com/GoktugGok/Shoes_Shop.git
 
-cd shoes-house
+- cd shoes-house
 
-python -m venv venv
+- python -m venv venv
 
-Windows: venv\Scripts\activate
+- Windows: venv\Scripts\activate
 
-Mac/Linux: source venv/bin/activate
+- Mac/Linux: source venv/bin/activate
 
 
-python manage.py migrate
+- python manage.py migrate
 
-python manage.py createsuperuser  # (Opsiyonel)
+- python manage.py createsuperuser  # (Opsiyonel)
 
-python manage.py runserver
+- python manage.py runserver
 
 
 
