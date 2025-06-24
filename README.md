@@ -33,32 +33,42 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 
 ## 🖼️ Ekran Görüntüleri
 
-### 🏠 Ana Sayfa
-![Ana Sayfa](screenshots/home.png)
+### 🏠 Ana Sayfa  
+Kategorilere ayrılmış ürünler, kampanyalar ve öne çıkan ayakkabılar.
 
-### 🔐 Giriş Sayfası
-![Giriş Sayfası](screenshots/login.png)
+### 🔐 Giriş Sayfası  
+Kullanıcı e-posta ve şifre ile giriş formu.
 
-### 📝 Kayıt Sayfası
-![Kayıt Sayfası](screenshots/register.png)
+### 📝 Kayıt Sayfası  
+Yeni kullanıcı oluşturma ekranı.
 
-### 🛒 Sepet
-![Sepet](screenshots/cart.png)
+### 🛒 Sepet  
+Kullanıcının sepete eklediği ürünleri ve toplam tutarı gösterir.
 
-### 💳 Ödeme Sayfası
-![Ödeme](screenshots/payment.png)
+### 💳 Ödeme Sayfası  
+Fatura bilgileri ve kredi kartı formu.
 
-### 👤 Profil Sayfası
-![Profil](screenshots/profile.png)
+### 👤 Profil Sayfası  
+Kullanıcı bilgileri, adres ve şifre yönetimi.
 
-### 👟 Ürün Listesi
-![Ürün Listesi](screenshots/products.png)
+### 🔎 Arama  
+Ürünler arasında isme göre arama yapılabilen sayfa.  
+> 🔍 Kullanıcılar ürün adı yazarak arama yapabilir.
 
-### 📬 İletişim
-![İletişim](screenshots/contact.png)
+### 📦 Sipariş Geçmişi (My Orders)  
+Kullanıcının daha önce verdiği siparişlerin listelendiği sayfa.  
+> 📋 Sipariş numarası, tarih, toplam tutar ve durumu gösterilir.
 
-### 🛠️ Admin Panel
-![Admin Panel](screenshots/admin.png)
+### 👟 Ürün Detay Sayfası  
+Seçilen ürünün büyük görseli, açıklaması, fiyatı ve sepete ekleme butonu.  
+> 🧾 Numara, renk, stok durumu gibi bilgiler içerir.
+
+### 📬 İletişim  
+Müşteri mesaj formu ve iletişim bilgileri.
+
+### 🛠️ Admin Panel  
+Ürünleri, siparişleri ve kullanıcıları yöneten yönetici ekranı.
+
 
 
 ---
