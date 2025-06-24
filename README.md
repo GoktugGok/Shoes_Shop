@@ -79,7 +79,7 @@ Kullanıcının daha önce verdiği siparişlerin listelendiği sayfa.
 Seçilen ürünün büyük görseli, açıklaması, fiyatı ve sepete ekleme butonu.  
 > 🧾 Numara, renk, stok durumu gibi bilgiler içerir.
 
-![Ana Sayfa](screenshots/product-detail.png)
+![Ana Sayfa](screenshots/porduct-detail.png)
 
 ### 📬 İletişim  
 Müşteri mesaj formu ve iletişim bilgileri.
