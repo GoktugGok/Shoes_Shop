@@ -48,9 +48,8 @@ python -m venv venv
 # Mac/Linux: source venv/bin/activate
 
 pip install -r requirements.txt
-
 python manage.py migrate
-python manage.py createsuperuser   # (Opsiyonel)
+python manage.py createsuperuser  # (Opsiyonel)
 
 python manage.py runserver
 
