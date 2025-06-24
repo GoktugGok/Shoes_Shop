@@ -77,7 +77,7 @@ Kullanıcının daha önce verdiği siparişlerin listelendiği sayfa.
 
 ### 👟 Ürün Detay Sayfası  
 Seçilen ürünün büyük görseli, açıklaması, fiyatı ve sepete ekleme butonu.  
-> 🧾 Numara, renk, stok durumu gibi bilgiler içerir.
+> 🧾 Numara, renk bilgileri içerir. Satın alan kullanıcılar yorum yapabilir ve puan verebilir.
 
 ![Ana Sayfa](screenshots/porduct-detail.png)
 
