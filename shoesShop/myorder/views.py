@@ -9,8 +9,10 @@ def myorder(request):
     user = User.objects.get(id=request.user.id)
     orders = UserOrder.objects.filter(users=user)
     categories = Category.objects.all()
+    all_categories = Category.objects.filter(level=0)
     productD = []
     for order in orders:
+        print(order.productB)
         product = ShoesDetail.objects.get(name=order.productB)
         paycardNumber = order.paycardNumber
         
@@ -50,6 +52,7 @@ def myorder(request):
     context = {
         'categories':categories,
         'orders':orders,
-        'productD':productD
+        'productD':productD,
+        'all_categories':all_categories
     }
     return render(request, 'myOrders.html',context)

@@ -208,7 +208,7 @@ def product_detail(request, product_id):
     }
     return render(request, 'product.html', context)
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login')
 def cart_products(request,user_id):
     products = ShopBag.objects.filter(users__id = user_id) # kullanıcının sepete ekledikleri kullanıcı ismi, ürün ismi, number 
     all_categories = Category.objects.filter(level=0)
@@ -233,11 +233,11 @@ def cart_products(request,user_id):
 
     Delivery_Cost = 150 if shoe else 0  # Eğer ürün yoksa kargo bedeli 0 olacak
     total_prices = total_price
-    if total_prices < 5000 and Delivery_Cost != 'free':
+    if total_prices < 5000 and Delivery_Cost != '0 ':
         total_prices += Delivery_Cost
         Total = total_prices
     else:
-        Delivery_Cost = 'free'
+        Delivery_Cost = '0 '
         Total = total_prices
         
     print(Delivery_Cost)
@@ -285,7 +285,7 @@ def payment_information(request, user_id):
             deliveryPrice = total
         else:
             print('kargo beles')
-            deliveryPrice = 'free'
+            deliveryPrice = '0'
 
         pay = PayDetail.objects.create(user=user,price=total,name=name,email=email,address=address,cardNumber=card_number,day=day,year=year,clv=clv)
 
