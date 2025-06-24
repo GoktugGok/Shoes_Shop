@@ -40,7 +40,33 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 
 ## ⚙️ Kurulum
 
-### 🔻 Repo'yu Klonla:
-```bash
+# 1. Repoyu Klonla
 git clone https://github.com/kullaniciadi/shoes-house.git
 cd shoes-house
+
+# 2. Sanal Ortam Oluştur ve Aktif Et
+# Windows:
+python -m venv venv
+venv\Scripts\activate
+
+# Mac/Linux:
+python3 -m venv venv
+source venv/bin/activate
+
+# 3. Gereksinimleri Yükle
+pip install -r requirements.txt
+
+# 4. Veritabanını Hazırla
+python manage.py migrate
+
+# 5. Admin Kullanıcısı Oluştur (opsiyonel ama tavsiye edilir 😎)
+python manage.py createsuperuser
+
+# 6. Sunucuyu Başlat
+python manage.py runserver
+
+# Tarayıcıya yaz:
+# http://127.0.0.1:8000/
+# http://127.0.0.1:8000/admin/
+
+
