@@ -63,7 +63,7 @@ class GendersAdmin(admin.ModelAdmin):
 
 @admin.register(ShoeHeight)
 class ShoeHeightAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug':('name',)}\
+    prepopulated_fields = {'slug':('name',)}
     
 @admin.register(ShoesNumbers)
 class ShoesNumbersAdmin(admin.ModelAdmin):

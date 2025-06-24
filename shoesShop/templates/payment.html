@@ -28,33 +28,90 @@ textarea.address:focus,
 
 </style>
 <body>
-    <div class="header_section " style="background-image: none;">
-        <div class="container-fluid " style="height: 100%; width: 100%; background-color: black;">
-            <div class="d-flex justify-content-between align-items-center pb-1">
-               <div class=""><a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"></a></div>
-               <div class="number_text mt-1">No<br><span style="color: #fff;">01</span></div>
-               <div class=" "><a class="class=" openbtn="" onclick="openNav()"><img src="{% static 'images/toggle-icon.png' %}" class="p-1 rounded " style="max-width: 100%;background-color: black;"></a></div>
-            </div>
-            <div class="">
-                <div id="mySidebar" class="sidebar z-3">
-                   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
-                   <a href="{% url 'index' %}">Home</a>
-                   <a href="{% url 'about' %}">About</a>
-                   <a href="{% url 'gallery' %}">Gallery</a>
-                   <a href="{% url 'news' %}">News</a>
-                   <a href="{% url 'testimonial' %}">Testimonial</a>
-                   <a href="{% url 'contact' %}">Contact</a>
-                   <a href="{% url 'cart' request.user.id %}">Bag</a>
-                    {% if user.is_authenticated %}
-                       <a href="{% url 'logout' %}">Logout</a>
-                    {% else %}
-                       <a href="{% url 'login' %}">Login</a>
-                    {% endif %}
-                </div>
+    <div class="s">
+        <nav class="navbar navbar-expand-lg ">
+           <div class="container-fluid">
+             <a class="navbar-brand text-warning fs-2 osuc" href="{% url 'index' %}">Shoes House</a>
+             <button class="navbar-toggler bg-warning "  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="bi bi-list text-dark fs-5"></i>
+             </button>
+             <div class="collapse navbar-collapse " id="navbarSupportedContent">
+              <!-- Categories 
+              <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
+                    <div class="p-0 m-0 category fs-5">Categories</div>
+              </button>
+              <div id="myModal" class="modal">
+                 <div class="modal-content">
+                    <span class="close-btn fs-2 text-end  mb-1" onclick="closeModal()">
+                       <i class="bi bi-x-circle "></i>
+                    </span>
+                    <div class="container-fluid">
+                       <div class="row text-center">
+                           <a href="{% url 'myorder' %}" class="h3 categoryHover">MyOrder</a>
+                          <a href="{% url 'user_update' %}" class="h3 categoryHover">Profile</a>
+                          <h3>Favorite</h3>
+                       </div>
+                    </div>
+                 </div>
+              </div>-->
+                <!-- Cart -->
+               <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
+                 <li class="nav-item mt-auto">
+                    <div class="nav-link  pb-0">
+                       <a href="{% url 'myorder' %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
+                           <i class="bi bi-archive fs-4 me-2"></i>
+                           <div class="fs-5">MyOrder</div>
+                       </a>
+                    </div>
+                 </li>
+                 <li class="nav-item mt-auto">
+                  <div class="nav-link  pb-0">
+                    <a href="{% url 'cart' user.id|default_if_none:"0" %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                       <i class="bi bi-cart3 fs-4 me-2"></i>
+                       <div class="fs-5">Cart</div>
+                   </a>
+                   
+                  </div>
+               </li>
+                  <!-- User -->
+                 <li class="nav-item my-auto">
+                    <div class="nav-link  mt-0 pb-0" onclick="openModal()">
+                       {% if request.user.is_authenticated %}
+                          <a href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                             <i class="bi bi-person-circle fs-4 me-2"></i>
+                             <div class="fs-5">{{ request.user.username }}</div>
+                          </a>
+                       {% else %}
+                          <a href="{% url 'login' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                             <i class="bi bi-box-arrow-in-right fs-4 me-2"></i>
+                             <div class="fs-5">Login</div>
+                          </a>
+                       {% endif %}
+  
+                    </div>
+                 </li>
+               </ul>
+         
+               <!-- Search -->
+               <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4  ">
+                 <form id="searchId" class="d-flex w-100 border rounded-5 shadow-lg searchId" role="search">
+                   {% csrf_token %}
+                   <i class="bi bi-search p-1 fs-4 mx-2"></i>
+                   <input class="me-2 border-0 rounded-5 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
+                 </form>
+                 <ul id="searchResults"class=" rounded-bottom-3 p-0 visually-hidden-focusable position-absolute top-0 start-0 bg-light z-3  border border-warning SearchResults mt-5 " >
+                 </ul>
+               </div>
+             </div>
            </div>
-         </div>
-
-     </div>
+         </nav>
+           <div class="d-flex justify-content-center border align-items-center  ">
+           {% for all_category in all_categories %}
+              <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2 categoryHover">{{all_category.title}}</a>
+           {% endfor %}
+           </div>
+    </div>
         <div class="container-fluid">
             <div class="row">
                 <form method="POST" class="paymentForm">
