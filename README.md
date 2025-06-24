@@ -37,6 +37,8 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 Kategorilere ayrılmış ürünler, kampanyalar ve öne çıkan ayakkabılar.
 
 ![Ana Sayfa](screenshots/home.png)
+![Ana Sayfa](screenshots/home2.png)
+![Ana Sayfa](screenshots/home3.png)
 
 ### 🔐 Giriş Sayfası  
 Kullanıcı e-posta ve şifre ile giriş formu.
