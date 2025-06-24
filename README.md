@@ -40,7 +40,7 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 
 ## ⚙️ Kurulum
 
-git clone https://github.com/kullaniciadi/shoes-house.git
+git clone https://github.com/GoktugGok/Shoes_Shop.git
 cd shoes-house
 
 python -m venv venv
