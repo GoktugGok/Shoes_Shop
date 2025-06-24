@@ -98,41 +98,41 @@ Müşteri mesaj formu ve iletişim bilgileri.
 
 ## ⚙️ Kurulum
 
-1. Repoyu klonla
+Repoyu klonla
    
-git clone https://github.com/GoktugGok/Shoes_Shop.git
+- git clone https://github.com/GoktugGok/Shoes_Shop.git
 
-3. Proje klasörüne gir
+Proje klasörüne gir
    
-cd Shoes_Shop
+- cd Shoes_Shop
 
-5. Sanal ortam oluştur
+Sanal ortam oluştur
    
-python -m venv venv
+- python -m venv venv
 
-7. Ortamı aktif et
+Ortamı aktif et
    
-Windows:
+- Windows:
 venv\Scripts\activate
 
-Mac/Linux:
+- Mac/Linux:
 source venv/bin/activate
 
-5. Gereksinimleri yükle
+Gereksinimleri yükle
    
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
-6. Veritabanını oluştur
+Veritabanını oluştur
    
-python manage.py migrate
+- python manage.py migrate
 
-7. (Opsiyonel) Admin kullanıcısı oluştur
+(Opsiyonel) Admin kullanıcısı oluştur
    
-python manage.py createsuperuser
+- python manage.py createsuperuser
 
-8. Sunucuyu çalıştır
+Sunucuyu çalıştır
    
-python manage.py runserver
+- python manage.py runserver
 
 
 
