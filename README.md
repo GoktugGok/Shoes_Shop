@@ -21,7 +21,7 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 - ✅ Sipariş geçmişi & detayları
 
 ### 💳 Ödeme Sistemi
-- ✅ Kredi kartı ile ödeme (dummy)
+- ✅ Kredi kartı ile ödeme
 - ✅ Fatura adresi düzenleme
 - ✅ Sipariş özeti
 
@@ -35,6 +35,7 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 
 ### 🏠 Ana Sayfa  
 Kategorilere ayrılmış ürünler, kampanyalar ve öne çıkan ayakkabılar.
+![Ana Sayfa](screenshots/home.png)
 
 ### 🔐 Giriş Sayfası  
 Kullanıcı e-posta ve şifre ile giriş formu.
