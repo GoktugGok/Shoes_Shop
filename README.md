@@ -41,8 +41,9 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 ## ⚙️ Kurulum
 
 # 1. Repoyu Klonla
-git clone https://github.com/GoktugGok/Shoes_Shop.git
-cd shoes-house
+- git clone https://github.com/GoktugGok/Shoes_Shop.git
+
+- cd shoes-house
 
 # 2. Sanal Ortam Oluştur ve Aktif Et
 # Windows:
