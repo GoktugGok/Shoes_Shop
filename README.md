@@ -1,75 +1,46 @@
-Shoes House - E-ticaret Ayakkabı Mağazası
+# 👟 Shoes House – E-Ticaret Ayakkabı Mağazası
 
+**Shoes House**, Django ve Bootstrap kullanılarak geliştirilmiş bir e-ticaret platformudur.  
+Kullanıcılar ayakkabıları inceleyebilir, sepete ekleyebilir, sipariş verebilir ve hesaplarını yönetebilir.  
+Görsel olarak şık, yapısal olarak sağlam! 😎💼
 
-Proje Açıklaması
-Shoes House, Django ve Bootstrap kullanılarak geliştirilmiş bir e-ticaret ayakkabı mağazası uygulamasıdır. Kullanıcıların çeşitli ayakkabı ürünlerini görüntüleyebileceği, satın alabileceği ve hesap yönetimi yapabileceği bir platform sunar.
+---
 
-Özellikler
-Kullanıcı İşlemleri
+## ✨ Özellikler
 
-✅ Kullanıcı girişi ve kayıt sistemi
+### 👤 Kullanıcı İşlemleri
+- ✅ Kayıt & Giriş sistemi
+- ✅ Şifre doğrulama & güncelleme
+- ✅ Profil bilgileri düzenleme
+- ✅ Güvenli çıkış yapma
 
-✅ Şifre doğrulama
+### 👟 Ürün Yönetimi
+- ✅ Kategoriye göre listeleme (Erkek / Kadın / Çocuk)
+- ✅ Filtreleme (renk, numara, topuk yüksekliği vs.)
+- ✅ Sepete ekleme / çıkarma
+- ✅ Sipariş geçmişi & detayları
 
-✅ Profil bilgileri yönetimi
+### 💳 Ödeme Sistemi
+- ✅ Kredi kartı ile ödeme (dummy)
+- ✅ Fatura adresi düzenleme
+- ✅ Sipariş özeti
 
-✅ Çıkış yapma
+### ✉️ İletişim
+- ✅ Müşteri mesaj sistemi
+- ✅ İletişim formu
 
-Ürün Yönetimi
+---
 
-✅ Kategorilere göre ayakkabı görüntüleme (Erkek/Kadın/Çocuk)
+## 🖼️ Ekran Görüntüleri
 
-✅ Filtreleme seçenekleri (renk, numara, yükseklik)
+> 📸 *Buraya uygulamanın birkaç ekran görüntüsünü koyarsan şov olur!*  
+> Örn: `assets/screens/homepage.png`, `cart.png`, `admin-panel.png` gibi
 
-✅ Sepet işlemleri
+---
 
-✅ Sipariş takibi
+## ⚙️ Kurulum
 
-Ödeme Sistemi
-
-✅ Kredi kartı ile ödeme
-
-✅ Fatura adresi yönetimi
-
-✅ Sipariş özeti görüntüleme
-
-İletişim
-
-✅ Müşteri mesajları
-
-✅ İletişim formu
-
-Ekran Görüntüleri
-
-Kurulum
-Repoyu klonlayın:
-
-bash
+### 🔻 Repo'yu Klonla:
+```bash
 git clone https://github.com/kullaniciadi/shoes-house.git
 cd shoes-house
-Sanal ortam oluşturun ve etkinleştirin:
-
-bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate  # Windows
-Gerekli paketleri yükleyin:
-
-bash
-pip install -r requirements.txt
-Veritabanını oluşturun:
-
-bash
-python manage.py migrate
-Geliştirme sunucusunu başlatın:
-
-bash
-python manage.py runserver
-Kullanılan Teknolojiler
-Backend: Django
-
-Frontend: Bootstrap, HTML, CSS
-
-Veritabanı: SQLite (geliştirme), PostgreSQL (production)
-
-Diğer: jQuery (etkileşimler için)
