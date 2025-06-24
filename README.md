@@ -33,8 +33,35 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 
 ## 🖼️ Ekran Görüntüleri
 
-> 📸 *Buraya uygulamanın birkaç ekran görüntüsünü koyarsan şov olur!*  
-> Örn: `assets/screens/homepage.png`, `cart.png`, `admin-panel.png` gibi
+## 🖼️ Ekran Görüntüleri
+
+### 🏠 Ana Sayfa
+![Ana Sayfa](screenshots/home.png)
+
+### 🔐 Giriş Sayfası
+![Giriş Sayfası](screenshots/login.png)
+
+### 📝 Kayıt Sayfası
+![Kayıt Sayfası](screenshots/register.png)
+
+### 🛒 Sepet
+![Sepet](screenshots/cart.png)
+
+### 💳 Ödeme Sayfası
+![Ödeme](screenshots/payment.png)
+
+### 👤 Profil Sayfası
+![Profil](screenshots/profile.png)
+
+### 👟 Ürün Listesi
+![Ürün Listesi](screenshots/products.png)
+
+### 📬 İletişim
+![İletişim](screenshots/contact.png)
+
+### 🛠️ Admin Panel
+![Admin Panel](screenshots/admin.png)
+
 
 ---
 
