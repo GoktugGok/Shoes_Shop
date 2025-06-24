@@ -41,7 +41,7 @@ Görsel olarak şık, yapısal olarak sağlam! 😎💼
 ## ⚙️ Kurulum
 
 # 1. Repoyu Klonla
-git clone https://github.com/kullaniciadi/shoes-house.git
+git clone https://github.com/GoktugGok/Shoes_Shop.git
 cd shoes-house
 
 # 2. Sanal Ortam Oluştur ve Aktif Et
@@ -52,9 +52,6 @@ venv\Scripts\activate
 # Mac/Linux:
 python3 -m venv venv
 source venv/bin/activate
-
-# 3. Gereksinimleri Yükle
-pip install -r requirements.txt
 
 # 4. Veritabanını Hazırla
 python manage.py migrate
