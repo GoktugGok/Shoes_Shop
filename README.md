@@ -1,116 +1,116 @@
-# 👟 Shoes House – E-Ticaret Ayakkabı Mağazası
+# 👟 Shoes House – E-Commerce Shoe Store
 
-**Shoes House**, Django ve Bootstrap kullanılarak geliştirilmiş bir e-ticaret platformudur.  
-Kullanıcılar ayakkabıları inceleyebilir, sepete ekleyebilir, sipariş verebilir ve hesaplarını yönetebilir.  
-Görsel olarak şık, yapısal olarak sağlam! 😎💼
+**Shoes House**, Shoes House is an e-commerce platform developed using Django and Bootstrap.
+Users can browse shoes, add them to cart, place orders, and manage their accounts.
+Visually elegant, structurally solid! 😎💼
 
 ---
 
-## ✨ Özellikler
+## ✨ Features
 
-### 👤 Kullanıcı İşlemleri
-- ✅ Kayıt & Giriş sistemi
+### 👤 User Operations
+- ✅ Registration & Login system
 - ✅ Şifre doğrulama & güncelleme
-- ✅ Profil bilgileri düzenleme
-- ✅ Güvenli çıkış yapma
+- ✅ Edit profile information
+- ✅ Secure logout
 
-### 👟 Ürün Yönetimi
-- ✅ Kategoriye göre listeleme (Erkek / Kadın / Çocuk)
-- ✅ Filtreleme (renk, numara, bilek yüksekliği vs.)
-- ✅ Sepete ekleme / çıkarma
-- ✅ Sipariş geçmişi & detayları
+### 👟 Product Management
+- ✅ Listing by category (Men / Women / Kids)
+- ✅ Filtering (color, size, ankle height, etc.)
+- ✅ Add/remove from cart
+- ✅ Order history & details
 
-### 💳 Ödeme Sistemi
-- ✅ Kredi kartı ile ödeme
-- ✅ Fatura adresi düzenleme
-- ✅ Sipariş özeti
+### 💳 Payment System
+- ✅ Credit card payment
+- ✅ Edit billing address
+- ✅ Order summary
 
-### ✉️ İletişim
-- ✅ Müşteri mesaj sistemi
-- ✅ İletişim formu
+### ✉️ Contact
+- ✅ Customer message system
+- ✅ Contact form
 
 ---
 
-## 🖼️ Ekran Görüntüleri
+## 🖼️ Screenshots
 
-### 🏠 Ana Sayfa  
-Kategorilere ayrılmış ürünler, kampanyalar ve öne çıkan ayakkabılar.
+### 🏠 Home Page  
+Categorized products, campaigns, and featured shoes.
 
 ![Ana Sayfa](screenshots/home.png)
 ![Ana Sayfa](screenshots/home2.png)
 ![Ana Sayfa](screenshots/home3.png)
 
-### 🔐 Giriş Sayfası  
-Kullanıcı e-posta ve şifre ile giriş formu.
+### 🔐 Login Page  
+User login form with email and password.
 
 ![Giriş Sayfası](screenshots/login.png)
 
-### 📝 Kayıt Sayfası  
-Yeni kullanıcı oluşturma ekranı.
+### 📝 Register Page  
+New user registration screen.
 
 ![Kayıt Sayfası](screenshots/register.png)
 
-### 🛒 Sepet  
-Kullanıcının sepete eklediği ürünleri ve toplam tutarı gösterir.
+### 🛒 Cart  
+Shows products added to cart and total amount.
 
 ![Ana Sayfa](screenshots/card.png)
 
-### 💳 Ödeme Sayfası  
-Fatura bilgileri ve kredi kartı formu.
+### 💳 Payment Page  
+Billing information and credit card form.
 
 ![Ana Sayfa](screenshots/payment.png)
 
-### 👤 Profil Sayfası  
-Kullanıcı bilgileri, adres ve şifre yönetimi.
+### 👤 Profile Page
+User information, address, and password management.
 
 ![Ana Sayfa](screenshots/profile.png)
 
-### 🔎 Arama  
-Ürünler arasında isme göre arama yapılabilen sayfa.  
-> 🔍 Kullanıcılar ürün adı yazarak arama yapabilir.
+### 🔎 Search 
+Page allowing product search by name.
+> 🔍 Users can search by product name.
 
 ![Ana Sayfa](screenshots/search.png)
 
-### 📦 Sipariş Geçmişi (My Orders)  
-Kullanıcının daha önce verdiği siparişlerin listelendiği sayfa.  
-> 📋 Sipariş numarası, tarih, toplam tutar ve durumu gösterilir.
+### 📦 Order History (My Orders)  
+Page listing user's previous orders.
+> 📋 Displays order number, date, total amount, and status.
 
 ![Ana Sayfa](screenshots/orders.png)
 
-### 👟 Ürün Detay Sayfası  
-Seçilen ürünün büyük görseli, açıklaması, fiyatı ve sepete ekleme butonu.  
-> 🧾 Numara, renk bilgileri içerir. Satın alan kullanıcılar yorum yapabilir ve puan verebilir.
+### 👟 Product Detail Page
+Large image, description, price, and add-to-cart button for selected product.  
+> 🧾 Includes size and color information. Purchasing users can leave reviews and ratings.
 
 ![Ana Sayfa](screenshots/porduct-detail.png)
 
-### 📬 İletişim  
-Müşteri mesaj formu ve iletişim bilgileri.
+### 📬 Contact  
+Customer message form and contact information.
 
 ![Ana Sayfa](screenshots/home4.png)
 
 ### 🛠️ Admin Panel  
-Ürünleri, siparişleri ve kullanıcıları yöneten yönetici ekranı.
+Administrator screen for managing products, orders, and users.
 
 ![Ana Sayfa](screenshots/admin.png)
 
 
 ---
 
-## ⚙️ Kurulum
+## ⚙️ Installation
 
-Repoyu klonla
+Clone the repository
    
 - git clone https://github.com/GoktugGok/Shoes_Shop.git
 
-Proje klasörüne gir
+Enter the project folder
    
 - cd Shoes_Shop
 
-Sanal ortam oluştur
+Create virtual environment
    
 - python -m venv env
 
-Ortamı aktif et
+Activate environment
    
 - Windows:
 venv\Scripts\activate
@@ -118,19 +118,19 @@ venv\Scripts\activate
 - Mac/Linux:
 source venv/bin/activate
 
-Gereksinimleri yükle
+Install requirements
    
 - pip install -r requirements.txt
 
-Veritabanını oluştur
+Create database
    
 - python manage.py migrate
 
-(Opsiyonel) Admin kullanıcısı oluştur
+(Optional) Create admin user
    
 - python manage.py createsuperuser
 
-Sunucuyu çalıştır
+Run server
    
 - python manage.py runserver
 
