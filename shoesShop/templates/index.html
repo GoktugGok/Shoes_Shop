@@ -4,75 +4,174 @@
 
 {% block content %}
 <style>
-    .carousel-inner-wrapper {
-            overflow-x: auto;
-            white-space: nowrap; /* Yatay kaydırma için gerekli */
-        }
+    :root {
+        --primary-color: #334155;
+        --accent-color: #0d9488;
+        --secondary-color: #64748b;
+        --dark-bg: #0f172a;
+        --light-bg: #f1f5f9;
+        --text-dark: #0f172a;
+        --text-light: #64748b;
+        --border-color: #cbd5e1;
+    }
 
-        .carousel-control-prev,
-        .carousel-control-next {
-            color: black; /* Button rengi */
-        }
+    * {
+        transition: all 0.3s ease;
+    }
+
+    /* Navbar Styles */
+    .s {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .navbar {
+        padding: 1.2rem 0;
+    }
+
+    .navbar-brand {
+        color: var(--primary-color) !important;
+        font-weight: 800;
+        font-size: 1.8rem !important;
+        letter-spacing: -0.5px;
+    }
+
+    .navbar-toggler {
+        background: var(--accent-color) !important;
+        border: none;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .nav-itemS {
+        color: var(--text-dark) !important;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .nav-itemS:hover {
+        background: rgba(13, 148, 136, 0.1);
+        color: var(--accent-color) !important;
+    }
+
+    /* Search Bar */
+    .searchId {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 2px solid var(--border-color) !important;
+        box-shadow: 0 4px 15px rgba(51, 65, 85, 0.08) !important;
+        border-radius: 12px !important;
+        padding: 0.75rem 1rem;
+    }
+
+    .searchId:focus-within {
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15) !important;
+    }
+
+    .searchId input {
+        color: var(--text-dark);
+    }
+
+    .searchId input::placeholder {
+        color: var(--text-light);
+    }
+
+    .SearchResults {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 1) !important;
+        border: 1px solid var(--border-color) !important;
+    }
+
+    /* Category Tabs */
+    .categoryHover {
+        color: var(--text-dark) !important;
+        font-weight: 600;
+        padding: 0.8rem 1.5rem !important;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .categoryHover::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: var(--accent-color);
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+    }
+
+    .categoryHover:hover {
+        background: rgba(13, 148, 136, 0.1);
+        color: var(--accent-color) !important;
+    }
+
+    .categoryHover:hover::after {
+        width: 80%;
+    }
+
+    .carousel-inner-wrapper {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        opacity: 0.8;
+    }
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        opacity: 1;
+    }
 </style>
       <!--header section start -->
       <div class="s">
-      <nav class="navbar navbar-expand-lg ">
+      <nav class="navbar navbar-expand-lg">
          <div class="container-fluid">
-           <a class="navbar-brand text-warning fs-2 osuc" href="{% url 'index' %}">Shoes House</a>
-           <button class="navbar-toggler bg-warning "  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="bi bi-list text-dark fs-5"></i>
+           <a class="navbar-brand" href="{% url 'index' %}">Shoes House</a>
+           <button class="navbar-toggler" type="button" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list text-white fs-5"></i>
            </button>
            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <!-- Categories 
-            <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
-                  <div class="p-0 m-0 category fs-5">Categories</div>
-            </button>
-            <div id="myModal" class="modal">
-               <div class="modal-content">
-                  <span class="close-btn fs-2 text-end  mb-1" onclick="closeModal()">
-                     <i class="bi bi-x-circle "></i>
-                  </span>
-                  <div class="container-fluid">
-                     <div class="row text-center">
-                         <a href="{% url 'myorder' %}" class="h3 categoryHover">MyOrder</a>
-                        <a href="{% url 'user_update' %}" class="h3 categoryHover">Profile</a>
-                        <h3>Favorite</h3>
-                     </div>
-                  </div>
-               </div>
-            </div>-->
               <!-- Cart -->
              <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
                <li class="nav-item mt-auto">
-                  <div class="nav-link  pb-0">
-                     <a href="{% url 'myorder' %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
-                         <i class="bi bi-archive fs-4 me-2"></i>
-                         <div class="fs-5">MyOrder</div>
+                  <div class="nav-link pb-0">
+                     <a href="{% url 'myorder' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                         <i class="bi bi-archive fs-5 me-2"></i>
+                         <div class="fs-6">MyOrder</div>
                      </a>
                   </div>
                </li>
                <li class="nav-item mt-auto">
-                <div class="nav-link  pb-0">
+                <div class="nav-link pb-0">
                   <a href="{% url 'cart' user.id|default_if_none:"0" %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                     <i class="bi bi-cart3 fs-4 me-2"></i>
-                     <div class="fs-5">Cart</div>
+                     <i class="bi bi-cart3 fs-5 me-2"></i>
+                     <div class="fs-6">Cart</div>
                  </a>
-                 
                 </div>
              </li>
                 <!-- User -->
                <li class="nav-item my-auto">
-                  <div class="nav-link  mt-0 pb-0" onclick="openModal()">
+                  <div class="nav-link mt-0 pb-0">
                      {% if request.user.is_authenticated %}
                         <a href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                           <i class="bi bi-person-circle fs-4 me-2"></i>
-                           <div class="fs-5">{{ request.user.username }}</div>
+                           <i class="bi bi-person-circle fs-5 me-2"></i>
+                           <div class="fs-6">{{ request.user.username }}</div>
                         </a>
                      {% else %}
                         <a href="{% url 'login' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                           <i class="bi bi-box-arrow-in-right fs-4 me-2"></i>
-                           <div class="fs-5">Login</div>
+                           <i class="bi bi-box-arrow-in-right fs-5 me-2"></i>
+                           <div class="fs-6">Login</div>
                         </a>
                      {% endif %}
 
@@ -81,181 +180,237 @@
              </ul>
        
              <!-- Search -->
-             <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4  ">
-               <form id="searchId" class="d-flex w-100 border rounded-5 shadow-lg searchId" role="search">
+             <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4">
+               <form id="searchId" class="d-flex w-100 searchId" role="search">
                  {% csrf_token %}
-                 <i class="bi bi-search p-1 fs-4 mx-2"></i>
-                 <input class="me-2 border-0 rounded-5 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
+                 <i class="bi bi-search p-1 fs-5 mx-2" style="color: #0d9488;"></i>
+                 <input class="border-0 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search shoes..." oninput="getSearchResults()" aria-label="Search" style="background: transparent; color: var(--text-dark);">
                </form>
-               <ul id="searchResults"class=" rounded-bottom-3 p-0 visually-hidden-focusable position-absolute top-0 start-0 bg-light z-3  border border-warning SearchResults mt-5 " >
+               <ul id="searchResults" class="rounded-3 p-0 position-absolute top-100 start-0 bg-white z-3 border SearchResults mt-2 w-100" style="box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
                </ul>
              </div>
            </div>
          </div>
        </nav>
-         <div class="d-flex justify-content-center border align-items-center  ">
+         <div class="d-flex justify-content-center border-bottom align-items-center py-3" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 100%);">
          {% for all_category in all_categories %}
-            <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2 categoryHover">{{all_category.title}}</a>
+            <a href="{% url 'gallery_by_category' all_category.slug %}" class="h6 text-center ms-3 ms-lg-4 mb-0 categoryHover">{{all_category.title}}</a>
          {% endfor %}
          </div>
       </div>
       <!--header section end -->
       <!--about section start -->
-      <div class="about_section layout_padding bg-dark text-light mt-5 pb-5">
-         <div class="container">
-             <div class="row">
-                 <div class="col-12"><h1>Top Viewed Shoes</h1></div>
-                 <div class="container">
-                     <div class="row">
-                        <div class="carousel-inner-wrapper position-relative">
-                           <div id="shoesCarousel" class="carousel slide" data-ride="carousel">
-                               <div class="carousel-inner">
-                                   {% for shoe in top_shoes %}
-                                       {% if forloop.counter0|divisibleby:3 %}
-                                           <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                               <div class="row">
-                                       {% endif %}
-                                                   <a href="{% url 'product' shoe.id %}" class="col-md-4 px-3 position-relative text-light">
-                                                       <img src="{{ shoe.image.url }}" class="d-block w-100" style="height: 500px;" alt="">
-                                                       <div class="h5 pt-2">{{ shoe.name }}</div>
-                                                       <div class="position-absolute top-0 start-25 bg-danger p-2 text-light rounded-bottom rounded-right"><i class="bi bi-eye-fill ms-2"></i> {{ shoe.reviewsCount }}</div>
-                                                   </a>
-                                        {% if forloop.counter|divisibleby:3 or forloop.last %}
-                                               </div>
-                                           </div>
-                                       {% endif %}
-                                   {% endfor %}
-                               </div>
-                               <a class="carousel-control-prev text-dark position-absolute top-50 start-0 translate-middle-y" href="#shoesCarousel" role="button" data-slide="prev">
-                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                   <span class="sr-only">Previous</span>
-                               </a>
-                               <a class="carousel-control-next text-dark position-absolute top-50 end-0 translate-middle-y" href="#shoesCarousel" role="button" data-slide="next">
-                                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                   <span class="sr-only">Next</span>
-                               </a>
-                           </div>
-                       </div>
-                       
-                     </div>
+      <div class="about_section layout_padding" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); position: relative; overflow: hidden;">
+         <div style="position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(13, 148, 136, 0.1) 0%, transparent 70%); border-radius: 50%;"></div>
+         <div style="position: absolute; bottom: -30%; left: 5%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(51, 65, 85, 0.1) 0%, transparent 70%); border-radius: 50%;"></div>
+         
+         <div class="container position-relative" style="z-index: 1;">
+             <div class="row mb-5">
+                 <div class="col-12">
+                     <h1 class="text-black mb-2" style="font-size: 2.5rem; font-weight: 800; letter-spacing: -0.5px;">Top Viewed Shoes</h1>
+                     <p class="text-light" style="color: rgba(14, 13, 13, 0.7) !important; font-size: 1rem;">Discover our most popular products</p>
                  </div>
+             </div>
+             <div class="row">
+                <div class="carousel-inner-wrapper position-relative">
+                   <div id="shoesCarousel" class="carousel slide" data-ride="carousel">
+                       <div class="carousel-inner">
+                           {% for shoe in top_shoes %}
+                               {% if forloop.counter0|divisibleby:3 %}
+                                   <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                       <div class="row g-4 justify-content-center">
+                               {% endif %}
+                                           <a href="{% url 'product' shoe.id %}" class="col-lg-4 col-md-6 text-decoration-none">
+                                               <div class="card h-100 border-0 shadow-lg position-relative" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); overflow: hidden; transition: all 0.3s ease; cursor: pointer; border-radius: 16px;">
+                                                   <div class="position-relative" style="height: 350px; overflow: hidden;">
+                                                       <img src="{{ shoe.image.url }}" class="card-img-top w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="">
+                                                       <span class="badge position-absolute" style="background: #0d9488; font-size: 0.85rem; padding: 0.5rem 0.75rem; top: 12px; right: 12px;">
+                                                           <i class="bi bi-eye-fill me-1"></i> {{ shoe.reviewsCount }}
+                                                       </span>
+                                                   </div>
+                                                   <div class="card-body p-4">
+                                                       <h5 class="card-title" style="color: var(--text-dark); font-weight: 700; font-size: 1.1rem;">{{ shoe.name }}</h5>
+                                                   </div>
+                                               </div>
+                                           </a>
+                            {% if forloop.counter|divisibleby:3 or forloop.last %}
+                                       </div>
+                                   </div>
+                               {% endif %}
+                           {% endfor %}
+                       </div>
+                   </div>
+                   <div class="d-flex gap-2" style="position: absolute; top: 0; left: 0; z-index: 10;">
+                       <button class="carousel-control-style" style="width: 40px; height: 40px; background: #0d9488; border: none; border-radius: 50%; opacity: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;" type="button" data-bs-target="#shoesCarousel" data-bs-slide="prev">
+                           <i class="bi bi-chevron-left text-white" style="font-size: 0.9rem;"></i>
+                       </button>
+                       <button class="carousel-control-style" style="width: 40px; height: 40px; background: #0d9488; border: none; border-radius: 50%; opacity: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;" type="button" data-bs-target="#shoesCarousel" data-bs-slide="next">
+                           <i class="bi bi-chevron-right text-white" style="font-size: 0.9rem;"></i>
+                       </button>
+                   </div>
+               </div>
              </div>
          </div>
      </div>
       <!--about section end -->
       <!--gallery section start -->
-      <div class="border-bottom pb-5 mt-5" style="background-color: bisque;">
+      <div class="py-5 position-relative" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
          <div class="container">
-            <div class="row">
-                <div class="col-12 pt-5 mb-2"><h1>Categories</h1></div>
-                <div class="container">
-                    <div class="row pb-4">
-                        <div class="col-4">
-                           <a href="/shoes/categories/erkek" class="position-relative">
-                              <img src="media/images/erkek.jpg" class="d-block w-100  rounded-2" style="height: 500px;" alt="">
-                              <div class="position-absolute bottom-0 end-0 btn btn-outline-light me-3 mb-3">Erkek</div>
-                           </a>
-                        </div>
-                        <a href="/shoes/categories/kadin" class="col-4">
-                           <div class="position-relative">
-                              <img src="media/images/kadin.jpg" class="d-block w-100  rounded-2" style="height: 500px;" alt="">
-                              <div class="position-absolute bottom-0 end-0 btn btn-outline-light me-3 mb-3">Kadin</div>
-                           </div>
-                        </a>
-                        <a href="/shoes/categories/cocuk" class="col-4">
-                           <div class="position-relative ">
-                              <img src="media/images/cocuk.jpg" class="d-block w-100 rounded-2" style="height: 500px;" alt="">
-                              <div class="position-absolute bottom-0 end-0 btn btn-outline-light me-3 mb-3">Cocuk</div>
-                           </div>
-                        </a>
-                    </div>
+            <div class="row mb-5">
+                <div class="col-12 mt-5">
+                    <h1 class="mb-2 mt-5" style="font-size: 2.5rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px;">Categories</h1>
+                    <p class="mb-0" style="color: var(--text-light); font-size: 1rem;">Shop by your preferred category</p>
                 </div>
             </div>
-        </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                   <a href="/shoes/categories/erkek" class="text-decoration-none d-block position-relative group" style="overflow: hidden; border-radius: 16px;">
+                      <div class="position-relative" style="height: 400px; overflow: hidden; border-radius: 16px;">
+                          <img src="media/images/erkek.jpg" class="w-100 h-100" style="object-fit: cover; transition: transform 0.4s ease;" alt="">
+                          <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(13, 148, 136, 0.2) 0%, rgba(51, 65, 85, 0.2) 100%); opacity: 0; transition: opacity 0.4s ease;" class="overlay-grad"></div>
+                      </div>
+                      <div class="position-absolute bottom-0 end-0 m-4">
+                          <div class="btn rounded-pill" style="background: #0d9488; color: white; font-weight: 600; padding: 0.75rem 1.5rem; box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);">Erkek</div>
+                      </div>
+                   </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                   <a href="/shoes/categories/kadin" class="text-decoration-none d-block position-relative group" style="overflow: hidden; border-radius: 16px;">
+                      <div class="position-relative" style="height: 400px; overflow: hidden; border-radius: 16px;">
+                          <img src="media/images/kadin.jpg" class="w-100 h-100" style="object-fit: cover; transition: transform 0.4s ease;" alt="">
+                          <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(13, 148, 136, 0.2) 0%, rgba(51, 65, 85, 0.2) 100%); opacity: 0; transition: opacity 0.4s ease;" class="overlay-grad"></div>
+                      </div>
+                      <div class="position-absolute bottom-0 end-0 m-4">
+                          <div class="btn rounded-pill" style="background: #0d9488; color: white; font-weight: 600; padding: 0.75rem 1.5rem; box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);">Kadın</div>
+                      </div>
+                   </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                   <a href="/shoes/categories/cocuk" class="text-decoration-none d-block position-relative group" style="overflow: hidden; border-radius: 16px;">
+                      <div class="position-relative" style="height: 400px; overflow: hidden; border-radius: 16px;">
+                          <img src="media/images/cocuk.jpg" class="w-100 h-100" style="object-fit: cover; transition: transform 0.4s ease;" alt="">
+                          <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(13, 148, 136, 0.2) 0%, rgba(51, 65, 85, 0.2) 100%); opacity: 0; transition: opacity 0.4s ease;" class="overlay-grad"></div>
+                      </div>
+                      <div class="position-absolute bottom-0 end-0 m-4">
+                          <div class="btn rounded-pill" style="background: #0d9488; color: white; font-weight: 600; padding: 0.75rem 1.5rem; box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);">Çocuk</div>
+                      </div>
+                   </a>
+                </div>
+            </div>
+         </div>
+
+         <script>
+         document.querySelectorAll('.group').forEach(el => {
+             el.addEventListener('mouseenter', function() {
+                 this.querySelector('img').style.transform = 'scale(1.08)';
+                 this.querySelector('.overlay-grad').style.opacity = '1';
+             });
+             el.addEventListener('mouseleave', function() {
+                 this.querySelector('img').style.transform = 'scale(1)';
+                 this.querySelector('.overlay-grad').style.opacity = '0';
+             });
+         });
+         </script>
       </div>
       <!--gallery section end -->
 
       <!--client section start -->
-      <div class="client_section layout_padding">
-         <div id="main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
+      <div class="client_section layout_padding py-5" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
+         <div class="container">
+             <div class="row mb-5">
+                 <div class="col-12">
+                     <h1 class="text-center mb-2" style="font-size: 2.5rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px;">Customer Reviews</h1>
+                     <p class="text-center" style="color: var(--text-light); font-size: 1rem;">See what our happy customers are saying</p>
+                 </div>
+             </div>
 
-               <div class="">
-                  <h1 class="text-center">Musteri Mesajlari</h1>
-                  <p class="text-center">En son atilan mesajlar</p>
-               </div>
-              {% for comment in comments %}
-               <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                  <div class="container">
-                     
-                     <div class="client_section_2">
-                           <div class="container">
-                              <div class="client_main">
-                                 <div class="client_left">
-                                       <div class="client_img"><img src="{{ comment.user.userprofile.image.url }} " class="rounded-2" style="width: 100px; height: 100px;" ></div>
+             <div id="main_slider" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  {% for comment in comments %}
+                   <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                      <div class="row justify-content-center">
+                         <div class="col-lg-8 col-md-10">
+                             <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border-radius: 16px;">
+                                 <div class="card-body p-5">
+                                     <div class="d-flex align-items-center mb-4">
+                                         <img src="{{ comment.user.userprofile.image.url }}" class="rounded-circle me-4" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid rgba(13, 148, 136, 0.2);">
+                                         <div>
+                                             <h5 class="card-title mb-1" style="color: var(--text-dark); font-weight: 700;">{{ comment.user }}</h5>
+                                             <p class="mb-0 text-muted" style="font-size: 0.9rem;">{{ comment.subject }}</p>
+                                         </div>
+                                     </div>
+                                     <div style="height: 2px; background: #0d9488; margin-bottom: 1.5rem; border-radius: 1px;"></div>
+                                     <p class="card-text" style="color: var(--text-dark); font-size: 1rem; line-height: 1.6;">{{ comment.comment }}</p>
+                                     <div class="mt-4">
+                                         <div style="display: flex; gap: 0.5rem;">
+                                             {% for i in "01234" %}
+                                             <i class="bi bi-star-fill" style="color: #fbbf24; font-size: 1.2rem;"></i>
+                                             {% endfor %}
+                                         </div>
+                                     </div>
                                  </div>
-                                 <div class="client_right">
-                                       <h2 class="sandy_text">Isim : {{ comment.user }}</h2>
-                                       <p class="long_text">Baslik : {{ comment.subject }}</p>
-                                 </div>
-                              </div>
-                              <p class="dummy_text">Mesaj : {{ comment.comment }}</p>
-                           </div>
-                     </div>
-                  </div>
-               </div>
-               {% endfor %}
-
-            </div>
-            <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-            <i class=""><img src="{% static 'images/left-arrow.png' %}"></i>
-            </a>
-            <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-            <i class=""><img src="{% static 'images/right-arrow.png' %}"></i>
-            </a>
+                             </div>
+                         </div>
+                      </div>
+                   </div>
+                   {% endfor %}
+                </div>
+                <button class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y z-2" style="width: 50px; height: 50px; background: #0d9488; border: none; border-radius: 50%; opacity: 1;" type="button" data-bs-target="#main_slider" data-bs-slide="prev">
+                    <i class="bi bi-chevron-left text-white"></i>
+                </button>
+                <button class="carousel-control-next position-absolute top-50 end-0 translate-middle-y z-2" style="width: 50px; height: 50px; background: #0d9488; border: none; border-radius: 50%; opacity: 1;" type="button" data-bs-target="#main_slider" data-bs-slide="next">
+                    <i class="bi bi-chevron-right text-white"></i>
+                </button>
+             </div>
          </div>
       </div>
       <!--client section end -->
       <!--contact section start -->
-      <div class="contact_section layout_padding" style="background-color: rgb(161, 138, 108);">
-         <div class="container">
-            <h1 class="touch_taital">Get In Touch</h1>
-            <div class="contact_section_2">
-               <div class="row">
-                  <div class="col-md-6">
-                     <div class="">
-                        {% if messages %}
-                           {% for message in messages %}
-                              <div class="alert alert-{{message.tags}}" role="alert">
-                                 {{ message }}
-                              </div>
-                           {% endfor %}
-                        {% endif %}
-                     </div>
-                     <form action="" method="post">
-                        {% csrf_token %}
-                        <div class="email_text">
-                           <div class="form-group">
-                              <input type="text" class="email-bt" placeholder="Name" name="Name">
+      <div class="contact_section layout_padding py-5" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); position: relative; overflow: hidden;">
+         <div style="position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(13, 148, 136, 0.1) 0%, transparent 70%); border-radius: 50%;"></div>
+         
+         <div class="container position-relative" style="z-index: 1;">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h1 class="text-white mb-2" style="font-size: 2.5rem; font-weight: 800; letter-spacing: -0.5px;">Get In Touch</h1>
+                    <p class="text-light" style="color: rgba(255, 255, 255, 0.7) !important;">We'd love to hear from you</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+               <div class="col-lg-6">
+                  <div class="">
+                     {% if messages %}
+                        {% for message in messages %}
+                           <div class="alert alert-{{message.tags}} mb-3 border-0" role="alert" style="background: linear-gradient(135deg, rgba(13, 148, 136, 0.2) 0%, rgba(51, 65, 85, 0.2) 100%); border-left: 4px solid #0d9488;">
+                              <i class="bi bi-check-circle me-2"></i> {{ message }}
                            </div>
-                           <div class="form-group">
-                              <input type="text" class="email-bt" placeholder="Email" name="Email">
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="email-bt" placeholder="Phone Numbar" name="Phone">
-                           </div>
-                           <div class="form-group">
-                              <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="Massage"></textarea>
-                           </div>
-                           <div class=""><input type="submit" class="btn btn-warning"></div>
-                        </div>
-                     </form>
+                        {% endfor %}
+                     {% endif %}
                   </div>
-                  <div class="col-md-6">
-                     <div class="map_main">
-                        <div class="map-responsive">
-                           <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France" width="600" height="370" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
+                  <form action="" method="post">
+                     {% csrf_token %}
+                     <div class="space-y-4">
+                        <div class="form-group mb-3">
+                           <input type="text" class="form-control border-0 py-3 px-4" placeholder="Your Name" name="Name" style="background: rgba(255, 255, 255, 0.95); border-radius: 10px; transition: all 0.3s ease;" onfocus="this.style.boxShadow='0 8px 20px rgba(99, 102, 241, 0.3)'" onblur="this.style.boxShadow='none'">
                         </div>
+                        <div class="form-group mb-3">
+                           <input type="text" class="form-control border-0 py-3 px-4" placeholder="Your Email" name="Email" style="background: rgba(255, 255, 255, 0.95); border-radius: 10px; transition: all 0.3s ease;" onfocus="this.style.boxShadow='0 8px 20px rgba(99, 102, 241, 0.3)'" onblur="this.style.boxShadow='none'">
+                        </div>
+                        <div class="form-group mb-3">
+                           <input type="text" class="form-control border-0 py-3 px-4" placeholder="Phone Number" name="Phone" style="background: rgba(255, 255, 255, 0.95); border-radius: 10px; transition: all 0.3s ease;" onfocus="this.style.boxShadow='0 8px 20px rgba(99, 102, 241, 0.3)'" onblur="this.style.boxShadow='none'">
+                        </div>
+                        <div class="form-group mb-4">
+                           <textarea class="form-control border-0 py-3 px-4" placeholder="Your Message" rows="5" name="Massage" style="background: rgba(255, 255, 255, 0.95); border-radius: 10px; resize: none; transition: all 0.3s ease;" onfocus="this.style.boxShadow='0 8px 20px rgba(99, 102, 241, 0.3)'" onblur="this.style.boxShadow='none'"></textarea>
+                        </div>
+                        <button type="submit" class="btn w-100 py-3 text-white border-0" style="background: #0d9488; font-weight: 600; font-size: 1rem; border-radius: 10px; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);" onmouseover="this.style.transform='translateY(-2px); this.style.boxShadow='0 12px 30px rgba(13, 148, 136, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(13, 148, 136, 0.3)'">Send Message</button>
+                     </div>
+                  </form>
+               </div>
+               <div class="col-lg-6">
+                  <div class="map_main" style="border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);">
+                     <div class="map-responsive">
+                        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France" width="600" height="370" frameborder="0" style="border:0; width: 100%; display: block;" allowfullscreen=""></iframe>
                      </div>
                   </div>
                </div>
@@ -265,25 +420,13 @@
       <!--contact section end -->
       <script>
          $(document).ready(function(){
-          var nav = $('.s');
-          var navHeight = nav.outerHeight();
-          var lastScrollTop = 0;
-      
-          $(window).scroll(function(){
-              var scrollTop = $(this).scrollTop();
-      
-              if (scrollTop > lastScrollTop && scrollTop > navHeight){
-                  // Scroll down
-                  nav.removeClass('fixed-top bg-light');
-              } else {
-                  // Scroll up
-                  if (scrollTop + $(window).height() < $(document).height()) {
-                      nav.addClass('fixed-top bg-light');
-                  }
-              }
-              lastScrollTop = scrollTop;
-          });
-      });
+            // Image hover effects
+            $('.card img').on('mouseenter', function() {
+                $(this).css('transform', 'scale(1.08)');
+            }).on('mouseleave', function() {
+                $(this).css('transform', 'scale(1)');
+            });
+        });
       </script>
 
 {% endblock %}

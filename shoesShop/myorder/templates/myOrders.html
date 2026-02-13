@@ -1,79 +1,333 @@
 {% extends 'partials/main.html' %}
 {% load static %}
 {% block content %}
-<body>
-   <nav class="navbar navbar-expand-lg ">
-      <div class="container-fluid">
-        <a class="navbar-brand text-warning fs-2 osuc" href="{% url 'index' %}">Shoes House</a>
-        <button class="navbar-toggler bg-warning "  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         <i class="bi bi-list text-dark fs-5"></i>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-         <!-- Categories 
-         <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
-               <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
-               <div class="p-0 m-0 category fs-5">Categories</div>
-         </button>
-         <div id="myModal" class="modal">
-            <div class="modal-content">
-               <span class="close-btn fs-2 text-end  mb-1" onclick="closeModal()">
-                  <i class="bi bi-x-circle "></i>
-               </span>
-               <div class="container-fluid">
-                  <div class="row text-center">
-                      <a href="{% url 'myorder' %}" class="h3 categoryHover">MyOrder</a>
-                     <a href="{% url 'user_update' %}" class="h3 categoryHover">Profile</a>
-                     <h3>Favorite</h3>
+<style>
+    :root {
+        --primary-color: #334155;
+        --accent-color: #0d9488;
+        --secondary-color: #64748b;
+        --dark-bg: #0f172a;
+        --light-bg: #f1f5f9;
+        --text-dark: #0f172a;
+        --text-light: #64748b;
+        --border-color: #cbd5e1;
+    }
+
+    * {
+        transition: all 0.3s ease;
+    }
+
+    /* Navbar Styles */
+    .navbar-section {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .navbar {
+        padding: 1.2rem 0;
+    }
+
+    .navbar-brand {
+        color: var(--primary-color) !important;
+        font-weight: 800;
+        font-size: 1.8rem !important;
+        letter-spacing: -0.5px;
+    }
+
+    .navbar-toggler {
+        background: var(--accent-color) !important;
+        border: none;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .nav-itemS {
+        color: var(--text-dark) !important;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .nav-itemS:hover {
+        background: rgba(13, 148, 136, 0.1);
+        color: var(--accent-color) !important;
+    }
+
+    /* Search Bar */
+    .searchId {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 2px solid var(--border-color) !important;
+        box-shadow: 0 4px 15px rgba(51, 65, 85, 0.08) !important;
+        border-radius: 12px !important;
+        padding: 0.75rem 1rem;
+    }
+
+    .searchId:focus-within {
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15) !important;
+    }
+
+    .searchId input {
+        color: var(--text-dark);
+    }
+
+    .searchId input::placeholder {
+        color: var(--text-light);
+    }
+
+    .SearchResults {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+        border: 1px solid var(--border-color) !important;
+    }
+
+    /* Category Tabs */
+    .categoryHover {
+        color: var(--text-dark) !important;
+        font-weight: 600;
+        padding: 0.8rem 1.5rem !important;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .categoryHover::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: var(--accent-color);
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+    }
+
+    .categoryHover:hover {
+        background: rgba(13, 148, 136, 0.1);
+        color: var(--accent-color) !important;
+    }
+
+    .categoryHover:hover::after {
+        width: 80%;
+    }
+
+    /* Main Content */
+    .orders-main {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        min-height: calc(100vh - 200px);
+        padding: 2rem 0;
+    }
+
+    .orders-title {
+        color: var(--text-dark);
+        font-weight: 800;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .order-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+    }
+
+    .order-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(13, 148, 136, 0.15);
+    }
+
+    .order-header {
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .order-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 12px;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .order-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .order-info {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .order-number {
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .order-date {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .order-status {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #10b981;
+        font-weight: 600;
+    }
+
+    .toggle-btn {
+        background: linear-gradient(135deg, #0d9488 0%, #059669 100%);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+    }
+
+    .toggle-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(13, 148, 136, 0.4);
+    }
+
+    .order-details {
+        background: var(--light-bg);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .detail-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .detail-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .detail-title {
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .detail-item {
+        color: var(--text-dark);
+        font-size: 0.9rem;
+        padding: 0.5rem 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .price-summary {
+        background: white;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        color: var(--text-dark);
+    }
+
+    .price-total {
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: var(--accent-color);
+        border-top: 2px solid var(--border-color);
+        padding-top: 1rem;
+        margin-top: 1rem;
+    }
+</style>
+
+<body class="">
+   <div class="navbar-section">
+      <nav class="navbar navbar-expand-lg">
+         <div class="container-fluid">
+           <a class="navbar-brand" href="{% url 'index' %}">Shoes House</a>
+           <button class="navbar-toggler" type="button" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list text-white fs-5"></i>
+           </button>
+           <div class="collapse navbar-collapse " id="navbarSupportedContent">
+              <!-- Cart -->
+             <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
+               <li class="nav-item mt-auto">
+                  <div class="nav-link pb-0">
+                     <a href="{% url 'myorder' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                         <i class="bi bi-archive fs-5 me-2"></i>
+                         <div class="fs-6">MyOrder</div>
+                     </a>
                   </div>
-               </div>
-            </div>
-         </div>-->
-           <!-- Cart -->
-          <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
-            <li class="nav-item mt-auto">
-               <div class="nav-link  pb-0">
-                  <a href="{% url 'myorder' %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
-                      <i class="bi bi-archive fs-4 me-2"></i>
-                      <div class="fs-5">MyOrder</div>
+               </li>
+               <li class="nav-item mt-auto">
+                <div class="nav-link pb-0">
+                  <a  href="{% url 'cart' request.user.id %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                     <i class="bi bi-cart3 fs-5 me-2"></i>
+                     <div class="fs-6">Cart</div>
                   </a>
-               </div>
-            </li>
-            <li class="nav-item mt-auto">
-             <div class="nav-link  pb-0">
-                <a  href="{% url 'cart' request.user.id %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
-                   <i class="bi bi-cart3 fs-4 me-2 "></i>
-                   <div class="fs-5">Cart</div>
-                </a>
+                </div>
+             </li>
+                <!-- User -->
+               <li class="nav-item my-auto">
+                  <div class="nav-link mt-0 pb-0">
+                     <a  href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                        <i class="bi bi-person-circle fs-5 me-2"></i>
+                        <div class="fs-6">{{request.user.username}}</div>
+                     </a>
+                  </div>
+               </li>
+             </ul>
+       
+             <!-- Search -->
+             <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4">
+               <form id="searchId" class="d-flex w-100 searchId" role="search">
+                 {% csrf_token %}
+                 <i class="bi bi-search p-1 fs-5 mx-2" style="color: #0d9488;"></i>
+                 <input class="border-0 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search shoes..." oninput="getSearchResults()" aria-label="Search" style="background: transparent; color: var(--text-dark);">
+               </form>
+               <ul id="searchResults" class="rounded-3 p-0 position-absolute top-100 start-0 bg-white z-3 border SearchResults mt-2 w-100" style="box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+               </ul>
              </div>
-          </li>
-             <!-- User -->
-            <li class="nav-item my-auto">
-               <div class="nav-link  mt-0 pb-0" onclick="openModal()">
-                  <a  href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS ">
-                     <i class="bi bi-person-circle fs-4 me-2"></i>
-                     <div class="fs-5">{{request.user.username}}</div>
-                  </a>
-               </div>
-            </li>
-          </ul>
-    
-          <!-- Search -->
-          <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4  ">
-            <form id="searchId" class="d-flex w-100 border rounded-5 shadow-lg searchId" role="search">
-              {% csrf_token %}
-              <i class="bi bi-search p-1 fs-4 mx-2"></i>
-              <input class="me-2 border-0 rounded-5 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
-            </form>
-            <ul id="searchResults"class=" rounded-bottom-3 p-0 visually-hidden-focusable position-absolute top-0 start-0 bg-light z-3  border border-warning SearchResults mt-5 " >
-            </ul>
-          </div>
-        </div>
+           </div>
+         </div>
+       </nav>
+       <div class="d-flex justify-content-center border-bottom align-items-center py-3" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 100%);">
+       {% for all_category in all_categories %}
+          <a href="{% url 'gallery_by_category' all_category.slug %}" class="h6 text-center ms-3 ms-lg-4 mb-0 categoryHover">{{all_category.title}}</a>
+       {% endfor %}
       </div>
-    </nav>
-    <div class="d-flex justify-content-center border align-items-center mb-0 ">
-      {% for all_category in all_categories %}
-         <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2 categoryHover">{{all_category.title}}</a>
-      {% endfor %}
    </div>
       <!--MyOrder Items -->
       <div class="mains mt-3" style="background-color: none;">

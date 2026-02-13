@@ -4,68 +4,274 @@
 
 {% block content %}
 <style>
+    :root {
+        --primary-color: #334155;
+        --accent-color: #0d9488;
+        --secondary-color: #64748b;
+        --dark-bg: #0f172a;
+        --light-bg: #f1f5f9;
+        --text-dark: #0f172a;
+        --text-light: #64748b;
+        --border-color: #cbd5e1;
+    }
 
+    * {
+        transition: all 0.3s ease;
+    }
+
+    /* Navbar Styles */
+    .s {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .navbar {
+        padding: 1.2rem 0;
+    }
+
+    .navbar-brand {
+        color: var(--primary-color) !important;
+        font-weight: 800;
+        font-size: 1.8rem !important;
+        letter-spacing: -0.5px;
+    }
+
+    .navbar-toggler {
+        background: var(--accent-color) !important;
+        border: none;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .nav-itemS {
+        color: var(--text-dark) !important;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .nav-itemS:hover {
+        background: rgba(13, 148, 136, 0.1);
+        color: var(--accent-color) !important;
+    }
+
+    /* Search Bar */
+    .searchId {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 2px solid var(--border-color) !important;
+        box-shadow: 0 4px 15px rgba(51, 65, 85, 0.08) !important;
+        border-radius: 12px !important;
+        padding: 0.75rem 1rem;
+    }
+
+    .searchId:focus-within {
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15) !important;
+    }
+
+    .searchId input {
+        color: var(--text-dark);
+    }
+
+    .searchId input::placeholder {
+        color: var(--text-light);
+    }
+
+    .SearchResults {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+        border: 1px solid var(--border-color) !important;
+    }
+
+    /* Category Tabs */
+    .categoryHover {
+        color: var(--text-dark) !important;
+        font-weight: 600;
+        padding: 0.8rem 1.5rem !important;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .categoryHover::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: var(--accent-color);
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+    }
+
+    .categoryHover:hover {
+        background: rgba(13, 148, 136, 0.1);
+        color: var(--accent-color) !important;
+    }
+
+    .categoryHover:hover::after {
+        width: 80%;
+    }
+
+    /* Gallery Styles */
+    .gallery-main {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        min-height: calc(100vh - 200px);
+        padding: 2rem 0;
+    }
+
+    .gallery-title {
+        color: var(--text-dark);
+        font-weight: 800;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .filter-section {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 120px;
+    }
+
+    .filter-title {
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        border: none;
+        background: none;
+        padding: 0;
+    }
+
+    .filter-title:hover {
+        color: var(--accent-color);
+    }
+
+   /* Pin chevron to the right and add smooth rotate */
+   .filter-title i { margin-left: auto; font-size:1.05rem; transition: transform .25s ease; }
+
+    .filter-option {
+        padding: 0.5rem 0;
+        padding-left: 0.5rem;
+        color: var(--text-dark);
+        font-weight: 500;
+    }
+
+    .filter-option input {
+        accent-color: var(--accent-color);
+        cursor: pointer;
+        margin-right: 0.5rem;
+    }
+
+    .filter-option label {
+        margin-bottom: 0;
+        display: inline;
+    }
+
+    .product-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: 1px solid var(--border-color);
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(13, 148, 136, 0.15);
+    }
+
+    .product-image {
+        height: 280px;
+        overflow: hidden;
+        background: var(--light-bg);
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-image img {
+        transform: scale(1.08);
+    }
+
+    .product-info {
+        padding: 1.2rem;
+    }
+
+    .product-name {
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+        min-height: 2.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .product-price {
+        color: var(--accent-color);
+        font-weight: 800;
+        font-size: 1.2rem;
+    }
 </style>
 
    <body class="">
       <div class="s">
-         <nav class="navbar navbar-expand-lg ">
+         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-              <a class="navbar-brand text-warning fs-2 osuc" href="{% url 'index' %}">Shoes House</a>
-              <button class="navbar-toggler bg-warning "  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <i class="bi bi-list text-dark fs-5"></i>
+              <a class="navbar-brand" href="{% url 'index' %}">Shoes House</a>
+              <button class="navbar-toggler" type="button" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="bi bi-list text-white fs-5"></i>
               </button>
               <div class="collapse navbar-collapse " id="navbarSupportedContent">
-               <!-- Categories 
-               <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
-                     <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
-                     <div class="p-0 m-0 category fs-5">Categories</div>
-               </button>
-               <div id="myModal" class="modal">
-                  <div class="modal-content">
-                     <span class="close-btn fs-2 text-end  mb-1" onclick="closeModal()">
-                        <i class="bi bi-x-circle "></i>
-                     </span>
-                     <div class="container-fluid">
-                        <div class="row text-center">
-                            <a href="{% url 'myorder' %}" class="h3 categoryHover">MyOrder</a>
-                           <a href="{% url 'user_update' %}" class="h3 categoryHover">Profile</a>
-                           <h3>Favorite</h3>
-                        </div>
-                     </div>
-                  </div>
-               </div>-->
+               
                  <!-- Cart -->
                 <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
                   <li class="nav-item mt-auto">
-                     <div class="nav-link  pb-0">
-                        <a href="{% url 'myorder' %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
-                            <i class="bi bi-archive fs-4 me-2"></i>
-                            <div class="fs-5">MyOrder</div>
+                     <div class="nav-link pb-0">
+                        <a href="{% url 'myorder' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                            <i class="bi bi-archive fs-5 me-2"></i>
+                            <div class="fs-6">MyOrder</div>
                         </a>
                      </div>
                   </li>
                   <li class="nav-item mt-auto">
-                   <div class="nav-link  pb-0">
+                   <div class="nav-link pb-0">
                      <a href="{% url 'cart' user.id|default_if_none:"0" %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                        <i class="bi bi-cart3 fs-4 me-2"></i>
-                        <div class="fs-5">Cart</div>
+                        <i class="bi bi-cart3 fs-5 me-2"></i>
+                        <div class="fs-6">Cart</div>
                     </a>
-                    
                    </div>
                 </li>
                    <!-- User -->
                   <li class="nav-item my-auto">
-                     <div class="nav-link  mt-0 pb-0" onclick="openModal()">
+                     <div class="nav-link mt-0 pb-0">
                         {% if request.user.is_authenticated %}
                            <a href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                              <i class="bi bi-person-circle fs-4 me-2"></i>
-                              <div class="fs-5">{{ request.user.username }}</div>
+                              <i class="bi bi-person-circle fs-5 me-2"></i>
+                              <div class="fs-6">{{ request.user.username }}</div>
                            </a>
                         {% else %}
                            <a href="{% url 'login' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                              <i class="bi bi-box-arrow-in-right fs-4 me-2"></i>
-                              <div class="fs-5">Login</div>
+                              <i class="bi bi-box-arrow-in-right fs-5 me-2"></i>
+                              <div class="fs-6">Login</div>
                            </a>
                         {% endif %}
    
@@ -74,151 +280,148 @@
                 </ul>
           
                 <!-- Search -->
-                <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4  ">
-                  <form id="searchId" class="d-flex w-100 border rounded-5 shadow-lg searchId" role="search">
+                <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4">
+                  <form id="searchId" class="d-flex w-100 searchId" role="search">
                     {% csrf_token %}
-                    <i class="bi bi-search p-1 fs-4 mx-2"></i>
-                    <input class="me-2 border-0 rounded-5 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
+                    <i class="bi bi-search p-1 fs-5 mx-2" style="color: #0d9488;"></i>
+                    <input class="border-0 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search shoes..." oninput="getSearchResults()" aria-label="Search" style="background: transparent; color: var(--text-dark);">
                   </form>
-                  <ul id="searchResults"class=" rounded-bottom-3 p-0 visually-hidden-focusable position-absolute top-0 start-0 bg-light z-3  border border-warning SearchResults mt-5 " >
+                  <ul id="searchResults" class="rounded-3 p-0 position-absolute top-100 start-0 bg-white z-3 border SearchResults mt-2 w-100" style="box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
                   </ul>
                 </div>
               </div>
             </div>
           </nav>
-            <div class="d-flex justify-content-center border align-items-center  ">
+            <div class="d-flex justify-content-center border-bottom align-items-center py-3" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 100%);">
             {% for all_category in all_categories %}
-               <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2 categoryHover">{{all_category.title}}</a>
+               <a href="{% url 'gallery_by_category' all_category.slug %}" class="h6 text-center ms-3 ms-lg-4 mb-0 categoryHover">{{all_category.title}}</a>
             {% endfor %}
             </div>
      </div>
       <!--header section end -->
       <!--gallery section start -->
-      <div class="" style="background-color: white;">
-            <div class="row border-top">
-               <h3 class="text-dark text-start ps-5 pt-3">{{ category.title }} Ayakkabilari (<span id="countS">{{shoes_all.count}}</span>)</h3>
-               <hr>
-               <div class="col-2  ps-4 me-5 overflow-auto">
-                  <ul class="nav flex-column ">
-                     {% for category in subcategories %}
-                     <div class="mb-2 ps-3 ">
-                        <input type="radio" style="cursor: copy;" class="btn-check rounded-0 fs-4 "  value="{{category.slug}}" name="shoesCategory" id="category-{{category.id}}" onclick="filterShoes('{{category.slug}}')" autocomplete="off">
-                        <label class="fw-semibold categoryHover pointer" for="category-{{category.id}}">{{category.title}}</label>
-                     </div>
-                     {% endfor %}
-                 </ul>
-                 <hr>
-                 <!-- Cinsiyet 
-                     <div>
-                     <button onclick="toggleGender('genderOptions1', 'arrowIcon1')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender" style="background-color: none; border: none;">
-                        <h5>Cinsiyet</h5>
-                        <div><i id="arrowIcon1" class="bi bi-chevron-down fs-5"></i></div>
-                     </button>
-                     </div>
-                     <div id="genderOptions1" style="display: none;">
-                     {% for gender in genders %}
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" value="{{gender.slug}}" name="gender" id="gender-{{gender.id}}" onclick="filterShoes('{{category.slug}}')">
-                           <label class="form-check-label" for="gender-{{gender.id}}">{{gender.name}}</label>
+      <div class="gallery-main">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-lg-2 col-md-3 mb-4 mb-lg-0">
+                     <div class="filter-section">
+                        <h4 class="gallery-title">Filtreler</h4>
+                        
+                        <!-- Kategoriler -->
+                        <div class="mb-4">
+                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#categoryFilters">
+                              <span>Kategoriler</span>
+                              <i class="bi bi-chevron-down"></i>
+                           </button>
+                           <div id="categoryFilters" class="collapse show">
+                              <ul class="nav flex-column">
+                                 {% for category in subcategories %}
+                                 <div class="form-check filter-option">
+                                    <input type="radio" class="form-check-input" value="{{category.slug}}" name="shoesCategory" id="category-{{category.id}}" onclick="filterShoes('{{category.slug}}')">
+                                    <label class="form-check-label pointer" for="category-{{category.id}}">{{category.title}}</label>
+                                 </div>
+                                 {% endfor %}
+                              </ul>
+                           </div>
                         </div>
-                     {% endfor %}
-                     </div>-->
+                        <hr style="border-color: var(--border-color);">
+                        
+                        <!-- Ayakkabi Yuksekligi -->
+                        <div class="mb-4">
+                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#heightFilters">
+                              <span>Ayakkabı Yüksekliği</span>
+                              <i class="bi bi-chevron-down"></i>
+                           </button>
+                           <div id="heightFilters" class="collapse">
+                              {% for Shoe_Height in Shoe_Heights %}
+                              <div class="form-check filter-option">
+                                 <input class="form-check-input" type="radio" value="{{Shoe_Height.slug}}" name="ShoeHeight" id="Shoe_Height-{{Shoe_Height.id}}" onclick="filterShoes('{{category.slug}}')">
+                                 <label class="form-check-label pointer" for="Shoe_Height-{{Shoe_Height.id}}">{{Shoe_Height.name}}</label>
+                              </div>
+                              {% endfor %}
+                           </div>
+                        </div>
+                        <hr style="border-color: var(--border-color);">
+                        
+                        <!-- Color -->
+                        <div class="mb-4">
+                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#colorFilters">
+                              <span>Renkler</span>
+                              <i class="bi bi-chevron-down"></i>
+                           </button>
+                           <div id="colorFilters" class="collapse">
+                              <div class="row g-2">
+                                 {% for Color in Colors %}
+                                 <div class="col-6">
+                                    <div class="form-check text-center filter-option">
+                                       <input class="form-check-input color-{{Color.id}}" name="shoesColor" value="{{Color.slug}}" type="radio" id="Color-{{Color.id}}" onclick="filterShoes('{{category.slug}}')">
+                                       <label class="form-check-label pointer" for="Color-{{Color.id}}">{{Color.name}}</label>
+                                    </div>
+                                 </div>
+                                 {% endfor %}
+                              </div>
+                           </div>
+                        </div>
+                        <hr style="border-color: var(--border-color);">
+                        
+                        <!-- Numaralar -->
+                        <div class="mb-4">
+                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#sizeFilters">
+                              <span>Numaralar</span>
+                              <i class="bi bi-chevron-down"></i>
+                           </button>
+                           <div id="sizeFilters" class="collapse">
+                              <div class="row g-2">
+                                 {% for Shoes_Number in Shoes_Numbers %}
+                                 <div class="col-4">
+                                    <input type="radio" class="btn-check" value="{{Shoes_Number.slug}}" name="shoesNumber" id="dark-outlined-{{Shoes_Number.id}}" onclick="filterShoes('{{category.slug}}')">
+                                    <label class="btn btn-outline-secondary w-100 pointer" for="dark-outlined-{{Shoes_Number.id}}">{{Shoes_Number}}</label>
+                                 </div>
+                                 {% endfor %}
+                              </div>
+                           </div>
+                        </div>
+                        <hr style="border-color: var(--border-color);">
+                        
+                        <!-- Markalar -->
+                        <div class="mb-4">
+                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#brandFilters">
+                              <span>Markalar</span>
+                              <i class="bi bi-chevron-down"></i>
+                           </button>
+                           <div id="brandFilters" class="collapse">
+                              {% for brand in brands %}
+                              <div class="form-check filter-option">
+                                 <input class="form-check-input" type="radio" name="brand" value="{{brand.name}}" id="brand-{{brand.id}}" onclick="filterShoes('{{category.slug}}')">
+                                 <label class="form-check-label pointer" for="brand-{{brand.id}}">{{brand.name}}</label>
+                              </div>
+                              {% endfor %}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                   
-                  <!-- Ayakkabi Yuksekligi -->
-                  <div>
-                     <button onclick="toggleGender('shoeHeightOptions2', 'shoeHeightIcon2')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender" style="background-color: none; border: none;">
-                        <h5 >Ayakkabi Yuksekligi</h5>
-                        <div><i id="shoeHeightIcon2" class="bi bi-chevron-down fs-5"></i></div>
-                     </button>
-                  </div>
-                  <div id="shoeHeightOptions2" style="display: none;">
-                     {% for Shoe_Height in Shoe_Heights %}
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" value="{{Shoe_Height.slug}}" name="ShoeHeight" id="Shoe_Height-{{Shoe_Height.id}}" onclick="filterShoes('{{category.slug}}')" >
-                           <label class="form-check-label pointer" for="Shoe_Height-{{Shoe_Height.id}}">{{Shoe_Height.name}}</label>
-                        </div>
-                     {% endfor %}
-                  </div>
-                  <hr>
-                  <!-- Color -->
-                  <div>
-                     <button onclick="toggleGender('ColorOptions2', 'ColorIcon2')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender" style="background-color: none; border: none;">
-                        <h5>Renkler</h5>
-                        <div><i id="ColorIcon2" class="bi bi-chevron-down fs-5"></i></div>
-                     </button>
-                  </div>
-                  <div id="ColorOptions2" class="" style="display: none;">
-                     <div class="row  m-0">
-                        {% for Color in Colors %}
-                        <div class="col-6 mb-2">
-                           <div class="form-check d-flex justify-content-center align-items-center">
-                              <input class="form-check-input color-{{Color.id}} " name="shoesColor" value="{{Color.slug}}" type="radio" id="Color-{{Color.id}}" onclick="filterShoes('{{category.slug}}')" >
-                           </div>
-                           <div class="d-flex justify-content-center align-items-center">
-                              <label class="form-check-label pointer" for="Color-{{Color.id}}">{{Color.name}}</label>
-                           </div>
-                        </div>
-                        {% endfor %}  
-                    </div>  
-                  </div>
-                  <hr>
-                  <!-- Numaralar -->
-                  <div>
-                     <button onclick="toggleGender('Shoes_NumberOptions2', 'Shoes_NumberIcon2')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender"   style="background-color: none; border: none;">
-                        <h5>Numaralar</h5>
-                        <div><i id="Shoes_NumberIcon2" class="bi bi-chevron-down fs-5"></i></div>
-                     </button>
-                  </div>
-                  <div id="Shoes_NumberOptions2" class="" style="display: none;">
-                     <div class="row m-0">
-                        {% for Shoes_Number in Shoes_Numbers %}
-                        <div class="col-4 mb-2 d-flex justify-content-center align-items-center">
-                           <input type="radio" class="btn-check rounded-0 fs-4 "  value="{{Shoes_Number.slug}}" name="shoesNumber" id="dark-outlined-{{Shoes_Number.id}}" onclick="filterShoes('{{category.slug}}')" autocomplete="off">
-                           <label class="btn btn-outline-dark  rounded-0 fs-6 pointer" for="dark-outlined-{{Shoes_Number.id}}">{{Shoes_Number}}</label>
-                        </div>
-                        {% endfor %} 
-                    </div>  
-                  </div>
-                  <hr>
-                  <!-- Markalar -->
-                  <div>
-                     <button onclick="toggleGender('brandOptions2', 'brandIcon2')" class="btn btn-link text-dark d-flex justify-content-between w-100 togglegender" style="background-color: none; border: none;">
-                        <h5>Markalar</h5>
-                        <div><i id="brandIcon2" class="bi bi-chevron-down fs-5"></i></div>
-                     </button>
-                  </div>
-                  <div id="brandOptions2" class="" style="display: none;">
-                     <div class="row m-0">
-                        {% for brand in brands %}
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="brand" value="{{brand.name}}" id="brand-{{brand.id}}" onclick="filterShoes('{{category.slug}}')">
-                           <label class="form-check-label pointer" for="brand-{{brand.id}}">{{brand.name}}</label>
-                        </div>
-                        {% endfor %} 
-                    </div>  
-                  </div>
-               </div>
-               <div class="col-9 px-5">
-                  <div class="container-fluid">
-                     <div class="row " id="shoes-container">
+                  <!-- Products Section -->
+                  <div class="col-lg-10 col-md-9">
+                     <div class="mb-4">
+                        <h2 class="gallery-title">{{ category.title }} Ayakkabıları <span style="color: var(--accent-color);">(<span id="countS">{{shoes_all.count}}</span>)</span></h2>
+                     </div>
+                     
+                     <div class="row g-4" id="shoes-container">
                         {% for shoes in shoes_all %}
-                        <div class="col-xl-4 col-md-6 hover_shoes">
-                           <a href="{% url 'product' shoes.id %}">
-                               <div class="card text-bg-dark m-0 border-0 shadow p-0 mb-5 bg-body-tertiary rounded mt-2">
-                                   <div id="carouselExampleDark-{{shoes.id}}" class="carousel carousel-dark slide">
-                                       <div class="carousel-inner">
-                                           <div class="carousel-item active">
-                                               <img src="{{shoes.image.url}}" class="card-img d-block w-100 border-0" style="max-width: 100%;" alt="...">
-                                           </div>
-                                       </div>
+                        <div class="col-xl-4 col-md-6">
+                           <a href="{% url 'product' shoes.id %}" class="text-decoration-none">
+                               <div class="product-card">
+                                   <div class="product-image">
+                                       <img src="{{shoes.image.url}}" alt="{{shoes.name}}">
                                    </div>
-                                   <div class="mt-0">
-                                       <h6 class="text-dark mt-3 text-center m-0 mx-1 d-flex justify-content-center" style="font-size: 14px; height: 50px;">{{shoes.name}}</h6>
-                                       <h5 class="text-dark p-1 text-center d-flex justify-content-center mb-1 pt-0" style="color: #f9ca16;font-size: 18px;">{{shoes.price}}TL</h5>
+                                   <div class="product-info">
+                                       <h6 class="product-name">{{shoes.name}}</h6>
+                                       <div class="product-price">{{shoes.price}}₺</div>
                                    </div>
                                </div>
                            </a>
-                       </div>
+                        </div>
                         {% endfor %}
                      </div>
                   </div>
@@ -228,11 +431,6 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
       <script>
          function filterShoes(category) {
-            // var Shoe_Category_filterValues = [];
-            // $("input[name='shoesCategory']:checked").each(function(){
-            //    Shoe_Category_filterValues.push($(this).val());
-            // });
-            // console.log(Shoe_Category_filterValues);
 
             var Shoe_Height_filterValues = [];
             $("input[name='ShoeHeight']:checked").each(function(){
@@ -285,19 +483,15 @@
                   response.shoes.forEach(function(shoe) {
                      var shoeUrl = `/shoes/product/${shoe.id}`;
                         shoesHtml += `
-                        <div class="col-xl-4 col-md-6 hover_shoes">
-                        <a href="${shoeUrl}">
-                           <div class="card text-bg-dark m-0 border-0 shadow p-0 mb-5 bg-body-tertiary rounded mt-2">
-                              <div id="carouselExampleDark-${shoe.id}" class="carousel carousel-dark slide">
-                                    <div class="carousel-inner">
-                                       <div class="carousel-item active">
-                                          <img src="/media/${shoe.image}" class="card-img d-block w-100 border-0" style="max-width: 100%;" alt="...">
-                                       </div>
-                                    </div>
+                        <div class="col-xl-4 col-md-6">
+                        <a href="${shoeUrl}" class="text-decoration-none">
+                           <div class="product-card">
+                              <div class="product-image">
+                                 <img src="/media/${shoe.image}" alt="${shoe.name}">
                               </div>
-                              <div class="mt-0">
-                                    <h6 class="text-dark mt-3 text-center m-0 mx-1 d-flex justify-content-center" style="font-size: 14px; height: 50px;">${shoe.name}</h6>
-                                    <h5 class="text-dark p-1 text-center d-flex justify-content-center mb-1 pt-0" style="color: #f9ca16;font-size: 18px;">${shoe.price}TL</h5>
+                              <div class="product-info">
+                                 <h6 class="product-name">${shoe.name}</h6>
+                                 <div class="product-price">${shoe.price}₺</div>
                               </div>
                            </div>
                         </a>
@@ -311,5 +505,40 @@
          });
          }
      </script>
+      <script>
+        // Use Bootstrap Collapse API to reliably toggle sections and flip chevrons
+        (function(){
+          document.querySelectorAll('.filter-title').forEach(function(btn){
+            var targetSelector = btn.getAttribute('data-bs-target');
+            if(!targetSelector) return;
+            var target = document.querySelector(targetSelector);
+            var icon = btn.querySelector('i');
+            if(!target || !icon) return;
+
+            // initialize icon based on current state
+            if(target.classList.contains('show')){
+              icon.classList.remove('bi-chevron-down'); icon.classList.add('bi-chevron-up');
+            } else {
+              icon.classList.remove('bi-chevron-up'); icon.classList.add('bi-chevron-down');
+            }
+
+            // create/get Bootstrap Collapse instance (do not auto-toggle on creation)
+            var collapseInstance = bootstrap.Collapse.getOrCreateInstance(target, {toggle: false});
+
+            // toggle via API when title clicked
+            btn.addEventListener('click', function(e){
+              collapseInstance.toggle();
+            });
+
+            // update icon when collapse finishes
+            target.addEventListener('shown.bs.collapse', function(){
+              icon.classList.remove('bi-chevron-down'); icon.classList.add('bi-chevron-up');
+            });
+            target.addEventListener('hidden.bs.collapse', function(){
+              icon.classList.remove('bi-chevron-up'); icon.classList.add('bi-chevron-down');
+            });
+          });
+        })();
+      </script>
      
       {% endblock %}

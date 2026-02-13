@@ -4,82 +4,425 @@
 
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
-    .stars {
-        color: #ccc; /* Boş yıldız rengi */
+    :root {
+        --primary-color: #334155;
+        --accent-color: #0d9488;
+        --secondary-color: #64748b;
+        --dark-bg: #0f172a;
+        --light-bg: #f1f5f9;
+        --text-dark: #0f172a;
+        --text-light: #64748b;
+        --border-color: #cbd5e1;
     }
+
+    * {
+        transition: all 0.3s ease;
+    }
+
+    /* Navbar Styles */
+    .navbar-section {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .navbar {
+        padding: 1.2rem 0;
+    }
+
+    .navbar-brand {
+        color: var(--primary-color) !important;
+        font-weight: 800;
+        font-size: 1.8rem !important;
+        letter-spacing: -0.5px;
+    }
+
+    .navbar-toggler {
+        background: var(--accent-color) !important;
+        border: none;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .nav-itemS {
+        color: var(--text-dark) !important;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .nav-itemS:hover {
+        background: rgba(13, 148, 136, 0.1);
+        color: var(--accent-color) !important;
+    }
+
+    /* Search Bar */
+    .searchId {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 2px solid var(--border-color) !important;
+        box-shadow: 0 4px 15px rgba(51, 65, 85, 0.08) !important;
+        border-radius: 12px !important;
+        padding: 0.75rem 1rem;
+    }
+
+    .searchId:focus-within {
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15) !important;
+    }
+
+    .searchId input {
+        color: var(--text-dark);
+    }
+
+    .searchId input::placeholder {
+        color: var(--text-light);
+    }
+
+    .SearchResults {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+        border: 1px solid var(--border-color) !important;
+    }
+
+    /* Category Tabs */
+    .categoryHover {
+        color: var(--text-dark) !important;
+        font-weight: 600;
+        padding: 0.8rem 1.5rem !important;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .categoryHover::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: var(--accent-color);
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+    }
+
+    .categoryHover:hover {
+        background: rgba(13, 148, 136, 0.1);
+        color: var(--accent-color) !important;
+    }
+
+    .categoryHover:hover::after {
+        width: 80%;
+    }
+
+    /* Product Page Styles */
+    .product-section {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        min-height: calc(100vh - 200px);
+        padding: 2rem 0;
+    }
+
+    .product-header {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+    }
+
+    .product-title {
+        color: var(--text-dark);
+        font-weight: 800;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .product-views {
+        background: linear-gradient(135deg, #0d9488 0%, #059669 100%);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+    }
+
+    .carousel-container {
+        background: white;
+        border-radius: 12px;
+        padding: 1rem;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .carousel-item {
+        background-color: white;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        background: rgba(13, 148, 136, 0.1);
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .carousel-control-prev:hover, .carousel-control-next:hover {
+        background: var(--accent-color);
+    }
+
+    /* Product Options */
+    .options-section {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .options-title {
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .color-option {
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 3px solid transparent;
+    }
+
+    .color-option:hover {
+        transform: scale(1.05);
+        border-color: var(--accent-color);
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+    }
+
+    /* support both <img class="color-option"> and wrapper .color-option img */
+    .color-option, .color-option img {
+        width: 60px;
+        height: 60px;
+        display: block;
+        object-fit: cover;
+    }
+
+    .size-section {
+        margin-bottom: 2rem;
+    }
+
+    .btn-check:checked + .btn-size {
+        background: var(--accent-color) !important;
+        border-color: var(--accent-color) !important;
+        color: white !important;
+    }
+
+    .btn-size {
+        border: 2px solid var(--border-color) !important;
+        color: var(--text-dark) !important;
+        border-radius: 6px !important;
+        font-weight: 600;
+    }
+
+    .btn-size:hover {
+        border-color: var(--accent-color) !important;
+    }
+
+    .add-to-bag-btn {
+        background: linear-gradient(135deg, #0d9488 0%, #059669 100%);
+        border: none;
+        color: white;
+        font-weight: 700;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .add-to-bag-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
+    }
+
+    /* Review Section */
+    .review-form {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        margin-top: 2rem;
+    }
+
+    .review-title {
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .stars {
+        color: #cbd5e1;
+    }
+
     .stars .fa-star {
         cursor: pointer;
+        font-size: 1.5rem;
+        transition: all 0.2s ease;
     }
+
+    .stars .fa-star:hover {
+        color: #fbbf24;
+    }
+
     .stars .fa-star.selected {
-        color: gold; /* Dolu yıldız rengi */
+        color: #fbbf24;
     }
-   .carousel-item {
-    background-color: white;
-    
-}
+
+    .form-group label {
+        color: var(--text-dark);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+        border: 2px solid var(--border-color) !important;
+        border-radius: 8px !important;
+        color: var(--text-dark);
+    }
+
+    .form-control:focus {
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 0 0 0.2rem rgba(13, 148, 136, 0.15) !important;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #0d9488 0%, #059669 100%);
+        border: none;
+        color: white;
+        font-weight: 600;
+        border-radius: 6px;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+    }
+
+    /* Comments Section */
+    .comments-section {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        margin-top: 2rem;
+    }
+
+    .comments-title {
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .average-rating {
+        color: var(--accent-color);
+        font-weight: 700;
+    }
+
+    .comment-item {
+        padding: 1.5rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .comment-item:last-child {
+        border-bottom: none;
+    }
+
+    .comment-author {
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .comment-date {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    .comment-rating {
+        color: #fbbf24;
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    .comment-subject {
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-top: 0.5rem;
+    }
+
+    .comment-text {
+        color: var(--text-light);
+        margin-top: 0.5rem;
+    }
+
+    .user-avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 </style>
 
-   <body style="background-color: white;">
-      <div class="s">
-         <nav class="navbar navbar-expand-lg ">
+   <body class="" style="background-color: var(--light-bg);">
+      <div class="navbar-section">
+         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-              <a class="navbar-brand text-warning fs-2 osuc" href="{% url 'index' %}">Shoes House</a>
-              <button class="navbar-toggler bg-warning "  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <i class="bi bi-list text-dark fs-5"></i>
+              <a class="navbar-brand" href="{% url 'index' %}">Shoes House</a>
+              <button class="navbar-toggler"  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="bi bi-list text-white fs-5"></i>
               </button>
               <div class="collapse navbar-collapse " id="navbarSupportedContent">
-               <!-- Categories 
-               <button onclick="openModal()" class="d-flex justify-content-center align-items-center underline-container ms-lg-2" data-bs-toggle="modal" data-bs-target="#categoriesModal" style="background-color: white;" data-bs-toggle="dropdown" aria-expanded="false">
-                     <i class="bi bi-grid fs-4 text-dark me-2 ms-2"></i>
-                     <div class="p-0 m-0 category fs-5">Categories</div>
-               </button>
-               <div id="myModal" class="modal">
-                  <div class="modal-content">
-                     <span class="close-btn fs-2 text-end  mb-1" onclick="closeModal()">
-                        <i class="bi bi-x-circle "></i>
-                     </span>
-                     <div class="container-fluid">
-                        <div class="row text-center">
-                            <a href="{% url 'myorder' %}" class="h3 categoryHover">MyOrder</a>
-                           <a href="{% url 'user_update' %}" class="h3 categoryHover">Profile</a>
-                           <h3>Favorite</h3>
-                        </div>
-                     </div>
-                  </div>
-               </div>-->
+               
                  <!-- Cart -->
                 <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
                   <li class="nav-item mt-auto">
                      <div class="nav-link  pb-0">
-                        <a href="{% url 'myorder' %}" class=" d-flex justify-content-start align-items-center text-center nav-itemS ">
-                            <i class="bi bi-archive fs-4 me-2"></i>
-                            <div class="fs-5">MyOrder</div>
+                        <a href="{% url 'myorder' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
+                            <i class="bi bi-archive fs-5 me-2"></i>
+                            <div class="fs-6">MyOrder</div>
                         </a>
                      </div>
                   </li>
                   <li class="nav-item mt-auto">
                    <div class="nav-link  pb-0">
                      <a href="{% url 'cart' user.id|default_if_none:"0" %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                        <i class="bi bi-cart3 fs-4 me-2"></i>
-                        <div class="fs-5">Cart</div>
+                        <i class="bi bi-cart3 fs-5 me-2"></i>
+                        <div class="fs-6">Cart</div>
                     </a>
                     
                    </div>
                 </li>
                    <!-- User -->
                   <li class="nav-item my-auto">
-                     <div class="nav-link  mt-0 pb-0" onclick="openModal()">
+                     <div class="nav-link  mt-0 pb-0">
                         {% if request.user.is_authenticated %}
                            <a href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                              <i class="bi bi-person-circle fs-4 me-2"></i>
-                              <div class="fs-5">{{ request.user.username }}</div>
+                              <i class="bi bi-person-circle fs-5 me-2"></i>
+                              <div class="fs-6">{{ request.user.username }}</div>
                            </a>
                         {% else %}
                            <a href="{% url 'login' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                              <i class="bi bi-box-arrow-in-right fs-4 me-2"></i>
-                              <div class="fs-5">Login</div>
+                              <i class="bi bi-box-arrow-in-right fs-5 me-2"></i>
+                              <div class="fs-6">Login</div>
                            </a>
                         {% endif %}
    
@@ -88,32 +431,32 @@
                 </ul>
           
                 <!-- Search -->
-                <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4  ">
-                  <form id="searchId" class="d-flex w-100 border rounded-5 shadow-lg searchId" role="search">
+                <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4">
+                  <form id="searchId" class="d-flex w-100 searchId" role="search">
                     {% csrf_token %}
-                    <i class="bi bi-search p-1 fs-4 mx-2"></i>
-                    <input class="me-2 border-0 rounded-5 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search" oninput="getSearchResults()" aria-label="Search">
+                    <i class="bi bi-search p-1 fs-5 mx-2" style="color: #0d9488;"></i>
+                    <input class="border-0 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search shoes..." oninput="getSearchResults()" aria-label="Search" style="background: transparent; color: var(--text-dark);">
                   </form>
-                  <ul id="searchResults"class=" rounded-bottom-3 p-0 visually-hidden-focusable position-absolute top-0 start-0 bg-light z-3  border border-warning SearchResults mt-5 " >
+                  <ul id="searchResults" class="rounded-3 p-0 position-absolute top-100 start-0 bg-white z-3 border SearchResults mt-2 w-100" style="box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
                   </ul>
                 </div>
               </div>
             </div>
           </nav>
-            <div class="d-flex justify-content-center border align-items-center  ">
+            <div class="d-flex justify-content-center border-bottom align-items-center py-3" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 100%);">
             {% for all_category in all_categories %}
-               <a href="{% url 'gallery_by_category' all_category.slug %}" class="h3 text-center ms-4 mb-0 p-2 categoryHover">{{all_category.title}}</a>
+               <a href="{% url 'gallery_by_category' all_category.slug %}" class="h6 text-center ms-3 ms-lg-4 mb-0 categoryHover">{{all_category.title}}</a>
             {% endfor %}
             </div>
      </div>
       <!--Product section start -->
-      <div class="">
-         <div class="container" style="height: 400px;">
-            <div class="gallery_section_2 py-5">
+      <div class="product-section">
+         <div class="container">
+            <div class="py-5">
             <div class="row pb-5">
-                  <div id="Name" class="col-12 d-flex justify-content-between">
-                     <div class="container">
-                        <div class="row">
+                  <div class="col-12">
+                     <div class="product-header">
+                        <div class="row align-items-center">
                            {% if messages %}
                               {% for message in messages %}
                                  <div class="alert alert-{{message.tags}}" role="alert">
@@ -121,93 +464,72 @@
                                  </div>
                               {% endfor %}
                            {% endif %}
-                           <h3 class="col-12 col-md-6 text-dark mt-3" style="text-shadow: 0px 0px 6px rgba(7, 0, 0, 0.3);">{{product.name}}</h3>
-                           <div id="category" class="col-12 col-md-6  pt-2 mb-2 d-flex align-items-center justify-content-end">
-                              <!-- {% for category in product.category.all %}
-
-                                 <div class="d-flex align-items-center">
-                                    <a href="{% url 'gallery_by_category' category.slug  %}"  class="m-2 h6 ">
-                                       {{category.title}}
-                                    </a>
-                                    <div style="width: 10px ; height: 10px;" class="rounded  bg-dark"></div>
-                                 </div>
-                                 
-                              {% endfor %} -->
-                              <h4 class="pt-2 px-2 rounded text-end bg-danger text-white d-flex justify-content-center align-items-center "> {{ product.reviewsCount}} <i class="bi bi-eye-fill ms-2"></i></h4>
+                           <h1 class="col-12 col-md-8 product-title">{{product.name}}</h1>
+                           <div class="col-12 col-md-4 d-flex justify-content-md-end">
+                              <div class="product-views">
+                                 {{ product.reviewsCount }} <i class="bi bi-eye-fill"></i>
+                              </div>
                            </div>
                         </div>
                      </div>
                   </div>
-                  <div class="col-12 col-md-6 d-flex justify-content-center pt-3 pb-5">
-                     <div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-dark w-75" data-bs-ride="carousel">
-                         <div class="carousel-inner rounded">
-                             {% for image in product.images_set.all %}
-                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                     <img src="{{ image.image.url }}" style="height: 400px; width: 400px;" class="d-block w-100" alt="...">
-                                 </div>
-                             {% endfor %}
-                         </div>
-                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                             <span class="visually-hidden">Previous</span>
-                         </button>
-                         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                             <span class="visually-hidden">Next</span>
-                         </button>
-                     </div>
+                  <div class="col-12 col-md-6 mb-4 mb-md-0">
+                     <div class="carousel-container">
+                        <div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-dark w-100" data-bs-ride="carousel">
+                            <div class="carousel-inner rounded">
+                                {% for image in product.images_set.all %}
+                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                        <img src="{{ image.image.url }}" style="height: 400px; width: 100%;" class="d-block w-100" alt="...">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
                  </div>
                  
-                  <div class="col-12  col-md-6 d-flex align-items-center justify-content-between ">
-                        <div class="container">
-                           <div class="row p-3 pt-0" >
+                  <div class="col-12 col-md-6">
+                        <div class="options-section">
+                           <form method="POST" id="myForm">
+                              {% csrf_token %}
+                              <div id="ShoesC" class="mb-4">
+                                 <h5 class="options-title">{{shoesC.all.count}} color options</h5>
+                                 <div class="d-flex gap-3 flex-wrap">
+                                    {% for shoesC in shoesC.all %}
+                                    <div>
+                                          <a href="{% url 'product' shoesC.id %}" class="text-decoration-none">
+                                             <img src="{{shoesC.image.url}}" class="color-option" alt="">
+                                          </a>
+                                    </div>
+                                    {% endfor %}
+                                    <input type="hidden" name="shoesName" value="{{product.name}}">
+                                 </div>
+                              </div>
                               
-                              <form method="POST" id="myForm">
-                                 {% csrf_token %}
-                                 <div id="ShoesC" class="col-12 pt-2 mb-5 ">
-                                    <h5 class="ms-1">{{shoesC.all.count}} color options</h5>
-
-                                    <div class="d-flex">
-                                       {% for shoesC in shoesC.all %}
-                                       <div class="grid gap-3">
-                                             <a href="{% url 'product' shoesC.id %}" class="text-light pe-2">
-                                                <img src="{{shoesC.image.url}}" style="width: 80px; height: 80px;" alt="">
-                                             </a>
+                              <div id="Numbers" class="size-section">
+                                 <h5 class="options-title">Size</h5>
+                                 <div class="d-flex flex-wrap gap-2">
+                                    {% for product_number in product.numbers.all %}
+                                       <div>
+                                          <input type="radio" class="btn-check" name="shoesNumber" value="{{product_number}}" id="size-{{product_number.id}}" autocomplete="off">
+                                          <label class="btn btn-size" for="size-{{product_number.id}}">{{product_number}}</label>
                                        </div>
-                                       {% endfor %}
-                                       <input type="hidden" name="shoesName" value="{{product.name}}">
-                                    </div>
+                                    {% endfor %}
                                  </div>
-                                 
-                                 <div id="Numbers" class="col-12   pt-2 mb-5 ">
-                                    
-                                    <h5>Size</h3>
-                                    
-                                    <div class="d-flex">
-                                       <div class="row row-cols-auto">
-                                       {% for product_number in product.numbers.all %}
-                                          <div class="col ">
-                                             <div class="rounded-0">
-                                                <input type="radio" class="btn-check rounded-0 " name="shoesNumber"  value="{{product_number}}" name="options-outlined" id="danger-outlined-{{product_number.id}}" autocomplete="off">
-                                                <label class="btn btn-outline-danger rounded-0 " for="danger-outlined-{{product_number.id}}">{{product_number}}</label>
-                                             </div>
-                                          </div>
-                                       {% endfor %}
-                                    </div>
-                                    </div>
-                                    
-                                 </div>
-                                 <div class="col-12 ">
-                                    <button type="submit" class="btn btn-danger   px-3" style="box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.22), 1px 0px 0px 0px rgba(0,0,0,0.22), 1px 2px 0px 0px rgba(0,0,0,0.22), 2px 1px 0px 0px rgba(0,0,0,0.22), 2px 3px 0px 0px rgba(0,0,0,0.22), 3px 2px 0px 0px rgba(0,0,0,0.22), 3px 4px 0px 0px rgba(0,0,0,0.22), 4px 3px 0px 0px rgba(0,0,0,0.22), 4px 5px 0px 0px rgba(0,0,0,0.22), 5px 4px 0px 0px rgba(0,0,0,0.22), 5px 6px 0px 0px rgba(0,0,0,0.22), 6px 5px 0px 0px rgba(0,0,0,0.22), 6px 7px 0px 0px rgba(0,0,0,0.22), 7px 6px 0px 0px rgba(0,0,0,0.22), 7px 8px 0px 0px rgba(0,0,0,0.22), 8px 7px 0px 0px rgba(0,0,0,0.22);">
-                                      ADD TO BAG
-                                    </button>
-                                    
-                                 </div>
-                              </form>
-                           </div>
-                           
+                              </div>
+                              
+                              <button type="submit" class="add-to-bag-btn w-100">
+                                 <i class="bi bi-bag-plus me-2"></i>ADD TO BAG
+                              </button>
+                           </form>
                         </div>
-                     
                   </div>
                   
             </div>
@@ -216,65 +538,78 @@
                   <div class="col-12"> 
                      
                      {% if purchased_shoes == True %}
-                     <div class="border p-2 rounded">
+                     <div class="review-form">
+                        <h3 class="review-title">Share Your Experience</h3>
                         <form action="{% url 'addComment' product.id %}" method="post">
                            {% csrf_token %}
-                           <div class="d-flex my-3">
-                              <p class=" ms-0 mb-0 mr-2 fs-5">Puan :</p>
+                           <div class="mb-3">
+                              <label class="form-label">Rating</label>
                               <div class="stars">
                                   <input type="hidden" name="rate" id="rating" value="0">
-                                  <i class="star fa fa-star " data-value="1"></i>
+                                  <i class="star fa fa-star" data-value="1"></i>
                                   <i class="star fa fa-star" data-value="2"></i>
                                   <i class="star fa fa-star" data-value="3"></i>
                                   <i class="star fa fa-star" data-value="4"></i>
                                   <i class="star fa fa-star" data-value="5"></i>
                               </div>
                           </div>
-                               <div class="form-group">
-                                   <label for="message">Baslik</label>
-                                   <input name="subject" class="form-control input" type="text" placeholder="Baslik" />
+                               <div class="form-group mb-3">
+                                   <label for="subject" class="form-label">Title</label>
+                                   <input name="subject" class="form-control" type="text" placeholder="Review title..." />
                                </div>
-                               <div class="form-group">
-                                   <label for="name" class="fs-6">Yorum : </label>
-                                    <textarea name="comment" class="form-control input" placeholder="Yorum"></textarea>
+                               <div class="form-group mb-3">
+                                   <label for="comment" class="form-label">Review</label>
+                                    <textarea name="comment" class="form-control" rows="4" placeholder="Share your thoughts about this product..."></textarea>
                                </div>
                                <div class="form-group mb-0">
                                  {% if user.id is not None %}
-                                       <input type="submit" value="Kaydet" class="btn btn-warning text-light px-3">
+                                       <button type="submit" class="btn btn-submit px-4">Submit Review</button>
                                  {% else %}
-                                       You must be logged in to post a review lütfen oturum açın
+                                       <div class="alert alert-info" role="alert">
+                                          You must be <a href="{% url 'login' %}">logged in</a> to post a review
+                                       </div>
                                  {% endif %}
                                </div>
                         </form>
                      </div>
                      {% endif %}
                   </div>
-                  <div class="col-12 mt-5">
+                  <div class="col-12">
                      {% if average_rate %}
-                        <div class="mb-4 d-flex"><h4>Ürün Değerlendirmeleri - </h4> <h4 class="fs-5 mt-1"> <i class="fas fa-star ms-2" style="color: gold;"></i> {{average_rate}}</h4></div>
-                        {% for yorum in comments %}
-                        <hr>
-                        <div class="media">
-                           <img src="{{ yorum.user.userprofile.image.url}}" alt="Image" class="img-fluid ms-3 mr-3 mt-3" style="width: 45px;">
-                           <div class="media-body">
-                              <div class="ms-0"><strong>{{ yorum.user}}</strong><small> - {{ yorum.create_at}}</small>
-                              <div class="text-primary mb-2 ">
-                                 {% with ''|center:yorum.rate as range %}
-                                    {% for _ in range %}
-                                    <i class="fas fa-star " style="color: gold;font-size: 13px;"></i>
-                                    {% endfor %}
-                                 {% endwith %}
-                              </div></div>
-                              <p class="m-0 mb-2"><strong>Baslik : </strong>{{ yorum.subject }}</p>
-                              <p class="m-0 mb-2"><strong>Yorum : </strong>{{ yorum.comment }}</p>
+                        <div class="comments-section">
+                           <h3 class="comments-title">
+                              Customer Reviews 
+                              <span class="average-rating">
+                                 <i class="fas fa-star"></i> {{average_rate}}
+                              </span>
+                           </h3>
+                           
+                           {% for yorum in comments %}
+                           <div class="comment-item d-flex gap-3">
+                              <img src="{{ yorum.user.userprofile.image.url}}" alt="User" class="user-avatar">
+                              <div class="flex-grow-1">
+                                 <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                       <p class="comment-author mb-0">{{ yorum.user}}</p>
+                                       <p class="comment-date mb-2">{{ yorum.create_at}}</p>
+                                    </div>
+                                 </div>
+                                 <div class="comment-rating mb-2">
+                                    {% with ''|center:yorum.rate as range %}
+                                       {% for _ in range %}
+                                       <i class="fas fa-star"></i>
+                                       {% endfor %}
+                                    {% endwith %}
+                                 </div>
+                                 <p class="comment-subject mb-2">{{ yorum.subject }}</p>
+                                 <p class="comment-text mb-0">{{ yorum.comment }}</p>
+                              </div>
                            </div>
+                           {% endfor %}
                         </div>
-                        {% endfor %}
-                        <hr class="m-0">
                      {% endif %}
                  </div>
                </div>
-            </div>
             </div>
          </div>
       </div>
