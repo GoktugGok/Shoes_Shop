@@ -189,6 +189,9 @@ def product_detail(request, product_id):
     shoesC = ShoesDetail.objects.filter(shoesC=product.shoesC)
 
     if request.method == "POST":
+        if not request.user.is_authenticated:
+            messages.warning(request, "Sepete eklemek için giriş yapmalısınız.")
+            return redirect("/accounts/login")
         name = request.POST.get("shoesName")
         number = request.POST.get("shoesNumber")
         if not number:
