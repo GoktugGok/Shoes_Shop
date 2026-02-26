@@ -1,0 +1,277 @@
+<footer class="luxury-footer">
+    <div class="footer-top-wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path
+                d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                class="shape-fill"></path>
+        </svg>
+    </div>
+
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Brand Column -->
+            <div class="col-lg-4">
+                <div class="footer-brand mb-4">
+                    <i class="bi bi-lightning-charge-fill accent-teal"></i>
+                    <span class="brand-text">SHOES HOUSE</span>
+                </div>
+                <p class="footer-about mb-4">
+                    Premium koleksiyonlar ve özel tasarım sneakerlar ile tarzınızı bir üst seviyeye taşıyın. Dünyanın en
+                    iyi markalarını tek bir çatı altında topluyoruz.
+                </p>
+                <div class="social-grid">
+                    <a href="#" class="social-link-icon"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="social-link-icon"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="social-link-icon"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="social-link-icon"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Shop Column -->
+            <div class="col-6 col-lg-2">
+                <h5 class="footer-heading">KOLEKSİYONLAR</h5>
+                <ul class="footer-nav-list">
+                    {% for all_category in all_categories %}
+                    <li><a href="{% url 'gallery_by_category' all_category.slug %}" class="footer-nav-link">
+                            {{all_category.title }}</a></li>
+                    {% endfor %}
+                    <li><a href="{% url 'gallery' %}" class="footer-nav-link">Tüm Ürünler</a></li>
+                </ul>
+            </div>
+
+            <!-- Account Column -->
+            <div class="col-6 col-lg-2">
+                <h5 class="footer-heading">HESAP</h5>
+                <ul class="footer-nav-list">
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'user_update' %}" class="footer-nav-link">Profilim</a></li>
+                    <li><a href="{% url 'myorder' %}" class="footer-nav-link">Siparişlerim</a></li>
+                    <li><a href="{% url 'cart' user.id|default_if_none:'0' %}" class="footer-nav-link">Sepetim</a></li>
+                    <li><a href="{% url 'logout' %}" class="footer-nav-link text-danger">Çıkış Yap</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}" class="footer-nav-link">Giriş Yap</a></li>
+                    <li><a href="{% url 'register' %}" class="footer-nav-link">Kayıt Ol</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <!-- Contact Column -->
+            <div class="col-lg-4">
+                <h5 class="footer-heading">BİZİMLE İLETİŞİM KURUN</h5>
+                <div class="contact-pill-list">
+                    <div class="contact-pill-item">
+                        <i class="bi bi-geo-alt-fill text-teal"></i>
+                        <span>Bağdat Caddesi No:123, Kadıköy - İstanbul</span>
+                    </div>
+                    <div class="contact-pill-item">
+                        <i class="bi bi-telephone-fill text-teal"></i>
+                        <span>+90 (212) 345 67 89</span>
+                    </div>
+                    <div class="contact-pill-item">
+                        <i class="bi bi-envelope-at-fill text-teal"></i>
+                        <span>destek@shoeshouse.com</span>
+                    </div>
+                </div>
+                <div class="newsletter-thin mt-4">
+                    <div class="input-group">
+                        <input type="email" class="form-control text-white" placeholder="E-posta bültenine katılın...">
+                        <button class="btn btn-teal-accent" type="button">Abone Ol</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom py-4">
+        <div
+            class="container text-white d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <p class="mb-0 small text-white">
+                &copy; 2024 Shoes House. Tüm hakları saklıdır. Premium Sneaker Deneyimi.
+            </p>
+            <div class="payment-badges d-flex gap-3 opacity-50 fs-4">
+                <i class="bi bi-credit-card"></i>
+                <i class="bi bi-paypal"></i>
+                <i class="bi bi-apple"></i>
+                <i class="bi bi-google"></i>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .luxury-footer {
+        background: #0f172a;
+        /* Same obsidian as navbar */
+        color: #f1f5f9;
+        margin-top: 100px;
+        position: relative;
+    }
+
+    .footer-top-wave {
+        position: absolute;
+        top: -120px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+    }
+
+    .footer-top-wave svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 120px;
+    }
+
+    .footer-top-wave .shape-fill {
+        fill: #0f172a;
+    }
+
+    .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .footer-brand .brand-text {
+        font-size: 1.6rem;
+        font-weight: 900;
+        letter-spacing: -1px;
+    }
+
+    .accent-teal {
+        color: #0d9488;
+    }
+
+    .text-teal {
+        color: #0d9488;
+    }
+
+    .footer-about {
+        font-size: 0.95rem;
+        line-height: 1.8;
+        color: #94a3b8;
+    }
+
+    .social-grid {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-link-icon {
+        width: 38px;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none !important;
+        transition: all 0.3s ease;
+    }
+
+    .social-link-icon:hover {
+        background: #0d9488;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(13, 148, 136, 0.3);
+    }
+
+    .footer-heading {
+        font-size: 0.85rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin-bottom: 25px;
+        color: #e2e8f0;
+    }
+
+    .footer-nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-nav-list li {
+        margin-bottom: 12px;
+    }
+
+    .footer-nav-link {
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    .footer-nav-link:hover {
+        color: #0d9488;
+        padding-left: 5px;
+    }
+
+    .contact-pill-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .contact-pill-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        font-size: 0.95rem;
+        color: #94a3b8;
+    }
+
+    .newsletter-thin .form-control {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 12px 0 0 12px;
+        font-size: 0.9rem;
+    }
+
+    .newsletter-thin .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.7) !important;
+        opacity: 1;
+    }
+
+    .newsletter-thin .form-control:focus {
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+        border-color: #0d9488;
+    }
+
+    .btn-teal-accent {
+        background: #0d9488;
+        color: white;
+        font-weight: 700;
+        border-radius: 0 12px 12px 0;
+        padding: 0 25px;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-teal-accent:hover {
+        background: #0f766e;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 991px) {
+        .footer-top-wave {
+            top: -60px;
+        }
+
+        .footer-top-wave svg {
+            height: 60px;
+        }
+
+        .luxury-footer {
+            margin-top: 60px;
+        }
+    }
+</style>

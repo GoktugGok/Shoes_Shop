@@ -4,486 +4,362 @@
 
 {% block content %}
 <style>
-    :root {
-        --primary-color: #334155;
-        --accent-color: #0d9488;
-        --secondary-color: #64748b;
-        --dark-bg: #0f172a;
-        --light-bg: #f1f5f9;
-        --text-dark: #0f172a;
-        --text-light: #64748b;
-        --border-color: #cbd5e1;
-    }
+   /* Gallery Styles */
+   .gallery-main {
+      background-color: var(--bg-light);
+      min-height: calc(100vh - 200px);
+      padding: 3rem 0;
+   }
 
-    * {
-        transition: all 0.3s ease;
-    }
+   .gallery-title {
+      color: var(--text-dark);
+      font-weight: 800;
+      font-size: 1.75rem;
+      letter-spacing: -0.5px;
+      margin-bottom: 1.5rem;
+   }
 
-    /* Navbar Styles */
-    .s {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-        border-bottom: 1px solid var(--border-color);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
+   .filter-section {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--card-border);
+      position: sticky;
+      top: 100px;
+   }
 
-    .navbar {
-        padding: 1.2rem 0;
-    }
+   .filter-group {
+      margin-bottom: 2rem;
+   }
 
-    .navbar-brand {
-        color: var(--primary-color) !important;
-        font-weight: 800;
-        font-size: 1.8rem !important;
-        letter-spacing: -0.5px;
-    }
+   .filter-group:last-child {
+      margin-bottom: 0;
+   }
 
-    .navbar-toggler {
-        background: var(--accent-color) !important;
-        border: none;
-        padding: 0.5rem 0.75rem;
-    }
+   .filter-title {
+      color: var(--text-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      width: 100%;
+      margin-bottom: 1rem;
+   }
 
-    .nav-itemS {
-        color: var(--text-dark) !important;
-        font-weight: 600;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        position: relative;
-    }
+   .filter-title i {
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+   }
 
-    .nav-itemS:hover {
-        background: rgba(13, 148, 136, 0.1);
-        color: var(--accent-color) !important;
-    }
+   .filter-title:not(.collapsed) i {
+      transform: rotate(180deg);
+   }
 
-    /* Search Bar */
-    .searchId {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        border: 2px solid var(--border-color) !important;
-        box-shadow: 0 4px 15px rgba(51, 65, 85, 0.08) !important;
-        border-radius: 12px !important;
-        padding: 0.75rem 1rem;
-    }
+   .filter-option {
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+   }
 
-    .searchId:focus-within {
-        border-color: var(--accent-color) !important;
-        box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15) !important;
-    }
+   .filter-option:hover {
+      color: var(--accent);
+   }
 
-    .searchId input {
-        color: var(--text-dark);
-    }
+   .filter-option input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+   }
 
-    .searchId input::placeholder {
-        color: var(--text-light);
-    }
+   /* Modern Product Card */
+   .product-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+   }
 
-    .SearchResults {
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
-        border: 1px solid var(--border-color) !important;
-    }
+   .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent);
+   }
 
-    /* Category Tabs */
-    .categoryHover {
-        color: var(--text-dark) !important;
-        font-weight: 600;
-        padding: 0.8rem 1.5rem !important;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        position: relative;
-    }
+   .product-image {
+      position: relative;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
 
-    .categoryHover::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        width: 0;
-        height: 3px;
-        background: var(--accent-color);
-        transform: translateX(-50%);
-        transition: width 0.3s ease;
-    }
+   .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+   }
 
-    .categoryHover:hover {
-        background: rgba(13, 148, 136, 0.1);
-        color: var(--accent-color) !important;
-    }
+   .product-card:hover .product-image img {
+      transform: scale(1.1);
+   }
 
-    .categoryHover:hover::after {
-        width: 80%;
-    }
+   .product-info {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+   }
 
-    /* Gallery Styles */
-    .gallery-main {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        min-height: calc(100vh - 200px);
-        padding: 2rem 0;
-    }
+   .product-meta {
+      margin-bottom: 10px;
+   }
 
-    .gallery-title {
-        color: var(--text-dark);
-        font-weight: 800;
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
+   .product-name {
+      color: var(--text-dark);
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 0;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+   }
 
-    .filter-section {
-        background: white;
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-        position: sticky;
-        top: 120px;
-    }
+   /* Correctly handles 2 lines */
 
-    .filter-title {
-        color: var(--text-dark);
-        font-weight: 700;
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        border: none;
-        background: none;
-        padding: 0;
-    }
 
-    .filter-title:hover {
-        color: var(--accent-color);
-    }
+   .product-price-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 15px;
+   }
 
-   /* Pin chevron to the right and add smooth rotate */
-   .filter-title i { margin-left: auto; font-size:1.05rem; transition: transform .25s ease; }
+   .product-price {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 1.25rem;
+   }
 
-    .filter-option {
-        padding: 0.5rem 0;
-        padding-left: 0.5rem;
-        color: var(--text-dark);
-        font-weight: 500;
-    }
+   .btn-view {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+   }
 
-    .filter-option input {
-        accent-color: var(--accent-color);
-        cursor: pointer;
-        margin-right: 0.5rem;
-    }
-
-    .filter-option label {
-        margin-bottom: 0;
-        display: inline;
-    }
-
-    .product-card {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        border: 1px solid var(--border-color);
-    }
-
-    .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(13, 148, 136, 0.15);
-    }
-
-    .product-image {
-        height: 280px;
-        overflow: hidden;
-        background: var(--light-bg);
-    }
-
-    .product-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-
-    .product-card:hover .product-image img {
-        transform: scale(1.08);
-    }
-
-    .product-info {
-        padding: 1.2rem;
-    }
-
-    .product-name {
-        color: var(--text-dark);
-        font-weight: 700;
-        font-size: 1rem;
-        margin-bottom: 0.8rem;
-        min-height: 2.5rem;
-        display: flex;
-        align-items: center;
-    }
-
-    .product-price {
-        color: var(--accent-color);
-        font-weight: 800;
-        font-size: 1.2rem;
-    }
+   .product-card:hover .btn-view {
+      background: var(--accent);
+      color: white;
+   }
 </style>
 
-   <body class="">
-      <div class="s">
-         <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="{% url 'index' %}">Shoes House</a>
-              <button class="navbar-toggler" type="button" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <i class="bi bi-list text-white fs-5"></i>
-              </button>
-              <div class="collapse navbar-collapse " id="navbarSupportedContent">
-               
-                 <!-- Cart -->
-                <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
-                  <li class="nav-item mt-auto">
-                     <div class="nav-link pb-0">
-                        <a href="{% url 'myorder' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                            <i class="bi bi-archive fs-5 me-2"></i>
-                            <div class="fs-6">MyOrder</div>
-                        </a>
+<!-- Gallery Section -->
+<div class="gallery-main py-5">
+   <div class="container-fluid">
+      <div class="row px-lg-4">
+         <div class="col-lg-2">
+            <div class="filter-section">
+               <h4 class="mb-4" style="font-weight: 800; font-size: 1.2rem;">Filters</h4>
+
+               <!-- Kategoriler -->
+               <div class="filter-group">
+                  <button type="button" class="filter-title" data-bs-toggle="collapse"
+                     data-bs-target="#categoryFilters">
+                     <span>Categories</span>
+                     <i class="bi bi-chevron-down"></i>
+                  </button>
+                  <div id="categoryFilters" class="collapse show">
+                     {% for category in subcategories %}
+                     <div class="filter-option">
+                        <input type="radio" value="{{category.slug}}" name="shoesCategory" id="category-{{category.id}}"
+                           onclick="filterShoes('{{category.slug}}')">
+                        <label class="pointer" for="category-{{category.id}}">{{category.title}}</label>
                      </div>
-                  </li>
-                  <li class="nav-item mt-auto">
-                   <div class="nav-link pb-0">
-                     <a href="{% url 'cart' user.id|default_if_none:"0" %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                        <i class="bi bi-cart3 fs-5 me-2"></i>
-                        <div class="fs-6">Cart</div>
-                    </a>
-                   </div>
-                </li>
-                   <!-- User -->
-                  <li class="nav-item my-auto">
-                     <div class="nav-link mt-0 pb-0">
-                        {% if request.user.is_authenticated %}
-                           <a href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                              <i class="bi bi-person-circle fs-5 me-2"></i>
-                              <div class="fs-6">{{ request.user.username }}</div>
-                           </a>
-                        {% else %}
-                           <a href="{% url 'login' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                              <i class="bi bi-box-arrow-in-right fs-5 me-2"></i>
-                              <div class="fs-6">Login</div>
-                           </a>
-                        {% endif %}
-   
-                     </div>
-                  </li>
-                </ul>
-          
-                <!-- Search -->
-                <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4">
-                  <form id="searchId" class="d-flex w-100 searchId" role="search">
-                    {% csrf_token %}
-                    <i class="bi bi-search p-1 fs-5 mx-2" style="color: #0d9488;"></i>
-                    <input class="border-0 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search shoes..." oninput="getSearchResults()" aria-label="Search" style="background: transparent; color: var(--text-dark);">
-                  </form>
-                  <ul id="searchResults" class="rounded-3 p-0 position-absolute top-100 start-0 bg-white z-3 border SearchResults mt-2 w-100" style="box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </nav>
-            <div class="d-flex justify-content-center border-bottom align-items-center py-3" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 100%);">
-            {% for all_category in all_categories %}
-               <a href="{% url 'gallery_by_category' all_category.slug %}" class="h6 text-center ms-3 ms-lg-4 mb-0 categoryHover">{{all_category.title}}</a>
-            {% endfor %}
-            </div>
-     </div>
-      <!--header section end -->
-      <!--gallery section start -->
-      <div class="gallery-main">
-            <div class="container-fluid">
-               <div class="row">
-                  <div class="col-lg-2 col-md-3 mb-4 mb-lg-0">
-                     <div class="filter-section">
-                        <h4 class="gallery-title">Filtreler</h4>
-                        
-                        <!-- Kategoriler -->
-                        <div class="mb-4">
-                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#categoryFilters">
-                              <span>Kategoriler</span>
-                              <i class="bi bi-chevron-down"></i>
-                           </button>
-                           <div id="categoryFilters" class="collapse show">
-                              <ul class="nav flex-column">
-                                 {% for category in subcategories %}
-                                 <div class="form-check filter-option">
-                                    <input type="radio" class="form-check-input" value="{{category.slug}}" name="shoesCategory" id="category-{{category.id}}" onclick="filterShoes('{{category.slug}}')">
-                                    <label class="form-check-label pointer" for="category-{{category.id}}">{{category.title}}</label>
-                                 </div>
-                                 {% endfor %}
-                              </ul>
-                           </div>
-                        </div>
-                        <hr style="border-color: var(--border-color);">
-                        
-                        <!-- Ayakkabi Yuksekligi -->
-                        <div class="mb-4">
-                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#heightFilters">
-                              <span>Ayakkabı Yüksekliği</span>
-                              <i class="bi bi-chevron-down"></i>
-                           </button>
-                           <div id="heightFilters" class="collapse">
-                              {% for Shoe_Height in Shoe_Heights %}
-                              <div class="form-check filter-option">
-                                 <input class="form-check-input" type="radio" value="{{Shoe_Height.slug}}" name="ShoeHeight" id="Shoe_Height-{{Shoe_Height.id}}" onclick="filterShoes('{{category.slug}}')">
-                                 <label class="form-check-label pointer" for="Shoe_Height-{{Shoe_Height.id}}">{{Shoe_Height.name}}</label>
-                              </div>
-                              {% endfor %}
-                           </div>
-                        </div>
-                        <hr style="border-color: var(--border-color);">
-                        
-                        <!-- Color -->
-                        <div class="mb-4">
-                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#colorFilters">
-                              <span>Renkler</span>
-                              <i class="bi bi-chevron-down"></i>
-                           </button>
-                           <div id="colorFilters" class="collapse">
-                              <div class="row g-2">
-                                 {% for Color in Colors %}
-                                 <div class="col-6">
-                                    <div class="form-check text-center filter-option">
-                                       <input class="form-check-input color-{{Color.id}}" name="shoesColor" value="{{Color.slug}}" type="radio" id="Color-{{Color.id}}" onclick="filterShoes('{{category.slug}}')">
-                                       <label class="form-check-label pointer" for="Color-{{Color.id}}">{{Color.name}}</label>
-                                    </div>
-                                 </div>
-                                 {% endfor %}
-                              </div>
-                           </div>
-                        </div>
-                        <hr style="border-color: var(--border-color);">
-                        
-                        <!-- Numaralar -->
-                        <div class="mb-4">
-                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#sizeFilters">
-                              <span>Numaralar</span>
-                              <i class="bi bi-chevron-down"></i>
-                           </button>
-                           <div id="sizeFilters" class="collapse">
-                              <div class="row g-2">
-                                 {% for Shoes_Number in Shoes_Numbers %}
-                                 <div class="col-4">
-                                    <input type="radio" class="btn-check" value="{{Shoes_Number.slug}}" name="shoesNumber" id="dark-outlined-{{Shoes_Number.id}}" onclick="filterShoes('{{category.slug}}')">
-                                    <label class="btn btn-outline-secondary w-100 pointer" for="dark-outlined-{{Shoes_Number.id}}">{{Shoes_Number}}</label>
-                                 </div>
-                                 {% endfor %}
-                              </div>
-                           </div>
-                        </div>
-                        <hr style="border-color: var(--border-color);">
-                        
-                        <!-- Markalar -->
-                        <div class="mb-4">
-                           <button type="button" class="filter-title" data-bs-toggle="collapse" data-bs-target="#brandFilters">
-                              <span>Markalar</span>
-                              <i class="bi bi-chevron-down"></i>
-                           </button>
-                           <div id="brandFilters" class="collapse">
-                              {% for brand in brands %}
-                              <div class="form-check filter-option">
-                                 <input class="form-check-input" type="radio" name="brand" value="{{brand.name}}" id="brand-{{brand.id}}" onclick="filterShoes('{{category.slug}}')">
-                                 <label class="form-check-label pointer" for="brand-{{brand.id}}">{{brand.name}}</label>
-                              </div>
-                              {% endfor %}
-                           </div>
-                        </div>
-                     </div>
+                     {% endfor %}
                   </div>
-                  
-                  <!-- Products Section -->
-                  <div class="col-lg-10 col-md-9">
-                     <div class="mb-4">
-                        <h2 class="gallery-title">{{ category.title }} Ayakkabıları <span style="color: var(--accent-color);">(<span id="countS">{{shoes_all.count}}</span>)</span></h2>
+               </div>
+
+               <!-- Height -->
+               <div class="filter-group">
+                  <button type="button" class="filter-title collapsed" data-bs-toggle="collapse"
+                     data-bs-target="#heightFilters">
+                     <span>Shoe Height</span>
+                     <i class="bi bi-chevron-down"></i>
+                  </button>
+                  <div id="heightFilters" class="collapse">
+                     {% for Shoe_Height in Shoe_Heights %}
+                     <div class="filter-option">
+                        <input type="radio" value="{{Shoe_Height.slug}}" name="ShoeHeight"
+                           id="Shoe_Height-{{Shoe_Height.id}}" onclick="filterShoes('{{category.slug}}')">
+                        <label class="pointer" for="Shoe_Height-{{Shoe_Height.id}}">{{Shoe_Height.name}}</label>
                      </div>
-                     
-                     <div class="row g-4" id="shoes-container">
-                        {% for shoes in shoes_all %}
-                        <div class="col-xl-4 col-md-6">
-                           <a href="{% url 'product' shoes.id %}" class="text-decoration-none">
-                               <div class="product-card">
-                                   <div class="product-image">
-                                       <img src="{{shoes.image.url}}" alt="{{shoes.name}}">
-                                   </div>
-                                   <div class="product-info">
-                                       <h6 class="product-name">{{shoes.name}}</h6>
-                                       <div class="product-price">{{shoes.price}}₺</div>
-                                   </div>
-                               </div>
-                           </a>
+                     {% endfor %}
+                  </div>
+               </div>
+
+               <!-- Color -->
+               <div class="filter-group">
+                  <button type="button" class="filter-title collapsed" data-bs-toggle="collapse"
+                     data-bs-target="#colorFilters">
+                     <span>Colors</span>
+                     <i class="bi bi-chevron-down"></i>
+                  </button>
+                  <div id="colorFilters" class="collapse">
+                     <div class="row g-2">
+                        {% for Color in Colors %}
+                        <div class="col-6">
+                           <div class="filter-option">
+                              <input name="shoesColor" value="{{Color.slug}}" type="radio" id="Color-{{Color.id}}"
+                                 onclick="filterShoes('{{category.slug}}')">
+                              <label class="pointer" for="Color-{{Color.id}}">{{Color.name}}</label>
+                           </div>
                         </div>
                         {% endfor %}
                      </div>
                   </div>
                </div>
+
+               <!-- Size -->
+               <div class="filter-group">
+                  <button type="button" class="filter-title collapsed" data-bs-toggle="collapse"
+                     data-bs-target="#sizeFilters">
+                     <span>Sizes</span>
+                     <i class="bi bi-chevron-down"></i>
+                  </button>
+                  <div id="sizeFilters" class="collapse">
+                     <div class="row g-2">
+                        {% for Shoes_Number in Shoes_Numbers %}
+                        <div class="col-4">
+                           <input type="radio" class="btn-check" value="{{Shoes_Number.slug}}" name="shoesNumber"
+                              id="num-{{Shoes_Number.id}}" onclick="filterShoes('{{category.slug}}')">
+                           <label class="btn btn-outline-light text-dark border-0 p-2 fs-6 fw-bold w-100"
+                              for="num-{{Shoes_Number.id}}" style="background: #f1f5f9;">{{Shoes_Number}}</label>
+                        </div>
+                        {% endfor %}
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Markalar -->
+               <div class="filter-group">
+                  <button type="button" class="filter-title collapsed" data-bs-toggle="collapse"
+                     data-bs-target="#brandFilters">
+                     <span>Brands</span>
+                     <i class="bi bi-chevron-down"></i>
+                  </button>
+                  <div id="brandFilters" class="collapse">
+                     {% for brand in brands %}
+                     <div class="filter-option">
+                        <input class="form-check-input" type="radio" name="brand" value="{{brand.name}}"
+                           id="brand-{{brand.id}}" onclick="filterShoes('{{category.slug}}')">
+                        <label class="form-check-label pointer" for="brand-{{brand.id}}">{{brand.name}}</label>
+                     </div>
+                     {% endfor %}
+                  </div>
+               </div>
             </div>
          </div>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-      <script>
-         function filterShoes(category) {
 
-            var Shoe_Height_filterValues = [];
-            $("input[name='ShoeHeight']:checked").each(function(){
-               Shoe_Height_filterValues.push($(this).val());
-            });
-            console.log(Shoe_Height_filterValues);
+         <!-- Products Section -->
+         <div class="col-lg-10">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+               <h2 class="gallery-title mb-0">{{ category.title }} <span class="text-muted fw-normal fs-5">(<span
+                        id="countS">{{shoes_all.count}}</span>) products</span></h2>
+            </div>
 
-            var shoes_color_filterValues = [];
-            $("input[name='shoesColor']:checked").each(function(){
-               shoes_color_filterValues.push($(this).val());
-            });
-            console.log(shoes_color_filterValues)
-            var shoes_number_filterValues = [];
-            $("input[name='shoesNumber']:checked").each(function(){
-               shoes_number_filterValues.push($(this).val());
-            });
+            <div class="row g-4" id="shoes-container">
+               {% for shoes in shoes_all %}
+               <div class="col-xl-4 col-md-6">
+                  <a href="{% url 'product' shoes.id %}" class="text-decoration-none">
+                     <div class="product-card">
+                        <div class="product-image">
+                           <img src="{{shoes.image.url}}" alt="{{shoes.name}}">
+                        </div>
+                        <div class="product-info">
+                           <h6 class="product-name">{{shoes.name}}</h6>
+                           <div class="product-price-wrapper">
+                              <span class="product-price">{{shoes.price}}₺</span>
+                              <div class="btn-view"><i class="bi bi-arrow-right"></i></div>
+                           </div>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+   </div>
+</div> <!-- col-lg-10 end -->
+</div> <!-- row end -->
+</div> <!-- container-fluid end -->
+</div> <!-- gallery-main end -->
+<script>
+   function filterShoes(category) {
 
-            var shoes_brand_filterValues = [];
-            $("input[name='brand']:checked").each(function(){
-               shoes_brand_filterValues.push($(this).val());
-            });
+      var Shoe_Height_filterValues = [];
+      $("input[name='ShoeHeight']:checked").each(function () {
+         Shoe_Height_filterValues.push($(this).val());
+      });
 
-            var url = "{% url 'filter_shoes' %}?category_name=" + category;
-            // if (Shoe_Category_filterValues.length > 0) {
-            //    url += "&shoe_category_filters=" + Shoe_Category_filterValues.join(',');
-            // }
-            if (Shoe_Height_filterValues.length > 0) {
-               url += "&shoe_height_filters=" + Shoe_Height_filterValues.join(',');
-            }
-            if (shoes_color_filterValues.length > 0) {
-               url += "&shoes_color_filters=" + shoes_color_filterValues.join(',');
-            }
-            if (shoes_number_filterValues.length > 0) {
-               url += "&shoes_number_filters=" + shoes_number_filterValues.join(',');
-            }
-            if (shoes_brand_filterValues.length > 0) {
-               url += "&shoes_brand_filters=" + shoes_brand_filterValues.join(',');
-            }
-            var shoesHtml = '';
-            var shoesCount = '';
-            $.ajax({
-               url: url,
-               type: 'GET',
-               success: function(response){
-                  console.log(response);
-                  $('#shoes-container').empty();// Önce mevcut ayakkabıları temizle
-                  $('#countS').empty(); 
-                  shoesCount += response.shoes_count
-                  $('#countS').html(shoesCount);
-                  response.shoes.forEach(function(shoe) {
-                     var shoeUrl = `/shoes/product/${shoe.id}`;
-                        shoesHtml += `
-                        <div class="col-xl-4 col-md-6">
+      var shoes_color_filterValues = [];
+      $("input[name='shoesColor']:checked").each(function () {
+         shoes_color_filterValues.push($(this).val());
+      });
+
+      var shoes_number_filterValues = [];
+      $("input[name='shoesNumber']:checked").each(function () {
+         shoes_number_filterValues.push($(this).val());
+      });
+
+      var shoes_brand_filterValues = [];
+      $("input[name='brand']:checked").each(function () {
+         shoes_brand_filterValues.push($(this).val());
+      });
+
+      var url = "{% url 'filter_shoes' %}?category_name=" + category;
+      Shoe_Height_filterValues.forEach(val => url += "&shoe_height_filters=" + val);
+      shoes_color_filterValues.forEach(val => url += "&shoes_color_filters=" + val);
+      shoes_number_filterValues.forEach(val => url += "&shoes_number_filters=" + val);
+      shoes_brand_filterValues.forEach(val => url += "&shoes_brand_filters=" + val);
+      var shoesHtml = '';
+      $.ajax({
+         url: url,
+         type: 'GET',
+         success: function (response) {
+            $('#shoes-container').empty();
+            $('#countS').html(response.shoes_count);
+            response.shoes.forEach(function (shoe) {
+               var shoeUrl = `/shoes/product/${shoe.id}`;
+               shoesHtml += `
+                     <div class="col-xl-4 col-md-6">
                         <a href="${shoeUrl}" class="text-decoration-none">
                            <div class="product-card">
                               <div class="product-image">
@@ -491,54 +367,54 @@
                               </div>
                               <div class="product-info">
                                  <h6 class="product-name">${shoe.name}</h6>
-                                 <div class="product-price">${shoe.price}₺</div>
+                                 <div class="product-price-wrapper">
+                                    <span class="product-price">${shoe.price}₺</span>
+                                    <div class="btn-view"><i class="bi bi-arrow-right"></i></div>
+                                 </div>
                               </div>
                            </div>
                         </a>
-                           </div>`;
-                           });
-                           $('#shoes-container').html(shoesHtml);
-                        },
-            error: function(xhr, errmsg, err){
-               console.log(xhr.status + ": " + xhr.responseText);
-            }
-         });
+                     </div>`;
+            });
+            $('#shoes-container').html(shoesHtml);
          }
-     </script>
-      <script>
-        // Use Bootstrap Collapse API to reliably toggle sections and flip chevrons
-        (function(){
-          document.querySelectorAll('.filter-title').forEach(function(btn){
-            var targetSelector = btn.getAttribute('data-bs-target');
-            if(!targetSelector) return;
-            var target = document.querySelector(targetSelector);
-            var icon = btn.querySelector('i');
-            if(!target || !icon) return;
+      });
+   }
+</script>
+<script>
+   // Use Bootstrap Collapse API to reliably toggle sections and flip chevrons
+   (function () {
+      document.querySelectorAll('.filter-title').forEach(function (btn) {
+         var targetSelector = btn.getAttribute('data-bs-target');
+         if (!targetSelector) return;
+         var target = document.querySelector(targetSelector);
+         var icon = btn.querySelector('i');
+         if (!target || !icon) return;
 
-            // initialize icon based on current state
-            if(target.classList.contains('show')){
-              icon.classList.remove('bi-chevron-down'); icon.classList.add('bi-chevron-up');
-            } else {
-              icon.classList.remove('bi-chevron-up'); icon.classList.add('bi-chevron-down');
-            }
+         // initialize icon based on current state
+         if (target.classList.contains('show')) {
+            icon.classList.remove('bi-chevron-down'); icon.classList.add('bi-chevron-up');
+         } else {
+            icon.classList.remove('bi-chevron-up'); icon.classList.add('bi-chevron-down');
+         }
 
-            // create/get Bootstrap Collapse instance (do not auto-toggle on creation)
-            var collapseInstance = bootstrap.Collapse.getOrCreateInstance(target, {toggle: false});
+         // create/get Bootstrap Collapse instance (do not auto-toggle on creation)
+         var collapseInstance = bootstrap.Collapse.getOrCreateInstance(target, { toggle: false });
 
-            // toggle via API when title clicked
-            btn.addEventListener('click', function(e){
-              collapseInstance.toggle();
-            });
+         // toggle via API when title clicked
+         btn.addEventListener('click', function (e) {
+            collapseInstance.toggle();
+         });
 
-            // update icon when collapse finishes
-            target.addEventListener('shown.bs.collapse', function(){
-              icon.classList.remove('bi-chevron-down'); icon.classList.add('bi-chevron-up');
-            });
-            target.addEventListener('hidden.bs.collapse', function(){
-              icon.classList.remove('bi-chevron-up'); icon.classList.add('bi-chevron-down');
-            });
-          });
-        })();
-      </script>
-     
-      {% endblock %}
+         // update icon when collapse finishes
+         target.addEventListener('shown.bs.collapse', function () {
+            icon.classList.remove('bi-chevron-down'); icon.classList.add('bi-chevron-up');
+         });
+         target.addEventListener('hidden.bs.collapse', function () {
+            icon.classList.remove('bi-chevron-up'); icon.classList.add('bi-chevron-down');
+         });
+      });
+   })();
+</script>
+
+{% endblock %}

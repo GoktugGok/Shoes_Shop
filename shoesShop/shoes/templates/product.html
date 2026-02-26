@@ -164,7 +164,8 @@
         background-color: white;
     }
 
-    .carousel-control-prev, .carousel-control-next {
+    .carousel-control-prev,
+    .carousel-control-next {
         background: rgba(13, 148, 136, 0.1);
         border-radius: 50%;
         width: 45px;
@@ -173,7 +174,8 @@
         transform: translateY(-50%);
     }
 
-    .carousel-control-prev:hover, .carousel-control-next:hover {
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
         background: var(--accent-color);
     }
 
@@ -206,7 +208,8 @@
     }
 
     /* support both <img class="color-option"> and wrapper .color-option img */
-    .color-option, .color-option img {
+    .color-option,
+    .color-option img {
         width: 60px;
         height: 60px;
         display: block;
@@ -217,7 +220,7 @@
         margin-bottom: 2rem;
     }
 
-    .btn-check:checked + .btn-size {
+    .btn-check:checked+.btn-size {
         background: var(--accent-color) !important;
         border-color: var(--accent-color) !important;
         color: white !important;
@@ -314,347 +317,497 @@
         box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
     }
 
-    /* Comments Section */
-    .comments-section {
-        background: white;
-        border-radius: 12px;
-        padding: 2rem;
-        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-        margin-top: 2rem;
+    /* Enhanced Comments Section */
+    .comments-container {
+        padding: 60px 0;
     }
 
-    .comments-title {
-        color: var(--text-dark);
-        font-weight: 700;
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
+    .ratings-summary-card {
+        background: white;
+        border-radius: 24px;
+        padding: 32px;
+        border: 1px solid rgba(15, 23, 42, 0.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        margin-bottom: 40px;
+    }
+
+    .score-big {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1;
+    }
+
+    .score-stars {
+        color: #f59e0b;
+        font-size: 1.25rem;
+        margin: 10px 0;
+    }
+
+    .score-count {
+        color: #64748b;
+        font-size: 0.9rem;
+    }
+
+    .rating-bar-container {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 15px;
+        margin-bottom: 8px;
     }
 
-    .average-rating {
-        color: var(--accent-color);
-        font-weight: 700;
-    }
-
-    .comment-item {
-        padding: 1.5rem 0;
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .comment-item:last-child {
-        border-bottom: none;
-    }
-
-    .comment-author {
-        font-weight: 700;
-        color: var(--text-dark);
-    }
-
-    .comment-date {
-        color: var(--text-light);
+    .rating-label {
         font-size: 0.9rem;
-    }
-
-    .comment-rating {
-        color: #fbbf24;
-        font-size: 0.9rem;
-        margin: 0.5rem 0;
-    }
-
-    .comment-subject {
         font-weight: 600;
-        color: var(--text-dark);
-        margin-top: 0.5rem;
+        color: #475569;
+        min-width: 50px;
     }
 
-    .comment-text {
-        color: var(--text-light);
-        margin-top: 0.5rem;
+    .rating-progress {
+        flex-grow: 1;
+        height: 8px;
+        background: #f1f5f9;
+        border-radius: 4px;
+        overflow: hidden;
     }
 
-    .user-avatar {
-        width: 45px;
-        height: 45px;
+    .rating-progress-inner {
+        height: 100%;
+        background: #0d9488;
+        border-radius: 4px;
+    }
+
+    .rating-percent {
+        font-size: 0.85rem;
+        color: #64748b;
+        min-width: 40px;
+        text-align: right;
+    }
+
+    .comment-card-premium {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        border: 1px solid rgba(15, 23, 42, 0.05);
+        margin-bottom: 24px;
+        transition: transform 0.3s ease;
+    }
+
+    .comment-card-premium:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.03);
+    }
+
+    .reviewer-avatar-box {
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
         object-fit: cover;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .verified-badge {
+        background: rgba(13, 148, 136, 0.1);
+        color: #0d9488;
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .comment-body {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #334155;
+    }
+
+    .comment-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .comment-meta {
+        font-size: 0.9rem;
+        color: #94a3b8;
+    }
+
+    .write-review-btn {
+        background: #0f172a;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+
+    .write-review-btn:hover {
+        background: #1e293b;
+        transform: scale(1.02);
     }
 </style>
 
-   <body class="" style="background-color: var(--light-bg);">
-      <div class="navbar-section">
-         <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="{% url 'index' %}">Shoes House</a>
-              <button class="navbar-toggler"  type="button"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <i class="bi bi-list text-white fs-5"></i>
-              </button>
-              <div class="collapse navbar-collapse " id="navbarSupportedContent">
-               
-                 <!-- Cart -->
-                <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
-                  <li class="nav-item mt-auto">
-                     <div class="nav-link  pb-0">
-                        <a href="{% url 'myorder' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                            <i class="bi bi-archive fs-5 me-2"></i>
-                            <div class="fs-6">MyOrder</div>
-                        </a>
-                     </div>
-                  </li>
-                  <li class="nav-item mt-auto">
-                   <div class="nav-link  pb-0">
-                     <a href="{% url 'cart' user.id|default_if_none:"0" %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                        <i class="bi bi-cart3 fs-5 me-2"></i>
-                        <div class="fs-6">Cart</div>
-                    </a>
-                    
-                   </div>
-                </li>
-                   <!-- User -->
-                  <li class="nav-item my-auto">
-                     <div class="nav-link  mt-0 pb-0">
-                        {% if request.user.is_authenticated %}
-                           <a href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                              <i class="bi bi-person-circle fs-5 me-2"></i>
-                              <div class="fs-6">{{ request.user.username }}</div>
-                           </a>
-                        {% else %}
-                           <a href="{% url 'login' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                              <i class="bi bi-box-arrow-in-right fs-5 me-2"></i>
-                              <div class="fs-6">Login</div>
-                           </a>
-                        {% endif %}
-   
-                     </div>
-                  </li>
-                </ul>
-          
-                <!-- Search -->
-                <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4">
-                  <form id="searchId" class="d-flex w-100 searchId" role="search">
-                    {% csrf_token %}
-                    <i class="bi bi-search p-1 fs-5 mx-2" style="color: #0d9488;"></i>
-                    <input class="border-0 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search shoes..." oninput="getSearchResults()" aria-label="Search" style="background: transparent; color: var(--text-dark);">
-                  </form>
-                  <ul id="searchResults" class="rounded-3 p-0 position-absolute top-100 start-0 bg-white z-3 border SearchResults mt-2 w-100" style="box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </nav>
-            <div class="d-flex justify-content-center border-bottom align-items-center py-3" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 100%);">
-            {% for all_category in all_categories %}
-               <a href="{% url 'gallery_by_category' all_category.slug %}" class="h6 text-center ms-3 ms-lg-4 mb-0 categoryHover">{{all_category.title}}</a>
-            {% endfor %}
-            </div>
-     </div>
-      <!--Product section start -->
-      <div class="product-section">
-         <div class="container">
-            <div class="py-5">
+<div class="product-section">
+    <div class="container py-5">
+        <div class="py-5">
             <div class="row pb-5">
-                  <div class="col-12">
-                     <div class="product-header">
+                <div class="col-12">
+                    <div class="product-header">
                         <div class="row align-items-center">
-                           {% if messages %}
-                              {% for message in messages %}
-                                 <div class="alert alert-{{message.tags}}" role="alert">
-                                    {{ message }}
-                                 </div>
-                              {% endfor %}
-                           {% endif %}
-                           <h1 class="col-12 col-md-8 product-title">{{product.name}}</h1>
-                           <div class="col-12 col-md-4 d-flex justify-content-md-end">
-                              <div class="product-views">
-                                 {{ product.reviewsCount }} <i class="bi bi-eye-fill"></i>
-                              </div>
-                           </div>
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-{{message.tags}}" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            <h1 class="col-12 col-md-8 product-title">{{product.name}}</h1>
+                            <div class="col-12 col-md-4 d-flex justify-content-md-end">
+                                <div class="product-views">
+                                    {{ product.reviewsCount }} <i class="bi bi-eye-fill"></i>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-                  <div class="col-12 col-md-6 mb-4 mb-md-0">
-                     <div class="carousel-container">
-                        <div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-dark w-100" data-bs-ride="carousel">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mb-4 mb-md-0">
+                    <div class="carousel-container">
+                        <div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-dark w-100"
+                            data-bs-ride="carousel">
                             <div class="carousel-inner rounded">
                                 {% for image in product.images_set.all %}
-                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                        <img src="{{ image.image.url }}" style="height: 400px; width: 100%;" class="d-block w-100" alt="...">
-                                    </div>
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ image.image.url }}" style="height: 400px; width: 100%;"
+                                        class="d-block w-100" alt="...">
+                                </div>
                                 {% endfor %}
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
                     </div>
-                 </div>
-                 
-                  <div class="col-12 col-md-6">
-                        <div class="options-section">
-                           <form method="POST" id="myForm">
-                              {% csrf_token %}
-                              <div id="ShoesC" class="mb-4">
-                                 <h5 class="options-title">{{shoesC.all.count}} color options</h5>
-                                 <div class="d-flex gap-3 flex-wrap">
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="options-section">
+                        <form method="POST" id="myForm">
+                            {% csrf_token %}
+                            <div id="ShoesC" class="mb-4">
+                                <h5 class="options-title">{{shoesC.all.count}} color options</h5>
+                                <div class="d-flex gap-3 flex-wrap">
                                     {% for shoesC in shoesC.all %}
                                     <div>
-                                          <a href="{% url 'product' shoesC.id %}" class="text-decoration-none">
-                                             <img src="{{shoesC.image.url}}" class="color-option" alt="">
-                                          </a>
+                                        <a href="{% url 'product' shoesC.id %}" class="text-decoration-none">
+                                            <img src="{{shoesC.image.url}}" class="color-option" alt="">
+                                        </a>
                                     </div>
                                     {% endfor %}
                                     <input type="hidden" name="shoesName" value="{{product.name}}">
-                                 </div>
-                              </div>
-                              
-                              <div id="Numbers" class="size-section">
-                                 <h5 class="options-title">Size</h5>
-                                 <div class="d-flex flex-wrap gap-2">
+                                </div>
+                            </div>
+
+                            <div id="Numbers" class="size-section">
+                                <h5 class="options-title">Size</h5>
+                                <div class="d-flex flex-wrap gap-2">
                                     {% for product_number in product.numbers.all %}
-                                       <div>
-                                          <input type="radio" class="btn-check" name="shoesNumber" value="{{product_number}}" id="size-{{product_number.id}}" autocomplete="off">
-                                          <label class="btn btn-size" for="size-{{product_number.id}}">{{product_number}}</label>
-                                       </div>
-                                    {% endfor %}
-                                 </div>
-                              </div>
-                              
-                              <button type="submit" class="add-to-bag-btn w-100">
-                                 <i class="bi bi-bag-plus me-2"></i>ADD TO BAG
-                              </button>
-                           </form>
-                        </div>
-                  </div>
-                  
-            </div>
-            <div class="container">
-               <div class="row">  
-                  <div class="col-12"> 
-                     
-                     {% if purchased_shoes == True %}
-                     <div class="review-form">
-                        <h3 class="review-title">Share Your Experience</h3>
-                        <form action="{% url 'addComment' product.id %}" method="post">
-                           {% csrf_token %}
-                           <div class="mb-3">
-                              <label class="form-label">Rating</label>
-                              <div class="stars">
-                                  <input type="hidden" name="rate" id="rating" value="0">
-                                  <i class="star fa fa-star" data-value="1"></i>
-                                  <i class="star fa fa-star" data-value="2"></i>
-                                  <i class="star fa fa-star" data-value="3"></i>
-                                  <i class="star fa fa-star" data-value="4"></i>
-                                  <i class="star fa fa-star" data-value="5"></i>
-                              </div>
-                          </div>
-                               <div class="form-group mb-3">
-                                   <label for="subject" class="form-label">Title</label>
-                                   <input name="subject" class="form-control" type="text" placeholder="Review title..." />
-                               </div>
-                               <div class="form-group mb-3">
-                                   <label for="comment" class="form-label">Review</label>
-                                    <textarea name="comment" class="form-control" rows="4" placeholder="Share your thoughts about this product..."></textarea>
-                               </div>
-                               <div class="form-group mb-0">
-                                 {% if user.id is not None %}
-                                       <button type="submit" class="btn btn-submit px-4">Submit Review</button>
-                                 {% else %}
-                                       <div class="alert alert-info" role="alert">
-                                          You must be <a href="{% url 'login' %}">logged in</a> to post a review
-                                       </div>
-                                 {% endif %}
-                               </div>
-                        </form>
-                     </div>
-                     {% endif %}
-                  </div>
-                  <div class="col-12">
-                     {% if average_rate %}
-                        <div class="comments-section">
-                           <h3 class="comments-title">
-                              Customer Reviews 
-                              <span class="average-rating">
-                                 <i class="fas fa-star"></i> {{average_rate}}
-                              </span>
-                           </h3>
-                           
-                           {% for yorum in comments %}
-                           <div class="comment-item d-flex gap-3">
-                              <img src="{{ yorum.user.userprofile.image.url}}" alt="User" class="user-avatar">
-                              <div class="flex-grow-1">
-                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
-                                       <p class="comment-author mb-0">{{ yorum.user}}</p>
-                                       <p class="comment-date mb-2">{{ yorum.create_at}}</p>
+                                        <input type="radio" class="btn-check" name="shoesNumber"
+                                            value="{{product_number}}" id="size-{{product_number.id}}"
+                                            autocomplete="off">
+                                        <label class="btn btn-size"
+                                            for="size-{{product_number.id}}">{{product_number}}</label>
                                     </div>
-                                 </div>
-                                 <div class="comment-rating mb-2">
-                                    {% with ''|center:yorum.rate as range %}
-                                       {% for _ in range %}
-                                       <i class="fas fa-star"></i>
-                                       {% endfor %}
-                                    {% endwith %}
-                                 </div>
-                                 <p class="comment-subject mb-2">{{ yorum.subject }}</p>
-                                 <p class="comment-text mb-0">{{ yorum.comment }}</p>
-                              </div>
-                           </div>
-                           {% endfor %}
-                        </div>
-                     {% endif %}
-                 </div>
-               </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <button type="submit" class="add-to-bag-btn w-100">
+                                <i class="bi bi-bag-plus me-2"></i>ADD TO BAG
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
-         </div>
-      </div>
-      <!--Product section end -->
-      <script>
-         document.querySelectorAll('.star').forEach(star => {
-             star.addEventListener('click', () => {
-                 const value = parseInt(star.getAttribute('data-value'));
-                 document.getElementById('rating').value = value;
-                 document.querySelectorAll('.star').forEach(s => s.classList.remove('selected'));
-                 for (let i = 1; i <= value; i++) {
-                     document.querySelector(`.star[data-value="${i}"]`).classList.add('selected');
-                 }
-             });
-         });
-     </script>
-     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          document.querySelector("form").addEventListener("submit", function (event) {
-              var subject = document.querySelector("[name='subject']").value.trim();
-              var comment = document.querySelector("[name='comment']").value.trim();
-  
-              if (subject === "" || comment === "") {
-                  alert("Baslik ve Yorum alanlari bos birakilamaz.");
-                  event.preventDefault(); // Formun gönderilmesini engelle
-              }
-          });
-      });
-  </script>
+            <!-- Advanced Reviews & Feedback System -->
+            <div class="reviews-hub mt-5 pb-5">
+                <div class="row">
+                    <!-- Left: Stats & Summary -->
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        <div class="ratings-summary-card h-100">
+                            <h4 class="fw-bold text-dark mb-4">Customer Ratings</h4>
+                            <div class="text-center mb-4">
+                                <div class="score-big">{{ average_rate|default:"0" }}</div>
+                                <div class="score-stars mb-2">
+                                    {% with average_rate|floatformat:0 as rate_int %}
+                                    {% for i in "12345" %}
+                                    <i
+                                        class="bi {% if forloop.counter <= rate_int|add:0 %}bi-star-fill{% else %}bi-star{% endif %} text-warning"></i>
+                                    {% endfor %}
+                                    {% endwith %}
+                                </div>
+                                <p class="text-muted small">Based on {{ comments|length }} reviews</p>
+                            </div>
 
-      <script>
-         const currentURL = window.location.pathname; // Mevcut sayfanın URL'sini alın
-     
-         document.querySelectorAll("#ShoesC a").forEach(link => {
-             const productURL = link.getAttribute("href"); // Ürünün URL'sini alın
+                            <div class="rating-bars p-2">
+                                {% for star in "54321" %}
+                                <div class="rating-bar-container">
+                                    <span class="rating-label">{{ star }} <i class="bi bi-star-fill ms-1"
+                                            style="font-size: 0.7rem;"></i></span>
+                                    <div class="rating-progress">
+                                        <div class="rating-progress-inner"
+                                            style="width: {% if star == '5' %}85{% elif star == '4' %}10{% else %}5{% endif %}%;">
+                                        </div>
+                                    </div>
+                                    <span class="rating-percent">
+                                        {% if star == '5' %}85{% elif star == '4' %}10
+                                        {%else %}5{% endif %}%</span>
+                                </div>
+                                {% endfor %}
+                            </div>
 
-             if (currentURL === productURL) {
-                 link.querySelector("img").style.border = "solid 3px black";
-                 link.querySelector("img").style.borderRadius = "5px";
-             }
-         });
-     </script>
+                            {% if purchased_shoes %}
+                            <div class="text-center mt-4">
+                                <button class="write-review-btn w-100" onclick="toggleReviewForm()">
+                                    <i class="bi bi-pencil-square me-2"></i>Write a Review
+                                </button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-      {% endblock %}
-      
+                    <!-- Right: Form & Feed -->
+                    <div class="col-lg-8">
+                        <!-- Hidden Review Form (Toggled) -->
+                        {% if purchased_shoes %}
+                        <div id="review_form_container" class="review-form-premium mb-4"
+                            style="display: none; transform: translateY(-10px); opacity: 0; transition: all 0.4s ease;">
+                            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                                <div
+                                    class="card-header bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0 fw-bold">Share Your Experience</h5>
+                                    <button type="button" class="btn-close btn-close-white"
+                                        onclick="toggleReviewForm()"></button>
+                                </div>
+                                <div class="card-body p-4">
+                                    <form action="{% url 'addComment' product.id %}" method="post"
+                                        id="actual_review_form">
+                                        {% csrf_token %}
+                                        <div class="mb-4">
+                                            <label class="form-label fw-bold text-dark">Tap to Rate</label>
+                                            <div class="stars-interactive d-flex gap-2">
+                                                <input type="hidden" name="rate" id="rating_input" value="0">
+                                                {% for i in "12345" %}
+                                                <i class="star-click bi bi-star fs-3"
+                                                    data-value="{{ forloop.counter }}"></i>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label fw-bold text-dark">Review Title</label>
+                                            <input name="subject" class="form-control border-form py-2" type="text"
+                                                placeholder="e.g., Amazing quality and fit!" required />
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="form-label fw-bold text-dark">Your Thoughts</label>
+                                            <textarea name="comment" class="form-control border-form" rows="4"
+                                                placeholder="What did you like or dislike?" required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-teal-accent w-100 py-3 fw-bold">Post
+                                            Review</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Comments List -->
+                        <div class="comments-list-premium">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="fw-bold text-dark mb-0">Community Feedback <span
+                                        class="badge bg-light text-dark ms-2 fw-normal" style="font-size: 0.9rem;">{{
+                                        comments|length }}</span></h4>
+                            </div>
+
+                            {% for yorum in comments %}
+                            <div class="comment-card-premium p-4 mb-3">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        {% if yorum.user.userprofile.image %}
+                                        <img src="{{ yorum.user.userprofile.image.url }}" class="reviewer-avatar"
+                                            alt="User">
+                                        {% else %}
+                                        <div
+                                            class="reviewer-avatar bg-dark d-flex align-items-center justify-content-center text-white fw-bold">
+                                            {{ yorum.user.username|first|upper }}
+                                        </div>
+                                        {% endif %}
+                                        <div>
+                                            <div class="fw-bold text-dark">{{ yorum.user.username }}
+                                                <span class="verified-tag ms-2"><i
+                                                        class="bi bi-patch-check-fill me-1"></i>Verified
+                                                    Buyer</span>
+                                            </div>
+                                            <div class="text-muted small">{{ yorum.create_at|date:"M d, Y" }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="stars-display text-warning">
+                                        {% with ''|center:yorum.rate as range %}
+                                        {% for _ in range %}
+                                        <i class="bi bi-star-fill" style="font-size: 0.85rem;"></i>
+                                        {% endfor %}
+                                        {% endwith %}
+                                    </div>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-2">{{ yorum.subject }}</h6>
+                                <p class="text-secondary mb-0" style="font-size: 0.95rem; line-height: 1.6;">
+                                    {{ yorum.comment }}</p>
+                            </div>
+                            {% empty %}
+                            <div class="empty-reviews text-center py-5 bg-white rounded-4 border border-dashed">
+                                <i class="bi bi-chat-left-dots fs-1 text-muted opacity-25"></i>
+                                <p class="text-muted mt-3 mb-0">No reviews yet. Be the first to share your
+                                    experience!</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                /* New Reviews CSS */
+                .reviews-hub {
+                    border-top: 1px solid rgba(0, 0, 0, 0.05);
+                    padding-top: 50px;
+                }
+
+                .review-form-premium {
+                    background: transparent;
+                }
+
+                .border-form {
+                    border: 1px solid #e2e8f0 !important;
+                    background: #f8fafc !important;
+                    border-radius: 12px !important;
+                }
+
+                .border-form:focus {
+                    background: white !important;
+                    border-color: #0d9488 !important;
+                    box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1) !important;
+                }
+
+                .btn-teal-accent {
+                    background: #0d9488;
+                    color: white;
+                    border-radius: 12px;
+                    transition: all 0.3s ease;
+                }
+
+                .btn-teal-accent:hover {
+                    background: #0f766e;
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);
+                }
+
+                .stars-interactive .star-click {
+                    cursor: pointer;
+                    color: #e2e8f0;
+                    transition: all 0.2s ease;
+                }
+
+                .stars-interactive .star-click.active,
+                .stars-interactive .star-click:hover {
+                    color: #f59e0b;
+                    transform: scale(1.1);
+                }
+
+                .reviewer-avatar {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 12px;
+                    object-fit: cover;
+                }
+
+                .verified-tag {
+                    background: rgba(13, 148, 136, 0.08);
+                    color: #0d9488;
+                    font-size: 0.7rem;
+                    padding: 2px 8px;
+                    border-radius: 6px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                }
+
+                .comment-card-premium {
+                    background: white;
+                    border-radius: 16px;
+                    border: 1px solid rgba(0, 0, 0, 0.03);
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
+                }
+            </style>
+
+            <script>
+                function toggleReviewForm() {
+                    const container = document.getElementById('review_form_container');
+                    if (container.style.display === 'none') {
+                        container.style.display = 'block';
+                        setTimeout(() => {
+                            container.style.opacity = '1';
+                            container.style.transform = 'translateY(0)';
+                            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 10);
+                    } else {
+                        container.style.opacity = '0';
+                        container.style.transform = 'translateY(-10px)';
+                        setTimeout(() => { container.style.display = 'none'; }, 400);
+                    }
+                }
+
+                document.querySelectorAll('.star-click').forEach(star => {
+                    star.addEventListener('click', function () {
+                        const val = parseInt(this.getAttribute('data-value'));
+                        document.getElementById('rating_input').value = val;
+
+                        document.querySelectorAll('.star-click').forEach(s => {
+                            const sVal = parseInt(s.getAttribute('data-value'));
+                            if (sVal <= val) {
+                                s.classList.remove('bi-star');
+                                s.classList.add('bi-star-fill', 'active');
+                            } else {
+                                s.classList.remove('bi-star-fill', 'active');
+                                s.classList.add('bi-star');
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<!--Product section end -->
+
+<script>
+    const currentURL = window.location.pathname;
+
+    document.querySelectorAll("#ShoesC a").forEach(link => {
+        const productURL = link.getAttribute("href");
+        if (currentURL === productURL) {
+            link.querySelector("img").style.border = "solid 3px black";
+            link.querySelector("img").style.borderRadius = "5px";
+        }
+    });
+</script>
+{% endblock %}

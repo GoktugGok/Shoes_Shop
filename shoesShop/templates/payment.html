@@ -4,106 +4,100 @@
 
 {% block content %}
 <style>
-        :root {
-                --primary-color: #334155;
-                --accent-color: #0d9488;
-                --secondary-color: #64748b;
-                --light-bg: #f1f5f9;
-                --border-color: #cbd5e1;
-        }
+    :root {
+        --primary-color: #334155;
+        --accent-color: #0d9488;
+        --secondary-color: #64748b;
+        --light-bg: #f1f5f9;
+        --border-color: #cbd5e1;
+    }
 
-        * { transition: all 0.25s ease; }
+    * {
+        transition: all 0.25s ease;
+    }
 
-        .s {
-                background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(241,245,249,0.95) 100%);
-                box-shadow: 0 4px 30px rgba(0,0,0,0.06);
-                border-bottom: 1px solid var(--border-color);
-                position: sticky;
-                top: 0; z-index:1000;
-        }
+    .s {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
 
-        .navbar { padding: 1.1rem 0; }
-        .navbar-brand { color: var(--primary-color) !important; font-weight:800; font-size:1.8rem !important; }
-        .navbar-toggler { background: var(--accent-color) !important; border: none; }
-        .nav-itemS { color: var(--primary-color) !important; font-weight:600; padding:0.5rem 1rem; border-radius:8px; }
+    .navbar {
+        padding: 1.1rem 0;
+    }
 
-        .searchId { background: linear-gradient(135deg,#fff,#f8fafc); border:2px solid var(--border-color); border-radius:12px; padding:0.6rem 0.9rem; }
-        .searchId:focus-within { border-color: var(--accent-color); box-shadow: 0 6px 18px rgba(13,148,136,0.12); }
+    .navbar-brand {
+        color: var(--primary-color) !important;
+        font-weight: 800;
+        font-size: 1.8rem !important;
+    }
 
-        .payment-wrapper { min-height: calc(100vh - 220px); padding: 3rem 0; }
-        .order-card { background: white; border-radius:12px; padding:2rem; box-shadow: 0 6px 24px rgba(15,23,42,0.06); border: 1px solid var(--border-color); }
-        .form-label { font-weight:700; color:var(--text-dark); }
-        .form-control { border:2px solid var(--border-color) !important; border-radius:8px !important; }
-        .form-control:focus { border-color: var(--accent-color) !important; box-shadow: 0 4px 20px rgba(13,148,136,0.12) !important; }
-        .btn-submit { background: linear-gradient(135deg,var(--accent-color),#059669); color:white; border:none; padding:0.75rem 1rem; border-radius:8px; font-weight:700; }
+    .navbar-toggler {
+        background: var(--accent-color) !important;
+        border: none;
+    }
+
+    .nav-itemS {
+        color: var(--primary-color) !important;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+    }
+
+    .searchId {
+        background: linear-gradient(135deg, #fff, #f8fafc);
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        padding: 0.6rem 0.9rem;
+    }
+
+    .searchId:focus-within {
+        border-color: var(--accent-color);
+        box-shadow: 0 6px 18px rgba(13, 148, 136, 0.12);
+    }
+
+    .payment-wrapper {
+        min-height: calc(100vh - 220px);
+        padding: 3rem 0;
+    }
+
+    .order-card {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
+        border: 1px solid var(--border-color);
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .form-control {
+        border: 2px solid var(--border-color) !important;
+        border-radius: 8px !important;
+    }
+
+    .form-control:focus {
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 4px 20px rgba(13, 148, 136, 0.12) !important;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, var(--accent-color), #059669);
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-weight: 700;
+    }
 </style>
 
-<body style="background:var(--light-bg)">
-    <div class="s">
-    <nav class="navbar navbar-expand-lg">
-         <div class="container-fluid">
-             <a class="navbar-brand" href="{% url 'index' %}">Shoes House</a>
-             <button class="navbar-toggler" type="button" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="bi bi-list text-white fs-5"></i>
-             </button>
-             <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                    <!-- Cart -->
-                 <ul class="navbar-nav ms-auto mb-2  mb-lg-0 order-lg-1">
-                     <li class="nav-item mt-auto">
-                            <div class="nav-link pb-0">
-                                 <a href="{% url 'myorder' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                                         <i class="bi bi-archive fs-5 me-2"></i>
-                                         <div class="fs-6">MyOrder</div>
-                                 </a>
-                            </div>
-                     </li>
-                     <li class="nav-item mt-auto">
-                        <div class="nav-link pb-0">
-                            <a href="{% url 'cart' user.id|default_if_none:"0" %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                                 <i class="bi bi-cart3 fs-5 me-2"></i>
-                                 <div class="fs-6">Cart</div>
-                         </a>
-                        </div>
-                 </li>
-                        <!-- User -->
-                     <li class="nav-item my-auto">
-                            <div class="nav-link mt-0 pb-0">
-                                 {% if request.user.is_authenticated %}
-                                        <a href="{% url 'user_update' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                                             <i class="bi bi-person-circle fs-5 me-2"></i>
-                                             <div class="fs-6">{{ request.user.username }}</div>
-                                        </a>
-                                 {% else %}
-                                        <a href="{% url 'login' %}" class="d-flex justify-content-start align-items-center text-center nav-itemS">
-                                             <i class="bi bi-box-arrow-in-right fs-5 me-2"></i>
-                                             <div class="fs-6">Login</div>
-                                        </a>
-                                 {% endif %}
-
-                            </div>
-                     </li>
-                 </ul>
-   
-                 <!-- Search -->
-                 <div class="w-100 position-relative dropdown ms-lg-3 me-lg-4">
-                     <form id="searchId" class="d-flex w-100 searchId" role="search">
-                         {% csrf_token %}
-                         <i class="bi bi-search p-1 fs-5 mx-2" style="color: #0d9488;"></i>
-                         <input class="border-0 w-100" autocomplete="off" name="q" id="searchInput" type="search" placeholder="Search shoes..." oninput="getSearchResults()" aria-label="Search" style="background: transparent; color: var(--text-dark);">
-                     </form>
-                     <ul id="searchResults" class="rounded-3 p-0 position-absolute top-100 start-0 bg-white z-3 border SearchResults mt-2 w-100" style="box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                     </ul>
-                 </div>
-             </div>
-         </div>
-     </nav>
-         <div class="d-flex justify-content-center border-bottom align-items-center py-3" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 100%);">
-         {% for all_category in all_categories %}
-                <a href="{% url 'gallery_by_category' all_category.slug %}" class="h6 text-center ms-3 ms-lg-4 mb-0 categoryHover">{{all_category.title}}</a>
-         {% endfor %}
-         </div>
-    </div>
-
+<div class="py-5">
     <div class="payment-wrapper">
         <div class="container">
             <div class="row justify-content-center">
@@ -118,11 +112,13 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="you@example.com" required>
+                                <input type="email" class="form-control" name="email" placeholder="you@example.com"
+                                    required>
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Address</label>
-                                <textarea class="form-control" name="address" placeholder="1234 Main St" required></textarea>
+                                <textarea class="form-control" name="address" placeholder="1234 Main St"
+                                    required></textarea>
                             </div>
                             <hr>
                             <div class="mb-3">
@@ -132,38 +128,41 @@
                                     <div class="d-flex align-items-center">
                                         <i class="bi bi-credit-card-2-front text-secondary fs-3 me-2"></i>
                                         <div class="d-flex gap-2 flex-nowrap">
-                                            <input type="text" class="form-control num" name="num1" minlength="4" maxlength="4" required style="width:85px; flex:0 0 auto;">
-                                            <input type="text" class="form-control num" name="num2" minlength="4" maxlength="4" required style="width:85px; flex:0 0 auto;">
-                                            <input type="text" class="form-control num" name="num3" minlength="4" maxlength="4" required style="width:85px; flex:0 0 auto;">
-                                            <input type="text" class="form-control num" name="num4" minlength="4" maxlength="4" required style="width:85px; flex:0 0 auto;">
+                                            <input type="text" class="form-control num" name="num1" minlength="4"
+                                                maxlength="4" required style="width:85px; flex:0 0 auto;">
+                                            <input type="text" class="form-control num" name="num2" minlength="4"
+                                                maxlength="4" required style="width:85px; flex:0 0 auto;">
+                                            <input type="text" class="form-control num" name="num3" minlength="4"
+                                                maxlength="4" required style="width:85px; flex:0 0 auto;">
+                                            <input type="text" class="form-control num" name="num4" minlength="4"
+                                                maxlength="4" required style="width:85px; flex:0 0 auto;">
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-column">
                                         <div class="d-flex gap-2">
-                                            <input type="text" class="form-control date" placeholder="MM" name="day" minlength="2" maxlength="2" required style="max-width:80px;">
-                                            <input type="text" class="form-control date" placeholder="YYYY" name="year" minlength="4" maxlength="4" required style="max-width:80px;">
-                                            <input type="text" class="form-control" placeholder="CVV" name="clv" minlength="3" maxlength="3" required style="max-width:80px;">
+                                            <input type="text" class="form-control date" placeholder="MM" name="day"
+                                                minlength="2" maxlength="2" required style="max-width:80px;">
+                                            <input type="text" class="form-control date" placeholder="YYYY" name="year"
+                                                minlength="4" maxlength="4" required style="max-width:80px;">
+                                            <input type="text" class="form-control" placeholder="CVV" name="clv"
+                                                minlength="3" maxlength="3" required style="max-width:80px;">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-grid">
+                            <div class="d-grid mt-4">
                                 <button class="btn-submit" type="submit">SUBMIT PAYMENT</button>
                             </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                    
-                </form>
-            </div>
-        </div>
-        
-</body>
+</div>
 <script>
-     $(document).ready(function () {
+    $(document).ready(function () {
         $('.paymentForm').submit(function (e) {
             e.preventDefault();
             var user_id = "{{request.user.id}}";
@@ -172,7 +171,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/shoes/payment/' + user_id + '?total=' + total,
-                
+
                 data: $('.paymentForm').serialize(),
                 success: function (data) {
                     console.log(data)
@@ -239,7 +238,5 @@
 </script>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>      
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</script>
 {% endblock %}

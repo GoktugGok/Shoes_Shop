@@ -103,6 +103,7 @@ def filter_shoes(request):
         elif category_name:
             shoes = shoes.filter(category__slug=category_name)
 
+        shoes = shoes.distinct()
         shoes_count = shoes.count()       
         print(shoes_count)
         return JsonResponse({'shoes': list(shoes.values()),'shoes_count':shoes_count})
@@ -127,8 +128,8 @@ def gallery_list(request, category_slug=None, tag_slug=None):
         if category.is_root_node():
             # Ana kategori ise
             subcategories = category.get_children()
-            # Category nin ayakkabilari
-            shoes_all = ShoesDetail.objects.filter(category=category)
+            # Category nin ayakkabilari (alt kategorileri de dahil et)
+            shoes_all = ShoesDetail.objects.filter(category__in=category.get_descendants(include_self=True)).distinct()
             
             
             context = {

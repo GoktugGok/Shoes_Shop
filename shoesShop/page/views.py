@@ -6,14 +6,18 @@ from shoes.models import Category , ShoesDetail,Comment
 from .models import Communication
 from django.http import HttpResponseRedirect
 
+from django.db.models import Avg
+
 # Create your views here.
 
 def index(request):
     url = request.META.get('HTTP_REFERER')
     user = request.user
     all_categories = Category.objects.filter(level=0)
-    top_shoes = ShoesDetail.objects.order_by('-reviewsCount')[:6]  # reviewsCount'a göre azalan sırayla ilk 6 ayakkabıyı al
+    top_shoes = ShoesDetail.objects.order_by('-reviewsCount')[:6]
     comments = Comment.objects.order_by('-create_at')[:3]
+    average_rating = Comment.objects.aggregate(Avg('rate'))['rate__avg'] or 0
+    average_rating = round(average_rating, 1)
 
     if request.method == "POST":
         name = request.POST.get("Name")
@@ -39,6 +43,8 @@ def index(request):
         'top_shoes': top_shoes,
         'all_categories':all_categories,
         'comments':comments,
+        'average_rating': average_rating,
+        'total_reviews': Comment.objects.count(),
         'user':user
     }
     return render(request,'index.html',context)

@@ -2,395 +2,288 @@
 
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-      <!-- My Css Code -->
-      <style>
-      .osuc {
-      font-family: "Open Sans", sans-serif;
-      font-optical-sizing: auto;
-      font-weight: 400; /* 300 ile 800 arasında bir değer seçin */
-      font-style: normal;
-      font-variation-settings:
-         "wdth" 100;
+
+<head>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet">
+
+   <style>
+      :root {
+         --primary: #0f172a;
+         --accent: #0d9488;
+         --accent-soft: rgba(13, 148, 136, 0.1);
+         --bg-light: #f8fafc;
+         --text-dark: #0f172a;
+         --text-muted: #64748b;
+         --card-border: rgba(226, 232, 240, 0.8);
+         --glass-bg: rgba(255, 255, 255, 0.8);
+         --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+         --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+         --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+         --font-main: 'Outfit', sans-serif;
       }
-      input:focus{
+
+      body {
+         font-family: var(--font-main);
+         background-color: var(--bg-light);
+         color: var(--text-dark);
+         overflow-x: hidden;
+      }
+
+      input:focus {
          outline: none;
       }
-      @media (max-width: 1100px) {
-         .SearchResults{
-            width: 100%;
-            padding-left: 200px;
-         
-         }
-      }
-      @media (max-width: 1000px) {
-         .searchId{
-            width: 100%;
-         }
-      }
-      @media (max-width: 560px) {
-         .row [class^="col-"] {
-            flex: 0 0 100%;
-            max-width: 100%;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-         }
-         .s1 {
-               display: flex;
-               justify-content: center;
-               align-items: center;
-         }
-         .s2 {
-            padding-right: 0px;
-         }
-      }
-      @media (max-width: 991px) {
-         .s3{
-               margin: 0px;
-         }
-      }
-      .SearchResults{
-         width: 90%;
-         max-height: 480px;
+
+      /* Premium Search Results Overlay */
+      .SearchResults {
+         width: 100%;
+         max-height: 500px;
          overflow-y: auto;
          padding: 0;
-         border-radius: 12px;
-         background: #fff;
+         border-radius: 16px;
+         background: rgba(255, 255, 255, 0.98);
+         backdrop-filter: blur(10px);
+         border: 1px solid var(--card-border);
+         box-shadow: var(--shadow-lg);
+         margin-top: 10px;
+         z-index: 9999;
       }
-      .SearchResults li{ list-style:none; border-bottom:1px solid rgba(0,0,0,0.04); }
-      .search_item{ display:flex; gap:12px; align-items:center; padding:12px; text-decoration:none; color:inherit; }
-      .search-thumb{ width:96px; height:96px; object-fit:cover; border-radius:8px; flex:0 0 96px; }
-      .search-title{ font-size:1rem; font-weight:700; color:#0f172a; }
-      .search-price{ font-size:0.95rem; color:#0d9488; font-weight:700; margin-top:6px; }
-      .accordion {
+
+      .SearchResults li {
+         list-style: none;
+         border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+         transition: all 0.2s ease;
+      }
+
+      .SearchResults li:last-child {
+         border-bottom: none;
+      }
+
+      .SearchResults li:hover {
+         background-color: var(--accent-soft);
+      }
+
+      .search_item {
          display: flex;
-         flex-direction: column;
-         width: 300px;
-         background-color: none;
+         gap: 16px;
+         align-items: center;
+         padding: 12px 20px;
+         text-decoration: none;
+         color: inherit;
       }
-      .accordion-header {
-         background-color: #f1f1f1;
-         padding: 10px;
-         cursor: pointer;
+
+      .search-thumb {
+         width: 70px;
+         height: 70px;
+         object-fit: cover;
+         border-radius: 10px;
+         flex: 0 0 70px;
+         background: #f1f5f9;
       }
-      .accordion-body {
+
+      .search-title {
+         font-size: 0.95rem;
+         font-weight: 600;
+         color: var(--text-dark);
+         margin-bottom: 4px;
+         white-space: nowrap;
          overflow: hidden;
-         transition: height 0.7s ease-in-out;
+         text-overflow: ellipsis;
       }
-      .mains{
-         /*background-color: rgb(248, 248, 248);*/
-         height: 88vh;
-         /* background-image: url("{% static 'patternpad.png' %}"); */
+
+      .search-price {
+         font-size: 0.9rem;
+         color: var(--accent);
+         font-weight: 700;
       }
-      .underline{
-         width: 10px; 
-         height: 3px; background-color: black;
-      }
-      .underline-container:hover .underline {
-         width: 100%;
-      }
-      .modal {
-         display: none;
-         position: fixed;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         background-color: rgba(0, 0, 0, 0.5);
-         justify-content: center;
+
+      /* Navigation Elements */
+      .nav-itemS {
+         padding: 8px 16px;
+         color: var(--text-dark);
+         font-weight: 600;
+         border-radius: 10px;
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+         text-decoration: none;
+         display: flex;
          align-items: center;
       }
+
+      .nav-itemS:hover {
+         background-color: var(--accent-soft);
+         color: var(--accent);
+         transform: translateY(-1px);
+      }
+
+      /* Category Tab Polish */
+      .categoryHover {
+         color: var(--text-dark);
+         font-weight: 600;
+         text-decoration: none;
+         transition: all 0.2s ease;
+         position: relative;
+      }
+
+      .categoryHover:hover {
+         color: var(--accent);
+      }
+
+      .categoryHover::after {
+         content: '';
+         position: absolute;
+         bottom: -5px;
+         left: 50%;
+         width: 0;
+         height: 2px;
+         background: var(--accent);
+         transform: translateX(-50%);
+         transition: width 0.3s ease;
+      }
+
+      .categoryHover:hover::after {
+         width: 70%;
+      }
+
+      /* Accordion & Modal (Minimal & Clean) */
       .modal-content {
-         background-color: #fff;
-         padding: 20px;
-         border-radius: 5px;
-         width: 100%;
-         height: 100%; 
-      }
-      .nav-itemS{
-         padding: 5px 10px;
-         color: rgb(185, 116, 11);
-      }
-      .nav-itemS:hover{
-         background-color: #e6b93e;
-         color: #ffffff;
-         padding: 5px 10px;
-         
+         border: none;
          border-radius: 20px;
-         box-shadow: 4px 4px rgb(247, 218, 218);
+         box-shadow: var(--shadow-lg);
       }
-      .close-btn {
+
+      .pointer {
          cursor: pointer;
       }
-      .search_list:hover{
-         background-color: gray;
-         color: #fafafa;
-      }
-      .search_lists{
-         color: black;
-      }
-      .search_lists:hover{
-         color: #fafafa;
-      }
-      .icons:hover{
-         padding: 5px;
-      }
 
-      /* Gallery Shoes */
-      .hover_shoes:hover{
-          background-color: rgb(248, 248, 248);
-      }
-      .card-img {
-         height: 450px; /* İstenen yükseklik */
-         object-fit: cover; /* Resmin kart içinde uygun şekilde görünmesini sağlar */
-         
-      }
-      .categoryHover{
-         color: rgb(0, 0, 0);
-      }
-      .categoryHover:hover{
-         color: rgb(255, 196, 0);
-      }
-      .togglegender:focus {
-      outline: none;
-      border: none;
-      }
-      .form-check-input:checked {
-         background-color: orange;
-         border-color: orange;
-      }
-      .pointer {cursor: pointer;}
-      </style>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="..." crossorigin="anonymous">
-      <!-- Bootstrap CSS -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-      <!-- Bootstrap CSS -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      @media (max-width: 991px) {
+         .SearchResults {
+            max-height: 400px;
+         }
 
-      <!-- Bootstrap JS, Popper.js, and jQuery -->
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Merrel</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-      <!-- style css -->
-      <link rel="stylesheet" href="{% static '/css/style.css' %}">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-      <!-- fevicon -->
-      <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif" />
-      <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <!-- owl stylesheets --> 
-      <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-      <!-- Fonts -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.css" />
-      
-      <!-- Font2 -->
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-      
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-   </head>
-   <body>
+         .searchId {
+            width: 100%;
+         }
+      }
+   </style>
+   <!-- Standard Modern Bootstrap 5.3.2 & Icons -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    {% block content %}
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% endblock %}
-    <!-- CSS dosyaları -->
-      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+   <title>Shoes House - Premium Footwear</title>
 
-      <script>
-         $(document).ready(function(){
-            $(".fancybox").fancybox({
-               openEffect: "none",
-               closeEffect: "none"
-            });
+   <!-- Custom Legacy Styles (Scoped) -->
+   <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+   <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif" />
 
-            $('#myCarousel').carousel({
-               interval: false
-            });
+   <!-- JavaScript Infrastructure -->
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+   {% include 'partials/navbar.html' %}
+
+   <main class="flex-grow-1">
+      {% block content %}
+      {% endblock %}
+   </main>
+
+   {% include 'partials/footer.html' %}
+
+   <!-- Global UI Scripts -->
+   <script>
+      $(document).ready(function () {
+         // Smooth scroll for anchors
+         $('a[href^="#"]').on('click', function (event) {
+            var target = $(this.getAttribute('href'));
+            if (target.length) {
+               event.preventDefault();
+               $('html, body').stop().animate({
+                  scrollTop: target.offset().top - 100
+               }, 800);
+            }
          });
-      </script>
+      });
+   </script>
 
-      <script>
-         function openNav() {
-            document.getElementById("mySidebar").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-         }
-         
-         function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-            document.getElementById("main").style.marginLeft= "0";
-         }
-      </script>
+   <script>
+      $(document).ready(function () {
+         $(".fancybox").fancybox({
+            openEffect: "none",
+            closeEffect: "none"
+         });
 
-      <script>
-         document.addEventListener('DOMContentLoaded', function () {
-            var navbarToggler = document.querySelector('.navbar-toggler');
-            var navbarCollapse = document.querySelector('.navbar-collapse');
-         
-            navbarToggler.addEventListener('click', function () {
-               var isCollapsed = navbarCollapse.classList.contains('show');
-               if (!isCollapsed) {
-                     navbarCollapse.classList.add('show'); 
+         $('#myCarousel').carousel({
+            interval: false
+         });
+      });
+   </script>
+
+   <script>
+      function openNav() {
+         document.getElementById("mySidebar").style.width = "250px";
+         document.getElementById("main").style.marginLeft = "250px";
+      }
+
+      function closeNav() {
+         document.getElementById("mySidebar").style.width = "0";
+         document.getElementById("main").style.marginLeft = "0";
+      }
+   </script>
+
+   <script>
+      function getSearchResults() {
+         var searchTerm = document.getElementById("searchInput").value;
+         var searchResults = document.getElementById("searchResults");
+         if (!searchTerm) {
+            searchResults.classList.add("visually-hidden-focusable");
+            return;
+         }
+         $.ajax({
+            type: "GET",
+            url: "{% url 'search' %}",
+            data: { 'q': searchTerm },
+            success: function (response) {
+               if (response.success && response.data.shoes_filter.length > 0) {
+                  searchResults.classList.remove("visually-hidden-focusable");
+                  searchResults.innerHTML = "";
+                  response.data.shoes_filter.forEach(shoe => {
+                     let product_url = "{% url 'product' 0 %}".replace('0', shoe.id);
+                     searchResults.innerHTML += `
+                        <li>
+                           <a href="${product_url}" class="search_item">
+                              <img src="/media/${shoe.image}" alt="${shoe.name}" class="search-thumb">
+                              <div class="flex-grow-1">
+                                 <div class="search-title">${shoe.name}</div>
+                                 ${shoe.price ? `<div class="search-price">₺${shoe.price}</div>` : ''}
+                              </div>
+                           </a>
+                        </li>`;
+                  });
                } else {
-                     navbarCollapse.classList.remove('show'); 
+                  searchResults.classList.add("visually-hidden-focusable");
                }
-            });
+            }
          });
-      </script>
+      }
 
-      <script>
-         function getSearchResults() {
-            var searchTerm = document.getElementById("searchInput").value;
-            var searchResults = document.getElementById("searchResults");
-            console.log(searchTerm)
-            $.ajax({
-               type: "GET",
-               url: "{% url 'search' %}",
-               data: { 'q': searchTerm },
-               success: function(response) {
-                  if (response.success) {
-                     if(response.data.shoes_filter.length > 0) {
-                        searchResults.classList.remove("visually-hidden-focusable");
-                        searchResults.innerHTML = "";
-                        for (let index = 0; index < response.data.shoes_filter.length; index++) {
-                           let shoe = response.data.shoes_filter[index];
-                           let product_url = "{% url 'product' 0 %}".replace('0',shoe.id)
-                           searchResults.innerHTML += `
-                              <li>
-                                 <a href="${product_url}" class="search_item">
-                                    <img src="/media/${shoe.image}" alt="${shoe.name}" class="search-thumb">
-                                    <div class="flex-grow-1">
-                                       <div class="search-title">${shoe.name}</div>
-                                       ${shoe.price ? `<div class="search-price">₺${shoe.price}</div>` : ''}
-                                    </div>
-                                 </a>
-                              </li>`;
-                        }
-                        console.log(searchResults);
-                     } else if (response.data.shoes_filter.length == 0) {
-                        searchResults.classList.add("visually-hidden-focusable");
-                     }
-                  } else {
-                     console.log("Search not successful");
-                     searchResults.classList.add("visually-hidden-focusable");
-                  }
-               }
-            });
+      // Close search results when clicking outside
+      $(document).on('click', function (e) {
+         if (!$(e.target).closest('.search-wrapper').length) {
+            $('#searchResults').addClass('visually-hidden-focusable');
          }
-      </script>
+      });
+   </script>
 
-      <script>
-         function openModal() {
-            var modal = document.getElementById("myModal");
-            
-            var screenWidth = window.innerWidth;
-            
-            if (screenWidth < 576) {
-               modal.style.width = "70%";
-            } else if (screenWidth >= 576 && screenWidth < 800) { 
-               modal.style.width = "70%";
-            } else if (screenWidth >= 801 && screenWidth < 1200) { 
-               modal.style.width = "40%";
-            } else if (screenWidth >= 1201 && screenWidth <= 1540) { 
-               modal.style.width = "30%";
-            } else if (screenWidth >= 1541 && screenWidth <= 1600) { 
-               modal.style.width = "27%";
-            } else { 
-               modal.style.width = "23%";
-            }
-            
-            modal.style.display = "flex";
-         }
+</body>
 
-         function closeModal() {
-            document.getElementById("myModal").style.display = "none";
-         }
-
-         // Close modal if clicked outside of content
-         window.onclick = function (event) {
-            var modal = document.getElementById("myModal");
-            if (event.target === modal) {
-               closeModal();
-            }
-         };
-      </script>
-
-      <script>
-         function toggleAccordion(panelId) {
-            var panel = document.getElementById(panelId);
-            var icon = document.getElementById('icon-' + panelId);
-
-            if (panel.style.display === "block") {
-               panel.style.height = panel.scrollHeight + "px";
-               panel.classList.add("slow-close");
-               panel.style.height = "0px";
-               setTimeout(function () {
-                  panel.style.display = "none";
-               }, 500);
-               icon.classList.remove("bi-caret-up-fill");
-               icon.classList.add("bi-caret-down-fill");
-            } else {
-               panel.style.display = "block";
-               panel.style.height = "0px";
-               panel.classList.add("slow-open");
-               panel.style.height = panel.scrollHeight + "px";
-               icon.classList.remove("bi-caret-down-fill");
-               icon.classList.add("bi-caret-up-fill");
-            }
-         }
-      </script>
-
-      <script>
-         function toggleGender(optionsId, iconId) {
-            var genderOptions = document.getElementById(optionsId);
-            var arrowIcon = document.getElementById(iconId);
-
-            if (genderOptions.style.display === "none") {
-                  genderOptions.style.display = "block";
-                  arrowIcon.classList.remove("bi-chevron-down");
-                  arrowIcon.classList.add("bi-chevron-up");
-            } else {
-                  genderOptions.style.display = "none";
-                  arrowIcon.classList.remove("bi-chevron-up");
-                  arrowIcon.classList.add("bi-chevron-down");
-            }
-         }
-      </script>
-      
-   </body>
 </html>
