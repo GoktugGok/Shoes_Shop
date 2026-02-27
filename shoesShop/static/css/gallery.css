@@ -1,0 +1,253 @@
+/* Gallery Styles */
+.gallery-main {
+    background-color: #f8fafc;
+    min-height: calc(100vh - 200px);
+    padding: 3rem 0;
+}
+
+.gallery-title {
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 2.2rem;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+}
+
+/* Premium Filter Sidebar */
+.filter-sidebar {
+    background: white;
+    border-radius: 24px;
+    padding: 1.5rem;
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    position: sticky;
+    top: 100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.filter-group {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 1.5rem;
+}
+
+.filter-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.filter-title {
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0.5rem 0;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-title i {
+    font-size: 0.8rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #94a3b8;
+}
+
+.filter-content {
+    padding-top: 1rem;
+}
+
+.filter-option {
+    position: relative;
+    margin-bottom: 8px;
+}
+
+/* Premium Text-Only Filter Style */
+.filter-option input[type="checkbox"] {
+    display: none;
+}
+
+.filter-option label {
+    display: inline-block;
+    padding: 4px 0;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.filter-option label:hover {
+    color: #0f172a;
+}
+
+.filter-option input[type="checkbox"]:checked+label {
+    color: #0d9488;
+    font-weight: 700;
+}
+
+.filter-option input[type="checkbox"]:checked+label::before {
+    content: '•';
+    position: absolute;
+    left: -12px;
+    color: #0d9488;
+}
+
+/* Premium Product Card */
+.product-card-v2 {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.product-card-v2:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border-color: #0d9488;
+}
+
+.p-img-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    /* Square aspect ratio */
+    background: #f8fafc;
+    overflow: hidden;
+}
+
+.p-img-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Don't cut off the shoes */
+    padding: 20px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card-v2:hover .p-img-wrapper img {
+    transform: scale(1.1) rotate(-3deg);
+}
+
+.p-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    background: white;
+    z-index: 2;
+}
+
+.p-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.p-name {
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    /* Standart özellik */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.p-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.p-price {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #0d9488;
+}
+
+.p-btn-view {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+.product-card-v2:hover .p-btn-view {
+    background: #0d9488;
+    transform: rotate(90deg);
+}
+
+.badge-new {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #0f172a;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 0.7rem;
+    z-index: 3;
+    text-transform: uppercase;
+}
+
+/* Number radio squares */
+.size-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.size-item input {
+    display: none;
+}
+
+.size-item label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.size-item input:checked+label {
+    background: #0f172a;
+    color: white;
+}

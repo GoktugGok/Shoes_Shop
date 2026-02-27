@@ -9,165 +9,8 @@
    <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
       rel="stylesheet">
-
-   <style>
-      :root {
-         --primary: #0f172a;
-         --accent: #0d9488;
-         --accent-soft: rgba(13, 148, 136, 0.1);
-         --bg-light: #f8fafc;
-         --text-dark: #0f172a;
-         --text-muted: #64748b;
-         --card-border: rgba(226, 232, 240, 0.8);
-         --glass-bg: rgba(255, 255, 255, 0.8);
-         --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-         --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-         --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-         --font-main: 'Outfit', sans-serif;
-      }
-
-      body {
-         font-family: var(--font-main);
-         background-color: var(--bg-light);
-         color: var(--text-dark);
-         overflow-x: hidden;
-      }
-
-      input:focus {
-         outline: none;
-      }
-
-      /* Premium Search Results Overlay */
-      .SearchResults {
-         width: 100%;
-         max-height: 500px;
-         overflow-y: auto;
-         padding: 0;
-         border-radius: 16px;
-         background: rgba(255, 255, 255, 0.98);
-         backdrop-filter: blur(10px);
-         border: 1px solid var(--card-border);
-         box-shadow: var(--shadow-lg);
-         margin-top: 10px;
-         z-index: 9999;
-      }
-
-      .SearchResults li {
-         list-style: none;
-         border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-         transition: all 0.2s ease;
-      }
-
-      .SearchResults li:last-child {
-         border-bottom: none;
-      }
-
-      .SearchResults li:hover {
-         background-color: var(--accent-soft);
-      }
-
-      .search_item {
-         display: flex;
-         gap: 16px;
-         align-items: center;
-         padding: 12px 20px;
-         text-decoration: none;
-         color: inherit;
-      }
-
-      .search-thumb {
-         width: 70px;
-         height: 70px;
-         object-fit: cover;
-         border-radius: 10px;
-         flex: 0 0 70px;
-         background: #f1f5f9;
-      }
-
-      .search-title {
-         font-size: 0.95rem;
-         font-weight: 600;
-         color: var(--text-dark);
-         margin-bottom: 4px;
-         white-space: nowrap;
-         overflow: hidden;
-         text-overflow: ellipsis;
-      }
-
-      .search-price {
-         font-size: 0.9rem;
-         color: var(--accent);
-         font-weight: 700;
-      }
-
-      /* Navigation Elements */
-      .nav-itemS {
-         padding: 8px 16px;
-         color: var(--text-dark);
-         font-weight: 600;
-         border-radius: 10px;
-         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-         text-decoration: none;
-         display: flex;
-         align-items: center;
-      }
-
-      .nav-itemS:hover {
-         background-color: var(--accent-soft);
-         color: var(--accent);
-         transform: translateY(-1px);
-      }
-
-      /* Category Tab Polish */
-      .categoryHover {
-         color: var(--text-dark);
-         font-weight: 600;
-         text-decoration: none;
-         transition: all 0.2s ease;
-         position: relative;
-      }
-
-      .categoryHover:hover {
-         color: var(--accent);
-      }
-
-      .categoryHover::after {
-         content: '';
-         position: absolute;
-         bottom: -5px;
-         left: 50%;
-         width: 0;
-         height: 2px;
-         background: var(--accent);
-         transform: translateX(-50%);
-         transition: width 0.3s ease;
-      }
-
-      .categoryHover:hover::after {
-         width: 70%;
-      }
-
-      /* Accordion & Modal (Minimal & Clean) */
-      .modal-content {
-         border: none;
-         border-radius: 20px;
-         box-shadow: var(--shadow-lg);
-      }
-
-      .pointer {
-         cursor: pointer;
-      }
-
-      @media (max-width: 991px) {
-         .SearchResults {
-            max-height: 400px;
-         }
-
-         .searchId {
-            width: 100%;
-         }
-      }
-   </style>
+   <link rel="icon" href="{% static 'icon.png' %}" type="image/png" />
+   <link rel="stylesheet" href="{% static 'css/main.css' %}">
    <!-- Standard Modern Bootstrap 5.3.2 & Icons -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -187,6 +30,7 @@
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script src="{% static 'js/main.js' %}"></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -199,90 +43,21 @@
 
    {% include 'partials/footer.html' %}
 
-   <!-- Global UI Scripts -->
+   <!-- Global Config for external JS -->
    <script>
-      $(document).ready(function () {
-         // Smooth scroll for anchors
-         $('a[href^="#"]').on('click', function (event) {
-            var target = $(this.getAttribute('href'));
-            if (target.length) {
-               event.preventDefault();
-               $('html, body').stop().animate({
-                  scrollTop: target.offset().top - 100
-               }, 800);
-            }
-         });
-      });
-   </script>
+      const globalConfig = {
+         searchUrl: "{% url 'search' %}",
+         productUrlBase: "{% url 'product' 0 %}"
+      };
 
-   <script>
-      $(document).ready(function () {
-         $(".fancybox").fancybox({
-            openEffect: "none",
-            closeEffect: "none"
-         });
-
-         $('#myCarousel').carousel({
-            interval: false
-         });
-      });
-   </script>
-
-   <script>
-      function openNav() {
-         document.getElementById("mySidebar").style.width = "250px";
-         document.getElementById("main").style.marginLeft = "250px";
-      }
-
-      function closeNav() {
-         document.getElementById("mySidebar").style.width = "0";
-         document.getElementById("main").style.marginLeft = "0";
-      }
-   </script>
-
-   <script>
+      // Wire up search with config
       function getSearchResults() {
-         var searchTerm = document.getElementById("searchInput").value;
-         var searchResults = document.getElementById("searchResults");
-         if (!searchTerm) {
-            searchResults.classList.add("visually-hidden-focusable");
-            return;
-         }
-         $.ajax({
-            type: "GET",
-            url: "{% url 'search' %}",
-            data: { 'q': searchTerm },
-            success: function (response) {
-               if (response.success && response.data.shoes_filter.length > 0) {
-                  searchResults.classList.remove("visually-hidden-focusable");
-                  searchResults.innerHTML = "";
-                  response.data.shoes_filter.forEach(shoe => {
-                     let product_url = "{% url 'product' 0 %}".replace('0', shoe.id);
-                     searchResults.innerHTML += `
-                        <li>
-                           <a href="${product_url}" class="search_item">
-                              <img src="/media/${shoe.image}" alt="${shoe.name}" class="search-thumb">
-                              <div class="flex-grow-1">
-                                 <div class="search-title">${shoe.name}</div>
-                                 ${shoe.price ? `<div class="search-price">₺${shoe.price}</div>` : ''}
-                              </div>
-                           </a>
-                        </li>`;
-                  });
-               } else {
-                  searchResults.classList.add("visually-hidden-focusable");
-               }
-            }
-         });
+         window.applySearchResults(globalConfig);
       }
-
-      // Close search results when clicking outside
-      $(document).on('click', function (e) {
-         if (!$(e.target).closest('.search-wrapper').length) {
-            $('#searchResults').addClass('visually-hidden-focusable');
-         }
-      });
    </script>
+</body>
+
+</html>
 
 </body>
 
