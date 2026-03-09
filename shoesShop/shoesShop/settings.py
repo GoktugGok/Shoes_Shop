@@ -29,7 +29,9 @@ DEBUG = True
 # SITE_ID = 1
 ALLOWED_HOSTS = ["*"]
 
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://shoesshop.up.railway.app',
+]
 # Application definition
 
 INSTALLED_APPS = [
